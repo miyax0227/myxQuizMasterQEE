@@ -67,7 +67,7 @@ table.players tr.ng-leave.ng-leave-active {
 
 div.scoreboard img.logo {
   position: absolute;
-  width: 128px;
+  width: 0px;
   height: 80px;
   left: 2%;
   top: 10px;
@@ -80,7 +80,7 @@ div.scoreboard div.title {
   font-size: 40px;
   -webkit-user-select: none;
   top: 0px;
-  margin-left: calc(2% + 138px);
+  margin-left: calc(2% + 0px + 0px);
 }
 
 div.scoreboard div.timer {
@@ -102,14 +102,14 @@ div.scoreboard div.qCount {
   font-size: 40px;
   -webkit-user-select: none;
   top: 45px;
-  margin-left: calc(2% + 138px);
+  margin-left: calc(2% + 0px + 0px);
 }
 
 div.scoreboard hr.hr0 {
   position: absolute;
   top: 30px;
-  width: calc(96% - 128px);
-  margin-left: calc(2% + 128px);
+  width: calc(96% - 0px);
+  margin-left: calc(2% + 0px);
   margin-right: 2%;
   border: 0;
   height: 2px;
@@ -197,7 +197,7 @@ div.player div.open {
 div.player div.open.ng-enter {
   transition: all cubic-bezier(0.6, 0, 0.6, 0) 0.5s;
   transform: rotateY(-90deg);
-  opacity: 0;
+  opacity: none;
 }
 
 div.player div.open.ng-enter.ng-enter-active {
@@ -210,6 +210,7 @@ div.player div.overRect {
   width: 1000px;
   height: 1000px;
   transform-origin: 0px 0px;
+  opacity: 1;
 }
 
 div.player div.overRect.ng-leave {
@@ -225,9 +226,9 @@ div.player div.overRect.ng-leave.ng-leave-active {
 
 div.player div.overRect div.overRectBlind {
   position: absolute;
-  width: 60px;
+  width: 100px;
   height: 250px;
-  left: -30px;
+  left: -50px;
   top: -125px;
   background-color: #7f7f7f;
 }

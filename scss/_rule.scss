@@ -85,3 +85,11 @@
   -webkit-text-stroke-width: #{$stroke-width}px;
   -webkit-text-fill-color: $fill-color;
 }
+
+@mixin value-range($min, $max) {
+  @for $value from $min through $max {
+  	&[value="#{$value}"]{
+  		@content;
+  	}
+  }
+}

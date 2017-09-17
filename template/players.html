@@ -1,25 +1,21 @@
-<div class="player" ng-repeat="player in current.players as players" ng-style="getPlayerCSS(players,player, windowSize, lineProperty)">
+<div class="player" ng-repeat="player in current.players as players" ng-style="getPlayerCSS(players,player, windowSize, lineProperty)" ng-class="player">
 
   <div svg></div>
 
   <div class="open" ng-if="! player.close">
-    <div ng-repeat="item in items" ng-class="item.css" ng-if="item.hasOwnProperty('css') && (!item.hasOwnProperty('anonymous') || (anonymous == item.anonymous))">
-      <div ng-style="getItemCSS(item, player[item.key].length, player)">
-        <div ng-style="getRankColorCSS(item, player[item.key])" ng-class="decoration(player, item)">
-          {{getDisplayValue(item ,player[item.key])}}
-        </div>
-      </div>
+    <div ng-repeat="item in items" ng-class="item.css" ng-if="item.hasOwnProperty('css') && (!item.hasOwnProperty('anonymous') || (anonymous == item.anonymous))"
+    ng-style="getItemCSS(item, player[item.key].length, player)"
+    value="{{player[item.key]}}">
+      {{getDisplayValue(item ,player[item.key])}}
     </div>
   </div>
 
   <div class="overRect" ng-if="player.close">
     <div class="overRectBlind"></div>
-    <div ng-repeat="item in items" ng-class="item.css" ng-if="item.hasOwnProperty('close-css')">
-      <div ng-style="getItemCSS(item, player[item.key].length, player)">
-        <div ng-style="getRankColorCSS(item, player[item.key])" ng-class="decoration(player, item)">
-          {{getDisplayValue(item ,player[item.key])}}
-        </div>
-      </div>
+    <div ng-repeat="item in items" ng-class="item.css" ng-if="item.hasOwnProperty('close-css')"
+    ng-style="getItemCSS(item, player[item.key].length, player)"
+    value="{{player[item.key]}}">
+      {{getDisplayValue(item ,player[item.key])}}
     </div>
   </div>
 

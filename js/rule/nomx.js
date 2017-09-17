@@ -163,6 +163,10 @@ app.factory('rule', [ 'qCommon', function(qCommon) {
    ****************************************************************************/
   function calc(players, header, items, property) {
 	angular.forEach(players, function(player, index) {
+	  // pinch, chance
+	  player.pinch  = (player.x == property.losingPoint  - 1) && (player.status == "normal");
+	  player.chance = (player.o == property.winningPoint - 1) && (player.status == "normal");
+	  
 	  // キーボード入力時の配列の紐付け ローリング等の特殊形式でない場合はこのままでOK
 	  player.keyIndex = index;
 	});

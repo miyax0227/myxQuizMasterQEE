@@ -4,19 +4,21 @@ $pinch-color:  lightpink;
 $win-color:    gold;
 $lose-color:   gray;
 
-@font-face {
-  font-family: "STU XVIII";
-  src: url("../font/STU XVIII.ttf");
-}
-
 div.player {
+  hr.hr1 {
+    @include player-hr(-50, -140, 100, 2);
+    display: none;
+  }
+  hr.hr2 {
+    @include player-hr(-50, 100, 100, 2);
+    display: none;
+  }
   div.name {
-    @include player-item(-25, -100, 50, 56);
+    @include player-item(-25+16, -100-10, 50, 56);
     letter-spacing: -24px;
     -webkit-writing-mode: vertical-rl;
     -webkit-text-orientation: upright;
     transform-origin: 0px 12px;
-    transform: translate(16px, -10px);
   }
   div.nameLat {
     @include player-item(-200, -120, 0, 72);
@@ -24,14 +26,31 @@ div.player {
     transform: translate(55px, 0px);
   }
   div.open div.paperRank {
-    @include player-item(-30, -125, 60, 20);
+    @include player-item(-50, -134, 100, 24);
+    @include bordered;
+    border-radius: 16px;
+    @include value-range(1 , 4  ){background-color: red;}
+    @include value-range(5 , 12 ){background-color: blue;}
+    @include value-range(13, 24 ){background-color: yellow;}
+    @include value-range(25, 48 ){background-color: green;}
+    @include value-range(49, 300){background-color: gray;}
+  }
+  div.open div.pref {
+    @include player-item(-50, 110, 100, 24);
     @include bordered;
     transform: translate(0px, 0px);
+    background-color: gray;
+    border-radius: 16px;
   }
   div.overRect div.paperRank {
-    @include player-item(-30, -125, 60, 20);
+    @include player-item(-50, -134, 100, 24);
     @include bordered;
-    transform: translate(0px, 0px);
+    border-radius: 16px;
+    @include value-range(1 , 4  ){background-color: red;}
+    @include value-range(5 , 12 ){background-color: blue;}
+    @include value-range(13, 24 ){background-color: yellow;}
+    @include value-range(25, 48 ){background-color: green;}
+    @include value-range(49, 300){background-color: gray;}
   }
   div.rank img {
     @include player-img(-40, -210, 90, 60);
@@ -82,17 +101,18 @@ div.player {
   }
   div.o {
     @include player-item(-50, -230, 100, 72);
-    div.chance {
-      color: $chance-color;
-    }
   }
+  &.chance div.o{
+  	color: $chance-color;
+  }
+  
   div.x {
-    @include player-item(-150, -175, 300, 60);
-    div.pinch {
-      color: $pinch-color;
-    }
-    font-family: "Impact";
+    @include player-item(-50, 130, 100, 72);
   }
+  &.pinch div.x{
+	color: $pinch-color;
+  }
+
   div.absent {
     @include player-item(-35, -95, 70, 30);
     @include bordered(1, #000000, #FFFF22);
@@ -101,5 +121,20 @@ div.player {
   }
   div.winningPoint {
     @include player-item(20, -190, 50, 36);
+  }
+  div.action_o {
+    @include player-button(-22, -100);
+  }
+  div.action_x {
+    @include player-button(-22, 60);
+  }
+  div.action_win {
+    @include player-button(-30, 110);
+  }
+  div.action_lose {
+    @include player-button(-10, 110);
+  }
+  div.action_wait {
+    @include player-button(10, 110);
   }
 }

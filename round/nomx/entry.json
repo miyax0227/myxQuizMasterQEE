@@ -1,0 +1,11 @@
+[
+	{
+		"source": "nameList",
+		"filter": {
+			"param": "lot",
+			"oper": "==",
+			"crit": 1
+		},
+		"order": ["entryNo"]
+	}
+]

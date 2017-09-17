@@ -7,123 +7,47 @@
 		"key": "name",
 		"style": "string",
 		"profile": true,
+		"anonymous": false,
 		"css": "name",
 		"vtrans": 3.7
 	}, {
-		"key": "name1"      ,
+		"key": "handleName",
 		"style": "string",
 		"profile": true,
-		"repeat": ["name", 5],
-		"anonymous": false,
-		"css": "n name1",
-		"htrans": 3.7
+		"anonymous": true,
+		"css": "name",
+		"vtrans": 3.7
 	}, {
-		"key": "handleName1",
-		"style": "string",
+		"key": "pref",
+		"style": "typeahead",
 		"profile": true,
-		"repeat": ["handleName", 5],
-		"anonymous": true ,
-		"css": "n name1",
-		"htrans": 3.7
+		"option": ["", "北海道", "青森県", "岩手県", "宮城県", "秋田県", "山形県", "福島県", "茨城県", "栃木県", "群馬県", "埼玉県", "千葉県", "東京都", "神奈川県", "新潟県", "富山県", "石川県", "福井県", "山梨県", "長野県", "岐阜県", "静岡県", "愛知県", "三重県", "滋賀県", "京都府", "大阪府", "兵庫県", "奈良県", "和歌山県", "鳥取県", "島根県", "岡山県", "広島県", "山口県", "徳島県", "香川県", "愛媛県", "高知県", "福岡県", "佐賀県", "長崎県", "熊本県", "大分県", "宮崎県", "鹿児島県", "沖縄県"],
+		"css": "pref"
 	}, {
-		"key": "torii1"     ,
+		"key": "paperRank",
 		"style": "number",
 		"profile": true,
-		"repeat": ["torii", 5],
-		"css": "t torii1",
-		"repeatChar": ";"
-	}, {
-		"key": "name2"      ,
-		"style": "string",
-		"profile": true,
-		"repeat":false,
-		"anonymous": false,
-		"css": "n name2",
-		"htrans": 3.7
-	}, {
-		"key": "handleName2",
-		"style": "string",
-		"profile": true,
-		"repeat":false,
-		"anonymous": true ,
-		"css": "n name2",
-		"htrans": 3.7
-	}, {
-		"key": "torii2"     ,
-		"style": "number",
-		"profile": true,
-		"repeat":false,
-		"css": "t torii2",
-		"repeatChar": ";"
-	}, {
-		"key": "name3"      ,
-		"style": "string",
-		"profile": true,
-		"repeat":false,
-		"anonymous": false,
-		"css": "n name3",
-		"htrans": 3.7
-	}, {
-		"key": "handleName3",
-		"style": "string",
-		"profile": true,
-		"repeat":false,
-		"anonymous": true ,
-		"css": "n name3",
-		"htrans": 3.7
-	}, {
-		"key": "torii3"     ,
-		"style": "number",
-		"profile": true,
-		"repeat":false,
-		"css": "t torii3",
-		"repeatChar": ";"
-	}, {
-		"key": "name4"      ,
-		"style": "string",
-		"profile": true,
-		"repeat":false,
-		"anonymous": false,
-		"css": "n name4",
-		"htrans": 3.7
-	}, {
-		"key": "handleName4",
-		"style": "string",
-		"profile": true,
-		"repeat":false,
-		"anonymous": true ,
-		"css": "n name4",
-		"htrans": 3.7
-	}, {
-		"key": "torii4"     ,
-		"style": "number",
-		"profile": true,
-		"repeat":false,
-		"css": "t torii4",
-		"repeatChar": ";"
-	}, {
-		"key": "name5"      ,
-		"style": "string",
-		"profile": true,
-		"repeat":false,
-		"anonymous": false,
-		"css": "n name5",
-		"htrans": 3.7
-	}, {
-		"key": "handleName5",
-		"style": "string",
-		"profile": true,
-		"repeat":false,
-		"anonymous": true ,
-		"css": "n name5",
-		"htrans": 3.7
-	}, {
-		"key": "torii5"     ,
-		"style": "number",
-		"profile": true,
-		"repeat":false,
-		"css": "t torii5",
-		"repeatChar": ";"
+		"suffix": "位",
+		"css": "paperRank",
+		"close-css": "paperRank",
+		"rankColor": [
+			{
+				"maxRank": 4,
+				"color": "255,0,0"
+			}, {
+				"maxRank": 12,
+				"color": "0,0,255"
+			}, {
+				"maxRank": 24,
+				"color": "255,255,0"
+			}, {
+				"maxRank": 48,
+				"color": "0,255,127"
+			}, {
+				"maxRank": 1000,
+				"color": "127,127,127"
+			}
+		]
 	}, {
 		"key": "motion",
 		"style": "string",
@@ -141,10 +65,6 @@
 			"x": "x.png"
 		}
 	}, {
-		"key": "lot",
-		"value": 1,
-		"style": "number"
-	},{
 		"key": "status",
 		"value": "normal",
 		"style": "select",
@@ -185,5 +105,9 @@
 		"key": "close",
 		"value": true,
 		"style": "boolean"
+	}
+	, {
+		"key": "position",
+		"order": []
 	}
 ]
