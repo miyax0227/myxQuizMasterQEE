@@ -1,0 +1,32 @@
+<div>
+  <table class="table">
+    <tr>
+      <td><label class="control-label" for="rule">Rule</label></td>
+      <td>
+      <select class="form-control" id="rule" name="rule"
+      ng-model="round.board.rule" ng-options="rule for rule in rules" />
+      </td>
+    </tr>
+    <tr>
+      <td><label class="control-label" for="css">CSS</label></td>
+      <td>
+      <select class="form-control" id="css" name="css"
+      ng-model="round.board.css" ng-options="css for css in csses" />
+      </td>
+    </tr>
+    <tr>
+      <td><label class="control-label" for="victory">Victory</label></td>
+      <td>
+      <input type="checkbox" class="form-control checkbox" ng-model="round.board.victory">
+      </td>
+    </tr>
+    <tr>
+      <td><label class="control-label" for="title">Title</label></td>
+      <td><div id="board-title"></div></td>
+    </tr>
+    <tr>
+      <td><label class="control-label" for="status">Status</label></td>
+      <td><div id="board-status"></div></td>
+    </tr>
+  </table>
+</div>

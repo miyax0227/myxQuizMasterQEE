@@ -1,0 +1,18 @@
+<button class="btn btn-info" ng-click="rule.beautifyCode('editorJudgement')">
+  beautify
+</button>
+<button class="btn" ng-click="rule.insertCode('editorJudgement','win(player, players, header, property);')">
+  win
+</button>
+<button class="btn" ng-click="rule.insertCode('editorJudgement','lose(player, players, header, property);')">
+  lose
+</button>
+<div>
+  <code>
+    function judgement(players, header, property) {
+  </code>
+  <div id="editor-judgement"></div>
+  <code>
+    }
+  </code>
+</div>

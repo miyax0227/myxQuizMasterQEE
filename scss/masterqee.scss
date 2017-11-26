@@ -108,6 +108,7 @@ div.player {
   
   div.x {
     @include player-item(-50, 130, 100, 72);
+    @include value-range(0,0){display: none;}
   }
   &.pinch div.x{
 	color: $pinch-color;
@@ -124,6 +125,9 @@ div.player {
   }
   div.action_o {
     @include player-button(-22, -100);
+  }
+  div.action_b {
+    @include player-button(-22, -20);
   }
   div.action_x {
     @include player-button(-22, 60);

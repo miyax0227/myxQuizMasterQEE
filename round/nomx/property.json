@@ -1,12 +1,1 @@
-[
-	{
-		"title": "Round1",
-		"maxRankDisplay": 5,
-		"openRankArray": null,
-		"winningPoint": 5,
-		"losingPoint": 3,
-		"penalty": 0,
-		"tweetRoundTitle": "[1R]",
-		"lots": [1, 2, 3, 4, 5]
-	}
-]
+[{"maxRankDisplay":5,"openRankArray":null,"winningPoint":5,"losingPoint":3,"penalty":0,"tweetRoundTitle":"[1R]","lots":[1,2,3,4,5],"test":null}]

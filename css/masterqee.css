@@ -2680,6 +2680,10 @@ div.player div.x {
   -webkit-user-select: none;
 }
 
+div.player div.x[value="0"] {
+  display: none;
+}
+
 div.player.pinch div.x {
   color: lightpink;
 }
@@ -2717,6 +2721,14 @@ div.player div.action_o {
   position: absolute;
   left: -22px;
   top: -100px;
+  opacity: 0.8;
+  -webkit-user-select: none;
+}
+
+div.player div.action_b {
+  position: absolute;
+  left: -22px;
+  top: -20px;
   opacity: 0.8;
   -webkit-user-select: none;
 }

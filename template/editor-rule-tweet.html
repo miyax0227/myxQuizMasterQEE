@@ -1,0 +1,26 @@
+<table class="table">
+  <tbody>
+    <tr>
+      <th class="col-sm-2">key<span uib-dropdown> <a href id="rule-tweet-add" uib-dropdown-toggle><span class="caret"></span></a>
+        <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="rule-tweet-add">
+          <li>
+            <a href="#" ng-click="rule.addTweet()">Add</a>
+          </li>
+        </ul> </span></th>
+      <th class="col-sm-8">value</th>
+      <th class="col-sm-1"></th>
+    </tr>
+    <tr ng-repeat="(key, value) in rule.tweets" class="form-group">
+      <td><label class="control-label">{{key}}</label></td>
+      <td>
+      <input ng-model="rule.tweets[key]" class="form-control" type="text" />
+      </td>
+      <td><span uib-dropdown> <a href id="rule-tweet-menu" uib-dropdown-toggle><span class="caret"></span></a>
+        <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="rule-tweet-menu">
+          <li>
+            <a href="#" ng-click="rule.deleteTweet(key)">Delete</a>
+          </li>
+        </ul> </span></td>
+    </tr>
+  </tbody>
+</table>

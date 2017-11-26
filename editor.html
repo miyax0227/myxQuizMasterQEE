@@ -1,0 +1,113 @@
+<!doctype html>
+<html ng-app="myxQuizEditor">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" onload="window.$ = window.jQuery = module.exports;"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="js/libs/angular.js"></script>
+    <script src="js/libs/angular-animate.min.js"></script>
+    <script src="js/libs/ui-bootstrap-tpls.js"></script>
+    <script src="js/libs/sortable.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.0/ace.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.0/ext-language_tools.js"></script>
+
+    <script src="js/controller/editor.js"></script>
+    <script src="js/factory/qeditor.js"></script>
+    <script src="js/factory/editor-round.js"></script>
+    <script src="js/factory/editor-rule.js"></script>
+
+  </head>
+
+  <body ng-controller="main">
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            Round
+          </div>
+          <table class="table table-condensed">
+            <tr ng-repeat="round in rounds">
+              <td>{{$index}}</td>
+              <td><a href="#" ng-click="openRound(round)">{{round}}</a></td>
+              <td><span uib-dropdown> <a href id="round-menu" uib-dropdown-toggle><span class="caret"></span></a>
+                <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="round-menu">
+                  <li>
+                    <a href="#" ng-click="copyRound(round)">Copy</a>
+                  </li>
+                </ul> </span></td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="panel panel-success">
+          <div class="panel-heading">
+            Rule
+          </div>
+          <table class="table table-condensed">
+            <tr ng-repeat="rule in rules">
+              <td>{{$index}}</td>
+              <td><a href="#" ng-click="openRule(rule)">{{rule}}</a></td>
+              <td><span uib-dropdown> <a href id="rule-menu" uib-dropdown-toggle><span class="caret"></span></a>
+                <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="rule-menu">
+                  <li>
+                    <a href="#" ng-click="copyRule(rule)">Copy</a>
+                  </li>
+                </ul> </span></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="col-sm-9">
+        <div ng-controller="roundCtrl" ng-show="round.name != null">
+          <span class="h1">{{round.name}}</span><a href="#" ng-click="round.saveRound()" class="h3" style="margin-left: 30px;"><span class="glyphicon glyphicon-save"></span></a><a href="#"  ng-click="round.closeRound()" class="h3" style="margin-left: 30px;"><span class="glyphicon glyphicon-remove"></span></a>
+          <uib-tabset>
+            <uib-tab heading="Board">
+              <div editor-round-board></div>
+            </uib-tab>
+            <uib-tab heading="Entry">
+              <div editor-round-entry></div>
+            </uib-tab>
+            <uib-tab heading="Property">
+              <div editor-round-property></div>
+            </uib-tab>
+          </uib-tabset>
+        </div>
+
+        <div ng-controller="ruleCtrl" ng-show="rule.name != null">
+          <span class="h1">{{rule.name}}</span><a href="#" ng-click="rule.saveRule()" class="h3" style="margin-left: 30px;"><span class="glyphicon glyphicon-save"></span></a><a href="#"  ng-click="rule.closeRule()" class="h3" style="margin-left: 30px;"><span class="glyphicon glyphicon-remove"></span></a>
+          <uib-tabset>
+            <uib-tab heading="Header">
+              <div editor-rule-header></div>
+            </uib-tab>
+            <uib-tab heading="Items">
+              <div editor-rule-items></div>
+            </uib-tab>
+            <uib-tab heading="Priority">
+              <div editor-rule-priority></div>
+            </uib-tab>
+            <uib-tab heading="Tweet">
+              <div editor-rule-tweet></div>
+            </uib-tab>
+            <uib-tab heading="Actions">
+              <div editor-rule-actions></div>
+            </uib-tab>
+            <uib-tab heading="GlobalActions">
+              <div editor-rule-global-actions></div>
+            </uib-tab>
+            <uib-tab heading="GlobalActionsR">
+              <div editor-rule-global-actions-repeat></div>
+            </uib-tab>
+            <uib-tab heading="Judgement">
+              <div editor-rule-judgement></div>
+            </uib-tab>
+            <uib-tab heading="Calc">
+              <div editor-rule-calc></div>
+            </uib-tab>
+          </uib-tabset>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

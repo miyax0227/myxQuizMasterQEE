@@ -1,0 +1,30 @@
+<table class="table">
+  <tr>
+    <th class="col-sm-2">key<span uib-dropdown> <a href id="rule-header-add" uib-dropdown-toggle><span class="caret"></span></a>
+      <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="rule-header-add">
+        <li>
+          <a href="#" ng-click="rule.addHeader()">Add</a>
+        </li>
+      </ul> </span></th>
+    <th class="col-sm-2">style</th>
+    <th class="col-sm-6">value</th>
+    <th class="col-sm-1"></th>
+  </tr>
+  <tr ng-repeat="header in rule.headers" class="form-group">
+    <td><label class="control-label">{{header.key}}</label></td>
+    <td>
+    <select class="form-control" ng-model="rule.headers[$index].style" ng-options="style for style in styles" />
+    </td>
+    <td>
+    <input ng-if="rule.headers[$index].style == 'string'"  ng-model="rule.headers[$index].value" class="form-control" type="text" />
+    <input ng-if="rule.headers[$index].style == 'number'"  ng-model="rule.headers[$index].value" class="form-control" type="number" />
+    <input ng-if="rule.headers[$index].style == 'boolean'" ng-model="rule.headers[$index].value" class="form-control" type="checkbox" />
+    </td>
+    <td><span uib-dropdown> <a href id="rule-header-menu" uib-dropdown-toggle><span class="caret"></span></a>
+      <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="rule-header-menu">
+        <li>
+          <a href="#" ng-click="rule.deleteHeader($index)">Delete</a>
+        </li>
+      </ul> </span></td>
+  </tr>
+</table>

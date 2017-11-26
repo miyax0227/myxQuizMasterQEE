@@ -1,0 +1,26 @@
+<div>
+  <table class="table">
+    <tr>
+      <th>key <span uib-dropdown> <a href id="round-property-add" uib-dropdown-toggle><span class="caret"></span></a>
+        <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="round-property-add">
+          <li>
+            <a href="#" ng-click="round.addProperty()">Add</a>
+          </li>
+        </ul> </span></th>
+      <th>value</th>
+      <th>></th>
+    </tr>
+    <tr ng-repeat="(key, value) in round.property" class="form-group" ng-class="{'has-error':!round.isJson(value)}">
+      <td><label class="control-label">{{key}}</label></td>
+      <td>
+      <input class="form-control" type="text" ng-model="round.property[key]" />
+      </td>
+      <td><span uib-dropdown> <a href id="round-property-menu" uib-dropdown-toggle><span class="caret"></span></a>
+        <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="round-property-menu">
+          <li>
+            <a href="#" ng-click="round.deleteProperty(key)">Delete</a>
+          </li>
+        </ul> </span></td>
+    </tr>
+  </table>
+</div>

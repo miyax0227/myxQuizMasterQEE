@@ -38,8 +38,7 @@ app.factory('rule', [ 'qCommon', function(qCommon) {
 	key : "x",
 	value : 0,
 	style : "number",
-	css : "x",
-	invisibleWhenZeroOrNull : true
+	css : "x"
   }, {
 	key : "priority",
 	order : [ {

@@ -4,7 +4,7 @@
 		"filter": {
 			"param": "lot",
 			"oper": "==",
-			"crit": 2
+			"crit": 3
 		},
 		"order": ["entryNo"]
 	}
