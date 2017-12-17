@@ -1,1 +1,12 @@
-<div id="entry"></div>
+<div style="height: 540px;" ng-model="round.entry" ui-ace="{
+onLoad: aceLoaded,
+useWrapMode : true,
+theme:'monokai',
+mode: 'json',
+advanced: {
+fontSize: 14,
+enableSnippets: true,
+enableBasicAutocompletion: true,
+enableLiveAutocompletion: true
+}
+}" ></div>

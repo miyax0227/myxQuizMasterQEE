@@ -22,11 +22,33 @@
     </tr>
     <tr>
       <td><label class="control-label" for="title">Title</label></td>
-      <td><div id="board-title"></div></td>
+      <td><div style="height: 36px;" ng-model="round.board.title" ui-ace="{
+      onLoad: aceLoaded,
+      useWrapMode : true,
+      theme:'monokai',
+      mode: 'html',
+      advanced: {
+      fontSize: 14,
+      enableSnippets: true,
+      enableBasicAutocompletion: true,
+      enableLiveAutocompletion: true
+      }
+      }" ></div></td>
     </tr>
     <tr>
       <td><label class="control-label" for="status">Status</label></td>
-      <td><div id="board-status"></div></td>
+      <td><div style="height: 360px;" ng-model="round.board.status" ui-ace="{
+      onLoad: aceLoaded,
+      useWrapMode : true,
+      theme:'monokai',
+      mode: 'html',
+      advanced: {
+      fontSize: 14,
+      enableSnippets: true,
+      enableBasicAutocompletion: true,
+      enableLiveAutocompletion: true
+      }
+      }" ></div></td>
     </tr>
   </table>
 </div>

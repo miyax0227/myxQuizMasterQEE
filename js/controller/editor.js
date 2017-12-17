@@ -1,5 +1,6 @@
 var appName = "myxQuizEditor";
-var app = angular.module(appName, [ "ui.bootstrap", "ngAnimate", "ui.sortable" ]);
+var app = angular.module(appName, [ "ui.bootstrap", "ngAnimate", "ui.sortable", "ui.ace",
+	"angular-clipboard" ]);
 
 /*******************************************************************************
  * メインコントローラ
@@ -16,12 +17,16 @@ app.controller('main', [ '$scope', 'qeditor', '$interval', 'round', 'rule',
 	  $scope.rules = [];
 	  $scope.styles = [ "number", "string", "boolean", "null" ];
 	  $scope.orders = [ "desc", "asc" ];
+	  $scope.aceEditors = {};
+	  $scope.aceEditorWaitors = [];
 	  refresh();
 
 	  $scope.refresh = refresh;
 	  $scope.openRound = openRound;
 	  $scope.copyRound = copyRound;
 	  $scope.openRule = openRule;
+	  $scope.copyRule = copyRule;
+	  $scope.aceLoaded = aceLoaded;
 
 	  /*************************************************************************
 	   * ファイルリストをリフレッシュする
@@ -38,8 +43,15 @@ app.controller('main', [ '$scope', 'qeditor', '$interval', 'round', 'rule',
 	   * @memberOf main
 	   */
 	  function openRound(name) {
-		rule.closeRule();
-		round.load(name);
+		if (round.name) {
+		  qeditor.confirm(round.name + "を保存しなくてもよろしいでしょうか?", function(result) {
+			rule.closeRule();
+			round.load(name);
+			return;
+		  });
+		} else {
+		  round.load(name);
+		}
 	  }
 
 	  /*************************************************************************
@@ -70,6 +82,47 @@ app.controller('main', [ '$scope', 'qeditor', '$interval', 'round', 'rule',
 		round.closeRound();
 		rule.load(name);
 	  }
+
+	  /*************************************************************************
+	   * ルールをコピーする
+	   * @memberOf main
+	   */
+	  function copyRule(name) {
+		var oldRule = __dirname + '/js/rule/' + name;
+		var newRule = "";
+
+		qeditor.inputBox("新しいルールの名前を入力してください。", function(result) {
+		  newRule = __dirname + '/js/rule/' + result.inputString + '.js';
+
+		  qeditor.copyFile(oldRule, newRule);
+		  qeditor.copyFile(oldRule + 'on', newRule + 'on');
+
+		});
+	  }
+
+	  /*************************************************************************
+	   * aceエディタ起動処理
+	   */
+	  function aceLoaded(_editor) {
+		console.log("aceLoaded!");
+		_editor.commands.addCommand({
+		  Name : "beautify",
+		  bindKey : {
+			win : "Ctrl-Shift-F",
+			mac : "Ctrl-Shift-F"
+		  },
+		  exec : function(editor) {
+			var session = editor.getSession();
+			session.setValue(qeditor.beautify(session.getValue()));
+		  }
+		});
+
+		_editor.on("focus", function() {
+		  $scope.focusedEditor = _editor;
+		  console.log("aceFocused!");
+		});
+	  }
+
 	} ]);
 
 /*******************************************************************************
@@ -113,7 +166,7 @@ app.controller('modal', [ '$scope', '$uibModalInstance', 'myMsg',
 	  }
 	} ]);
 
-/******************************************************************************
+/*******************************************************************************
  * ディレクティブ
  */
 app.directive('editorRoundBoard', function() {
@@ -164,24 +217,11 @@ app.directive('editorRuleActions', function() {
   }
 });
 
-app.directive('editorRuleGlobalActions', function() {
-  return {
-	templateUrl : './template/editor-rule-global-actions.html'
-  }
-});
-
-app.directive('editorRuleGlobalActionsRepeat', function() {
-  return {
-	templateUrl : './template/editor-rule-global-actions-repeat.html'
-  }
-});
-
 app.directive('editorRuleJudgement', function() {
   return {
 	templateUrl : './template/editor-rule-judgement.html'
   }
 });
-
 
 app.directive('editorRuleCalc', function() {
   return {
@@ -189,3 +229,11 @@ app.directive('editorRuleCalc', function() {
   }
 });
 
+app.directive('uiClipboard', function() {
+  return {
+	templateUrl : './template/clipboard.html',
+	scope : {
+	  "words" : "="
+	}
+  }
+});

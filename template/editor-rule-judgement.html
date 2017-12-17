@@ -1,18 +1,21 @@
-<button class="btn btn-info" ng-click="rule.beautifyCode('editorJudgement')">
-  beautify
-</button>
-<button class="btn" ng-click="rule.insertCode('editorJudgement','win(player, players, header, property);')">
-  win
-</button>
-<button class="btn" ng-click="rule.insertCode('editorJudgement','lose(player, players, header, property);')">
-  lose
-</button>
 <div>
-  <code>
-    function judgement(players, header, property) {
-  </code>
-  <div id="editor-judgement"></div>
-  <code>
-    }
-  </code>
+  <samp><strong> function judgement(players, header, property)</strong></samp>
+
+  <div style="height: 360px;" ng-model="rule.judgement" ui-ace="{
+  onLoad: aceLoaded,
+  useWrapMode : true,
+  theme:'monokai',
+  mode: 'javascript',
+  advanced: {
+  fontSize: 14,
+  enableSnippets: true,
+  enableBasicAutocompletion: true,
+  enableLiveAutocompletion: true
+  }
+  }" ></div>
+
+  <div ui-clipboard words="{
+  'win':'win(player, players, header, property);',
+  'lose':'lose(player, players, header, property);'
+  }"></div>
 </div>

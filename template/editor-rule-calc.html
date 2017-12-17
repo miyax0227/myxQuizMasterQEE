@@ -1,1 +1,21 @@
-<div id="editor-calc"></div>
+<div>
+  <samp><strong> function calc(players, header, items, property)</strong></samp>
+
+  <div style="height: 360px;" ng-model="rule.calc" ui-ace="{
+  onLoad: aceLoaded,
+  useWrapMode : true,
+  theme:'monokai',
+  mode: 'javascript',
+  advanced: {
+  fontSize: 14,
+  enableSnippets: true,
+  enableBasicAutocompletion: true,
+  enableLiveAutocompletion: true
+  }
+  }" ></div>
+
+  <div ui-clipboard words="{
+  'chance':'player.chance = (player.o == property.winningPoint - 1) && (player.status == \'normal\');',
+  'pinch':'player.pinch  = (player.x == property.losingPoint  - 1) && (player.status == \'normal\');'
+  }"></div>
+</div>

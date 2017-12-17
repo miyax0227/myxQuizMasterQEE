@@ -6,16 +6,6 @@
 app.service('rule', [ 'qeditor', function(qeditor) {
   const
   fs = require('fs');
-  var editor = {};
-  var editorActionEnable;
-  var editorActionAction;
-  var editorGlobalActionEnable;
-  var editorGlobalActionAction;
-  var editorGlobalActionRepeatEnable;
-  var editorGlobalActionRepeatAction;
-  var editorJudgement;
-  var editorCalc;
-
   var ruleJsonName;
   var ruleJsName;
 
@@ -27,8 +17,6 @@ app.service('rule', [ 'qeditor', function(qeditor) {
   rule.saveRule = saveRule;
   rule.closeRule = closeRule;
   rule.isJson = qeditor.isJson;
-  rule.beautifyCode = beautifyCode;
-  rule.insertCode = insertCode;
   rule.deleteHeader = deleteHeader;
   rule.addHeader = addHeader;
   rule.deleteItem = deleteItem;
@@ -37,149 +25,10 @@ app.service('rule', [ 'qeditor', function(qeditor) {
   rule.addPriority = addPriority;
   rule.deleteTweet = deleteTweet;
   rule.addTweet = addTweet;
-  
+  rule.deleteAction = deleteAction;
+  rule.addAction = addAction;
+
   return rule;
-
-  /*****************************************************************************
-   * ace設定
-   * @memberOf rule
-   */
-  function setAce() {
-	// editorActionEnable
-	if (!editorActionEnable) {
-	  editorActionEnable = ace.edit("board-status");
-	  editorActionEnable.setOptions({
-		theme : "ace/theme/monokai",
-		fontSize : 14,
-		maxLines : Infinity
-	  });
-	  editorActionEnable.getSession().setOptions({
-		mode : "ace/mode/html",
-		wrap : true,
-		tabSize : 2
-	  });
-	}
-
-	// editorActionAction
-	if (!editorActionAction) {
-	  editorActionAction = ace.edit("board-status");
-	  editorActionAction.setOptions({
-		theme : "ace/theme/monokai",
-		fontSize : 14,
-		maxLines : Infinity
-	  });
-	  editorActionAction.getSession().setOptions({
-		mode : "ace/mode/html",
-		wrap : true,
-		tabSize : 2
-	  });
-	}
-
-	// editorGlobalActionEnable
-	if (!editorGlobalActionEnable) {
-	  editorGlobalActionEnable = ace.edit("board-status");
-	  editorGlobalActionEnable.setOptions({
-		theme : "ace/theme/monokai",
-		fontSize : 14,
-		maxLines : Infinity
-	  });
-	  editorGlobalActionEnable.getSession().setOptions({
-		mode : "ace/mode/html",
-		wrap : true,
-		tabSize : 2
-	  });
-	}
-
-	// editorGlobalActionAction
-	if (!editorGlobalActionAction) {
-	  editorGlobalActionAction = ace.edit("board-status");
-	  editorGlobalActionAction.setOptions({
-		theme : "ace/theme/monokai",
-		fontSize : 14,
-		maxLines : Infinity
-	  });
-	  editorGlobalActionAction.getSession().setOptions({
-		mode : "ace/mode/html",
-		wrap : true,
-		tabSize : 2
-	  });
-	}
-
-	// editorGlobalActionRepeatEnable
-	if (!editorGlobalActionRepeatEnable) {
-	  editorGlobalActionRepeatEnable = ace.edit("board-status");
-	  editorGlobalActionRepeatEnable.setOptions({
-		theme : "ace/theme/monokai",
-		fontSize : 14,
-		maxLines : Infinity
-	  });
-	  editorGlobalActionRepeatEnable.getSession().setOptions({
-		mode : "ace/mode/html",
-		wrap : true,
-		tabSize : 2
-	  });
-	}
-
-	// editorGlobalActionRepeatAction
-	if (!editorGlobalActionRepeatAction) {
-	  editorGlobalActionRepeatAction = ace.edit("board-status");
-	  editorGlobalActionRepeatAction.setOptions({
-		theme : "ace/theme/monokai",
-		fontSize : 14,
-		maxLines : Infinity
-	  });
-	  editorGlobalActionRepeatAction.getSession().setOptions({
-		mode : "ace/mode/html",
-		wrap : true,
-		tabSize : 2
-	  });
-	}
-
-	// editorJudgement
-	if (!editorJudgement) {
-	  editorJudgement = ace.edit("editor-judgement");
-	  editorJudgement.setOptions({
-		theme : "ace/theme/monokai",
-		fontSize : 14,
-		maxLines : Infinity,
-		enableBasicAutocompletion : true,
-		enableSnippets : true,
-		enableLiveAutocompletion : true
-	  });
-	  editorJudgement.getSession().setOptions({
-		mode : "ace/mode/javascript",
-		wrap : true,
-		tabSize : 2
-	  });
-	}
-
-	// editorCalc
-	if (!editorCalc) {
-	  editorCalc = ace.edit("editor-calc");
-	  editorCalc.setOptions({
-		theme : "ace/theme/monokai",
-		fontSize : 14,
-		maxLines : Infinity,
-		enableBasicAutocompletion : true,
-		enableSnippets : true,
-		enableLiveAutocompletion : true
-	  });
-	  editorCalc.getSession().setOptions({
-		mode : "ace/mode/javascript",
-		wrap : true,
-		tabSize : 2
-	  });
-	}
-
-	editor["editorActionEnable"] = editorActionEnable;
-	editor["editorActionAction"] = editorActionAction;
-	editor["editorGlobalActionEnable"] = editorGlobalActionEnable;
-	editor["editorGlobalActionAction"] = editorGlobalActionAction;
-	editor["editorGlobalActionRepeatEnable"] = editorGlobalActionRepeatEnable;
-	editor["editorGlobalActionRepeatAction"] = editorGlobalActionRepeatAction;
-	editor["editorJudgement"] = editorJudgement;
-	editor["editorCalc"] = editorCalc;
-  }
 
   /*****************************************************************************
    * ruleの読み込み
@@ -188,7 +37,6 @@ app.service('rule', [ 'qeditor', function(qeditor) {
    */
   function load(name) {
 	rule.name = name;
-	setAce();
 
 	ruleJsonName = __dirname + "/js/rule/" + name + "on";
 	ruleJsName = __dirname + "/js/rule/" + name;
@@ -229,22 +77,52 @@ app.service('rule', [ 'qeditor', function(qeditor) {
 	  } else {
 		priority.alter = JSON.stringify(priority.alter);
 	  }
-	})
+	});
 
 	// tweets
 	rule.tweets = ruleJson.tweet;
-	
+
+	// actions
 	rule.actions = ruleJson.actions;
+	angular.forEach(rule.actions, function(action) {
+	  if (!action.hasOwnProperty('keyArray')) {
+		action.keyArray = "";
+	  }
+	  if (!action.hasOwnProperty('tweet')) {
+		action.tweet = "";
+	  }
+	});
+
+	// global_actions
 	rule.global_actions = ruleJson.global_actions;
+	angular.forEach(rule.global_actions, function(action) {
+	  if (!action.hasOwnProperty('group')) {
+		action.keyArray = "rule";
+	  }
+	  if (!action.hasOwnProperty('keyboard')) {
+		action.keyArray = "";
+	  }
+	  if (!action.hasOwnProperty('tweet')) {
+		action.tweet = "";
+	  }
+	});
+
+	// global_actions_repeat
 	rule.global_actions_repeat = ruleJson.global_actions_repeat;
+	angular.forEach(rule.global_actions_repeat, function(action) {
+	  if (!action.hasOwnProperty('group')) {
+		action.keyArray = "rule";
+	  }
+	  if (!action.hasOwnProperty('tweet')) {
+		action.tweet = "";
+	  }
+	});
 
 	// judgement
 	rule.judgement = ruleJson.judgement;
-	editorJudgement.getSession().setValue(rule.judgement);
 
 	// calc
 	rule.calc = ruleJson.calc;
-	editorCalc.getSession().setValue(rule.calc);
   }
 
   /*****************************************************************************
@@ -253,6 +131,7 @@ app.service('rule', [ 'qeditor', function(qeditor) {
    */
   function saveRule() {
 	var ruleJson = {};
+	var successLog = [];
 
 	// headers
 	ruleJson.headers = angular.copy(rule.headers);
@@ -293,36 +172,164 @@ app.service('rule', [ 'qeditor', function(qeditor) {
 		  delete priority.alter;
 		}
 	  }
+	});
+
+	// actions
+	ruleJson.actions = angular.copy(rule.actions);
+	angular.forEach(ruleJson.actions, function(action) {
+	  if (action.keyArray == "" || action.keyArray == null) {
+		delete action.keyArray;
+	  }
+	  if (action.tweet == "" || action.tweet == null) {
+		delete action.tweet;
+	  }
+	})
+
+	// global_actions
+	ruleJson.global_actions = angular.copy(rule.global_actions);
+	angular.forEach(ruleJson.global_actions, function(action) {
+	  if (action.group == "" || action.group == null) {
+		delete action.group;
+	  }
+	  if (action.keyboard == "" || action.keyboard == null) {
+		delete action.keyboard;
+	  }
+	  if (action.tweet == "" || action.tweet == null) {
+		delete action.tweet;
+	  }
+	})
+
+	// global_actions_repeat
+	ruleJson.global_actions_repeat = angular.copy(rule.global_actions_repeat);
+	angular.forEach(ruleJson.global_actions_repeat, function(action) {
+	  if (action.group == "" || action.group == null) {
+		delete action.group;
+	  }
+	  if (action.tweet == "" || action.tweet == null) {
+		delete action.tweet;
+	  }
 	})
 
 	// tweets
 	ruleJson.tweet = angular.copy(rule.tweets);
-	
+
 	// judgement
-	rule.judgement = editorJudgement.getSession().getValue();
 	ruleJson.judgement = angular.copy(rule.judgement);
 
 	// calc
-	rule.calc = editorCalc.getSession().getValue();
 	ruleJson.calc = angular.copy(rule.calc);
 
-	console.log(JSON.stringify(ruleJson));
+	// console.log(JSON.stringify(ruleJson));
 
-	/*
-	 * fs.writeFile(boardJsonName, JSON.stringify(round.board), function(err) {
-	 * if (err) { qeditor.alarm(err); } else { console.log(boardJsonName + 'is
-	 * saved.'); successLog.push('board.json is saved.'); // board.html var
-	 * tempHtml = fs.readFileSync("./template/temp-board.html", 'utf-8');
-	 * tempHtml = tempHtml.replace(/\$\{css\}/g, round.board.css); tempHtml =
-	 * tempHtml.replace(/\$\{rule\}/g, round.board.rule); tempHtml =
-	 * tempHtml.replace(/\$\{title\}/g, round.board.title); tempHtml =
-	 * tempHtml.replace(/\$\{status\}/g, round.board.status); if
-	 * (round.board.victory) { tempHtml = tempHtml.replace(/\$\{victory\}/g, "<div
-	 * victory></div>"); } else { tempHtml = tempHtml.replace(/\$\{victory\}/g,
-	 * ""); } fs.writeFile(boardHtmlName, tempHtml, function(err) { if (err) {
-	 * qeditor.alarm(err); } else { console.log(boardHtmlName + 'is saved.');
-	 * successLog.push('board.html is saved.'); } }); } });
-	 */
+	// save to rule.json
+	fs.writeFile(ruleJsonName, JSON.stringify(ruleJson), function(err) {
+	  if (err) {
+		qeditor.alarm(err);
+	  } else {
+		console.log(ruleJsonName + 'is	saved.');
+		successLog.push('rule.json is saved.');
+
+		// save to rule.js
+		var tempJs = fs.readFileSync("./template/temp-rule", 'utf-8');
+
+		// headers
+		tempJs = tempJs.replace(/\$\{headers\}/g, JSON.stringify(ruleJson.headers, undefined, 2));
+
+		// items, priority
+		ruleJson.items.push({
+		  key : "priority",
+		  order : ruleJson.priority
+		});
+		tempJs = tempJs.replace(/\$\{items\}/g, JSON.stringify(ruleJson.items, undefined, 2));
+
+		// tweets
+		tempJs = tempJs.replace(/\$\{tweets\}/g, JSON.stringify(ruleJson.tweet, undefined, 2));
+
+		// actions
+		var tempActions = angular.copy(ruleJson.actions);
+		angular.forEach(tempActions, function(action, index) {
+		  action.enable0 = "${action" + index + "_enable0}";
+		  action.action0 = "${action" + index + "_action0}";
+		})
+
+		var tempActionsJson = JSON.stringify(tempActions, undefined, 2);
+		angular.forEach(ruleJson.actions, function(action, index) {
+		  var enable0tag = "\"${action" + index + "_enable0}\"";
+		  var enable0func = "function (player, players, header, property){\n";
+		  enable0func = enable0func + action.enable0 + "\n}";
+		  var action0tag = "\"${action" + index + "_action0}\"";
+		  var action0func = "function (player, players, header, property){\n";
+		  action0func = action0func + action.action0 + "\n}";
+
+		  tempActionsJson = tempActionsJson.replace(enable0tag, enable0func);
+		  tempActionsJson = tempActionsJson.replace(action0tag, action0func);
+		});
+
+		tempJs = tempJs.replace(/\$\{actions\}/g, tempActionsJson);
+
+		// global_actions, global_actions_repeat
+		var tempGlobalActions = angular.copy(ruleJson.global_actions);
+		angular.forEach(tempGlobalActions, function(action, index) {
+		  action.enable0 = "${action" + index + "_enable0}";
+		  action.action0 = "${action" + index + "_action0}";
+		})
+
+		var tempGlobalActionsRepeat = angular.copy(ruleJson.global_actions_repeat);
+		angular.forEach(tempGlobalActionsRepeat, function(action, index) {
+		  action.indexes0 = "${action" + index + "_indexes0}";
+		  action.enable1 = "${action" + index + "_enable1}";
+		  action.action1 = "${action" + index + "_action1}";
+		})
+
+		tempGlobalActions = tempGlobalActions.concat(tempGlobalActionsRepeat);
+		var tempGlobalActionsJson = JSON.stringify(tempGlobalActions, undefined, 2);
+
+		angular.forEach(ruleJson.global_actions, function(action, index) {
+		  var enable0tag = "\"${action" + index + "_enable0}\"";
+		  var enable0func = "function (players, header, property){\n";
+		  enable0func = enable0func + action.enable0 + "\n}";
+		  var action0tag = "\"${action" + index + "_action0}\"";
+		  var action0func = "function (players, header, property){\n";
+		  action0func = action0func + action.action0 + "\n}";
+
+		  tempGlobalActionsJson = tempGlobalActionsJson.replace(enable0tag, enable0func);
+		  tempGlobalActionsJson = tempGlobalActionsJson.replace(action0tag, action0func);
+		});
+
+		angular.forEach(ruleJson.global_actions_repeat, function(action, index) {
+		  var indexes0tag = "\"${action" + index + "_indexes0}\"";
+		  var indexes0func = "function (players, header, property){\n";
+		  indexes0func = indexes0func + action.indexes0 + "\n}";
+		  var enable1tag = "\"${action" + index + "_enable1}\"";
+		  var enable1func = "function (index, players, header, property){\n";
+		  enable1func = enable1func + action.enable1 + "\n}";
+		  var action1tag = "\"${action" + index + "_action1}\"";
+		  var action1func = "function (index, players, header, property){\n";
+		  action1func = action1func + action.action1 + "\n}";
+
+		  tempGlobalActionsJson = tempGlobalActionsJson.replace(indexes0tag, indexes0func);
+		  tempGlobalActionsJson = tempGlobalActionsJson.replace(enable1tag, enable1func);
+		  tempGlobalActionsJson = tempGlobalActionsJson.replace(action1tag, action1func);
+		});
+
+		tempJs = tempJs.replace(/\$\{global_actions\}/g, tempGlobalActionsJson);
+
+		// judgement
+		tempJs = tempJs.replace(/\$\{judgement\}/g, ruleJson.judgement);
+
+		// calc
+		tempJs = tempJs.replace(/\$\{calc\}/g, ruleJson.calc);
+
+		fs.writeFile(ruleJsName, tempJs, function(err) {
+		  if (err) {
+			qeditor.alarm(err);
+		  } else {
+			console.log(ruleJsName + 'is saved.');
+			successLog.push('rule.js is saved.');
+		  }
+		});
+	  }
+	});
 
   }
 
@@ -440,25 +447,32 @@ app.service('rule', [ 'qeditor', function(qeditor) {
 	  rule.tweets[result.inputString] = "";
 	});
   }
+
   /*****************************************************************************
-   * コード整形
+   * actionの削除
    * @memberOf rule
-   * @param {string} id - aceを適用しているdiv要素のid
+   * @param {object} actions 削除対象のactions(actions, globalActions,
+   *            globalActionRepeat)
+   * @param {int} key 削除対象のindex
    */
-  function beautifyCode(id) {
-	var session = editor[id].getSession();
-	session.setValue(qeditor.beautify(session.getValue()));
+  function deleteAction(actions, key) {
+	qeditor.confirm("削除してもよろしいですか?", function(result) {
+	  actions.splice(key, 1);
+	});
   }
 
   /*****************************************************************************
-   * コード追加
+   * actionの追加
    * @memberOf rule
-   * @param {string} id - aceを適用しているdiv要素のid
-   * @param {string} str - 追加したい文字列（末尾の改行は不要）
+   * @param {object} actions 削除対象のactions(actions, globalActions,
+   *            globalActionRepeat)
    */
-  function insertCode(id, str) {
-	var session = editor[id].getSession();
-	editor[id].insert(str + "\n");
+  function addAction(actions) {
+	qeditor.inputBox("追加するキーを入力してください。", function(result) {
+	  actions.push({
+		name : result.inputString
+	  });
+	});
   }
 
 } ]);
