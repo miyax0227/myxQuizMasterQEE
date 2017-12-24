@@ -1,4 +1,3 @@
-
 /*******************************************************************************
  * 共通関数をまとめたサービス
  * @class
@@ -39,13 +38,13 @@ app.service('qeditor', [ '$uibModal', function($uibModal) {
    */
   function getFileList(dir, isFile, ext) {
 	var list = [];
-	var reg = new RegExp("^.+\." + ext + "$");
+	var reg = new RegExp("\." + ext + "$");
 
 	fs.readdirSync(dir).forEach(function(file) {
 	  // ファイルの場合
 	  if (fs.statSync(dir + "/" + file).isFile() && isFile) {
 		if (reg.test(file)) {
-		  list.push(file);
+		  list.push(file.replace(reg, ''));
 		}
 	  }
 	  // ディレクトリの場合
@@ -120,7 +119,8 @@ app.service('qeditor', [ '$uibModal', function($uibModal) {
 	  resolve : {
 		myMsg : function() {
 		  return {
-			msg : msg
+			msg : msg,
+			isArray : angular.isArray(msg)
 		  }
 		}
 	  }
@@ -153,21 +153,19 @@ app.service('qeditor', [ '$uibModal', function($uibModal) {
    * @return {string} 整形後コード
    */
   function beautify(code) {
-	var lines = code.split("\n");
-	var indent = 0;
-
-	lines = lines.map(function(line) {
-	  line = line.replace(/^[\s\t]+/, "");
-	  line = line.replace(/[\s\t]+$/, "");
-	  line = line.replace(/\t/, " ");
-	  line = line.replace(/\s{2,}/, " ");
-	  line = " ".repeat((indent - (line.substring(0, 1) == "}" ? 1 : 0)) * 2) + line;
-	  indent += line.split("{").length - 1;
-	  indent -= line.split("}").length - 1;
-	  return line
+	return js_beautify(code, {
+	  indent_size : 2
 	});
+	/*
+	 * var lines = code.split("\n"); var indent = 0; lines =
+	 * lines.map(function(line) { line = line.replace(/^[\s\t]+/, ""); line =
+	 * line.replace(/[\s\t]+$/, ""); line = line.replace(/\t/, " "); line =
+	 * line.replace(/\s{2,}/, " "); line = " ".repeat((indent -
+	 * (line.substring(0, 1) == "}" ? 1 : 0)) * 2) + line; indent +=
+	 * line.split("{").length - 1; indent -= line.split("}").length - 1; return
+	 * line }); return lines.join("\n");
+	 */
 
-	return lines.join("\n");
   }
 
 } ]);

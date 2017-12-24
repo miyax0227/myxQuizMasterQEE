@@ -1,6 +1,12 @@
 <div class="modal-body">
-	<h4>
-		{{msg}}
-	</h4>
-  <button class="btn btn-danger" ng-click="modalOK()">OK</button>
+  <h4 ng-if="! isArray"> {{msg}} </h4>
+  <h4 ng-if="isArray">
+  <ul>
+    <li ng-repeat="m in msg">
+      {{m}}
+    </li>
+  </ul></h4>
+  <button class="btn btn-danger" ng-click="modalOK()">
+    OK
+  </button>
 </div>

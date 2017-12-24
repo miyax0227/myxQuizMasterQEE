@@ -6,7 +6,7 @@ var app = angular.module(appName);
 /*******************************************************************************
  * rule - ラウンド特有のクイズのルール・画面操作の設定
  ******************************************************************************/
-app.factory('rule', [ 'qCommon', function(qCommon) {
+app.factory('rule', ['qCommon', function(qCommon) {
 
   var rule = {};
   var win = qCommon.win;
@@ -20,117 +20,132 @@ app.factory('rule', [ 'qCommon', function(qCommon) {
   /*****************************************************************************
    * header - ルール固有のヘッダ
    ****************************************************************************/
-  rule.head = [ {
-	"key" : "mode",
-	"value" : "position",
-	"style" : "string"
-  } ];
+  rule.head = [{
+    "key": "mode",
+    "value": "position",
+    "style": "string"
+  }];
 
   /*****************************************************************************
    * items - ルール固有のアイテム
    ****************************************************************************/
-  rule.items = [ {
-	"key" : "o",
-	"value" : 0,
-	"style" : "number",
-	"css" : "o"
-  }, {
-	"key" : "x",
-	"value" : 0,
-	"style" : "number",
-	"css" : "x"
-  }, {
-	"key" : "test"
-  }, {
-	"key" : "priority",
-	"order" : [ {
-	  "key" : "status",
-	  "order" : "desc",
-	  "alter" : [ "win", 1, 0 ]
-	}, {
-	  "key" : "o",
-	  "order" : "desc"
-	}, {
-	  "key" : "x",
-	  "order" : "asc"
-	} ]
-  } ];
+  rule.items = [{
+      "key": "o",
+      "value": 0,
+      "style": "number",
+      "css": "o"
+    },
+    {
+      "key": "x",
+      "value": 0,
+      "style": "number",
+      "css": "x"
+    },
+    {
+      "key": "test"
+    },
+    {
+      "key": "priority",
+      "order": [{
+          "key": "status",
+          "order": "desc",
+          "alter": [
+            "win",
+            1,
+            0
+          ]
+        },
+        {
+          "key": "o",
+          "order": "desc"
+        },
+        {
+          "key": "x",
+          "order": "asc"
+        }
+      ]
+    }
+  ];
 
   /*****************************************************************************
    * tweet - ルール固有のツイートのひな型
    ****************************************************************************/
   rule.tweet = {
-	"o" : "${handleName}◯　→${o}◯ ${x}×",
-	"x" : "${handleName}×　→${o}◯ ${x}× ${absent}休",
-	"thru" : "スルー"
+    "o": "${handleName}◯　→${o}◯ ${x}×",
+    "x": "${handleName}×　→${o}◯ ${x}× ${absent}休",
+    "thru": "スルー"
   };
 
   /*****************************************************************************
    * actions - プレイヤー毎に設定する操作の設定
    ****************************************************************************/
-  rule.actions = [ {
-	"name" : "○",
-	"css" : "action_o",
-	"button_css" : "btn btn-primary btn-lg",
-	"keyArray" : "k1",
-	"tweet" : "o",
-	"enable0" : function(player, players, header, property) {
-	  return (player.status == 'normal' && !header.playoff);
-	},
-	"action0" : function(player, players, header, property) {
-	  setMotion(player, 'o');
-	  player.o++;
-	  addQCount(players, header, property);
-	}
-  }, {
-	"name" : "×",
-	"css" : "action_x",
-	"button_css" : "btn btn-danger btn-lg",
-	"keyArray" : "k2",
-	"tweet" : "x",
-	"enable0" : function(player, players, header, property) {
-	  return true;
-	},
-	"action0" : function(player, players, header, property) {
-	  setMotion(player, 'x');
-	  player.x++;
-	  if (property.penalty > 0) {
-		player.absent = property.penalty;
-		player.status = 'preabsent';
-	  }
-	  addQCount(players, header, property);
-	}
-  } ];
+  rule.actions = [{
+      "name": "○",
+      "css": "action_o",
+      "button_css": "btn btn-primary btn-lg",
+      "keyArray": "k1",
+      "tweet": "o",
+      "enable0": function(player, players, header, property) {
+        return (player.status == 'normal' && !header.playoff);
+      },
+      "action0": function(player, players, header, property) {
+        setMotion(player, 'o');
+        player.o++;
+        addQCount(players, header, property);
+      }
+    },
+    {
+      "name": "×",
+      "css": "action_x",
+      "button_css": "btn btn-danger btn-lg",
+      "keyArray": "k2",
+      "tweet": "x",
+      "enable0": function(player, players, header, property) {
+        return true;
+      },
+      "action0": function(player, players, header, property) {
+        setMotion(player, 'x');
+        player.x++;
+        if (property.penalty > 0) {
+          player.absent = property.penalty;
+          player.status = 'preabsent';
+        }
+        addQCount(players, header, property);
+      }
+    }
+  ];
 
   /*****************************************************************************
    * global_actions - 全体に対する操作の設定
    ****************************************************************************/
-  rule.global_actions = [ {
-	"name" : "thru",
-	"button_css" : "btn btn-default",
-	"group" : "rule",
-	"keyboard" : "Space",
-	"tweet" : "thru",
-	"enable0" : function(players, header, property) {
-	  return true;
-	},
-	"action0" : function(players, header, property) {
-	  addQCount(players, header, property);
-	}
-  }, {
-	"name" : "",
-	"button_css" : "btn btn-default",
-	"group" : "rule",
-	"indexes0" : function(players, header, property) {
-	  return property.lots;
-	},
-	"enable1" : function(index, players, header, property) {
-	  return true;
-	},
-	"action1" : function(index, players, header, property) {
-	  header.nowLot = index;
-	}
-  } ];
+  rule.global_actions = [{
+      "name": "thru",
+      "button_css": "btn btn-default",
+      "group": "rule",
+      "keyboard": "Space",
+      "tweet": "thru",
+      "enable0": function(players, header, property) {
+        return true;
+      },
+      "action0": function(players, header, property) {
+        addQCount(players, header, property);
+      }
+    },
+    {
+      "name": "",
+      "button_css": "btn btn-default",
+      "group": "rule",
+      "indexes0": function(players, header, property) {
+        return property.lots;
+      },
+      "enable1": function(index, players, header, property) {
+        return true;
+      },
+      "action1": function(index, players, header, property) {
+        header.nowLot = index;
+      }
+    }
+  ];
 
   /*****************************************************************************
    * judgement - 操作終了時等の勝敗判定
@@ -140,22 +155,22 @@ app.factory('rule', [ 'qCommon', function(qCommon) {
    * @param {Object} property - property
    ****************************************************************************/
   function judgement(players, header, property) {
-	angular.forEach(players.filter(function(item) {
-	  /* rankがない人に限定 */
-	  return (item.rank == 0);
-	}), function(player, i) {
-	  /* win条件 */
-	  if (player.o >= property.winningPoint) {
+    angular.forEach(players.filter(function(item) {
+      /* rankがない人に限定 */
+      return (item.rank == 0);
+    }), function(player, i) {
+      /* win条件 */
+      if (player.o >= property.winningPoint) {
 
-		win(player, players, header, property);
-		player.o = property.winningPoint;
-	  }
-	  /* lose条件 */
-	  if (player.x >= property.losingPoint) {
-		lose(player, players, header, property);
-		player.x = property.losingPoint;
-	  }
-	});
+        win(player, players, header, property);
+        player.o = property.winningPoint;
+      }
+      /* lose条件 */
+      if (player.x >= property.losingPoint) {
+        lose(player, players, header, property);
+        player.x = property.losingPoint;
+      }
+    });
   }
 
   /*****************************************************************************
@@ -165,15 +180,15 @@ app.factory('rule', [ 'qCommon', function(qCommon) {
    * @param {Object} items - items
    ****************************************************************************/
   function calc(players, header, items, property) {
-	angular.forEach(players, function(player, index) {
-	  // pinch, chance
-	  player.pinch = (player.x == property.losingPoint - 1) && (player.status == 'normal');
-	  player.chance = (player.o == property.winningPoint - 1) && (player.status == 'normal');
+    angular.forEach(players, function(player, index) {
+      // pinch, chance
+      player.pinch = (player.x == property.losingPoint - 1) && (player.status == 'normal');
+      player.chance = (player.o == property.winningPoint - 1) && (player.status == 'normal');
 
-	  // キーボード入力時の配列の紐付け ローリング等の特殊形式でない場合はこのままでOK
-	  player.keyIndex = index;
-	});
+      // キーボード入力時の配列の紐付け
+      player.keyIndex = index;
+    });
   }
 
   return rule;
-} ]);
+}]);

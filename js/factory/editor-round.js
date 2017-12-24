@@ -54,7 +54,7 @@ app.service('round', [ 'qeditor', function(qeditor) {
    */
   function saveRound() {
 	var successLog = [];
-	qeditor.confirm(round.name + "を上書き保存してよろしいでしょうか?", function(result) {
+	qeditor.confirm(round.name + "を上書き保存してよろしいですか?", function(result) {
 	  // board.json
 	  console.log(angular.copy(round.board));
 	  fs.writeFile(boardJsonName, JSON.stringify(round.board), function(err) {
@@ -131,18 +131,16 @@ app.service('round', [ 'qeditor', function(qeditor) {
    */
   function closeRound() {
 	if (round.name) {
-	  qeditor.confirm(round.name + "を保存しなくてもよろしいでしょうか?", function(result) {
-		round.board = {};
-		round.board.rule = "";
-		round.board.css = "";
-		round.board.victory = false;
-		round.board.title = "";
-		round.board.status = "";
-		round.entry = "";
-		round.property = {};
-		round.name = null;
-		return;
-	  });
+	  round.board = {};
+	  round.board.rule = "";
+	  round.board.css = "";
+	  round.board.victory = false;
+	  round.board.title = "";
+	  round.board.status = "";
+	  round.entry = "";
+	  round.property = {};
+	  round.name = null;
+	  return;
 	}
   }
 

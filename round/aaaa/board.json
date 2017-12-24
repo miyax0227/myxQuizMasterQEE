@@ -1,1 +1,1 @@
-{"rule":"nomx.js","css":"masterqee.css","victory":false,"title":"N○M×サンプ","status":"<span ng-if=\"current.header.playoff\"> - プレーオフ </span>"}
+{"rule":"nomx","css":"masterqee","victory":false,"title":"N○M×サンプ","status":"<span ng-if=\"current.header.playoff\"> - プレーオフ </span>"}

@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" onload="window.$ = window.jQuery = module.exports;"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.7.5/beautify.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.0/ace.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.0/ext-language_tools.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular.js"></script>
@@ -13,29 +14,41 @@
     <script src="js/libs/sortable.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/angular-ui-ace@0.2.3/src/ui-ace.min.js"></script>
     <script src="js/libs/angular-clipboard.js"></script>
-    
+
     <script src="js/controller/editor.js"></script>
     <script src="js/factory/qeditor.js"></script>
     <script src="js/factory/editor-round.js"></script>
     <script src="js/factory/editor-rule.js"></script>
+    <script src="js/factory/editor-css.js"></script>
 
+    <style>
+        .link-off, .link-off a, .link-off tr, .link-off div {
+            cursor: not-allowed;
+            pointer-events: none;
+            opacity: .65;
+            filter: alpha(opacity=65);
+            -webkit-box-shadow: none;
+            box-shadow: none
+        }
+    </style>
   </head>
 
   <body ng-controller="main">
     <div class="row">
-      <div class="col-sm-3">
+      <div class="col-sm-3"  ng-class="{'link-off': editing}">
         <div class="panel panel-primary">
           <div class="panel-heading">
             Round
           </div>
-          <table class="table table-condensed">
-            <tr ng-repeat="round in rounds">
+          <table class="table table-condensed table-hover">
+            <tr ng-repeat="round in rounds" ng-click="openRound(round)">
               <td>{{$index}}</td>
-              <td><a href="#" ng-click="openRound(round)">{{round}}</a></td>
+              <td>{{round}}</td>
               <td><span uib-dropdown> <a href id="round-menu" uib-dropdown-toggle><span class="caret"></span></a>
                 <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="round-menu">
                   <li>
                     <a href="#" ng-click="copyRound(round)">Copy</a>
+                    <a href="#" ng-click="deleteRound(round)">Delete</a>
                   </li>
                 </ul> </span></td>
             </tr>
@@ -46,61 +59,95 @@
           <div class="panel-heading">
             Rule
           </div>
-          <table class="table table-condensed">
-            <tr ng-repeat="rule in rules">
+          <table class="table table-condensed table-hover">
+            <tr ng-repeat="rule in rules" ng-click="openRule(rule)">
               <td>{{$index}}</td>
-              <td><a href="#" ng-click="openRule(rule)">{{rule}}</a></td>
+              <td>{{rule}}</td>
               <td><span uib-dropdown> <a href id="rule-menu" uib-dropdown-toggle><span class="caret"></span></a>
                 <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="rule-menu">
                   <li>
                     <a href="#" ng-click="copyRule(rule)">Copy</a>
+                    <a href="#" ng-click="deleteRule(rule)">Delete</a>
                   </li>
                 </ul> </span></td>
             </tr>
           </table>
         </div>
+        
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            CSS/SCSS
+          </div>
+          <table class="table table-condensed table-hover">
+            <tr ng-repeat="css in csses" ng-click="openCss(css)">
+              <td>{{$index}}</td>
+              <td>{{css}}</td>
+              <td><span uib-dropdown> <a href id="css-menu" uib-dropdown-toggle><span class="caret"></span></a>
+                <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="css-menu">
+                  <li>
+                    <a href="#" ng-click="copyCss(css)">Copy</a>
+                    <a href="#" ng-click="deleteCss(css)">Delete</a>
+                  </li>
+                </ul> </span></td>
+            </tr>
+          </table>
+        </div>
+        
       </div>
 
       <div class="col-sm-9">
         <div ng-controller="roundCtrl" ng-show="round.name != null">
-          <span class="h1">{{round.name}}</span><a href="#" ng-click="round.saveRound()" class="h3" style="margin-left: 30px;"><span class="glyphicon glyphicon-save"></span></a><a href="#"  ng-click="round.closeRound()" class="h3" style="margin-left: 30px;"><span class="glyphicon glyphicon-remove"></span></a>
+          <div class="bg-primary">
+            <span class="h1"> {{round.name}} </span>
+            <span class="pull-right">
+              <a href="#" ng-class="{'text-success': editing}" ng-click="$parent.editing=! $parent.editing" class="h2" style="margin-left: 30px;"><span class="glyphicon glyphicon-edit"></span></a>
+              <a href="#" ng-class="{'link-off': !editing}" ng-click="editing  && round.saveRound()" class="h2" style="margin-left: 30px;"><span class="glyphicon glyphicon-save"></span></a>
+              <a href="#" ng-class="{'link-off':  editing}" ng-click="!editing && round.closeRound()" class="h2" style="margin-left: 30px;"><span class="glyphicon glyphicon-remove"></span></a>
+            </span>
+          </div>
           <uib-tabset>
-            <uib-tab heading="Board">
-              <div editor-round-board></div>
-            </uib-tab>
-            <uib-tab heading="Entry">
-              <div editor-round-entry></div>
-            </uib-tab>
-            <uib-tab heading="Property">
-              <div editor-round-property></div>
-            </uib-tab>
+            <uib-tab heading="Board"><div editor-round-board></div></uib-tab>
+            <uib-tab heading="Entry"><div editor-round-entry></div></uib-tab>
+            <uib-tab heading="Property"><div editor-round-property></div></uib-tab>
           </uib-tabset>
         </div>
 
         <div ng-controller="ruleCtrl" ng-show="rule.name != null">
-          <span class="h1">{{rule.name}}</span><a href="#" ng-click="rule.saveRule()" class="h3" style="margin-left: 30px;"><span class="glyphicon glyphicon-save"></span></a><a href="#"  ng-click="rule.closeRule()" class="h3" style="margin-left: 30px;"><span class="glyphicon glyphicon-remove"></span></a>
+	      <div class="bg-success">
+            <span class="h1"> {{rule.name}} </span>
+            <span class="pull-right">
+	          <a href="#" ng-class="{'text-success': editing}" ng-click="$parent.editing=! $parent.editing" class="h2" style="margin-left: 30px;"><span class="glyphicon glyphicon-edit"></span></a>
+	          <a href="#" ng-class="{'link-off': !editing}" ng-click="editing  && rule.saveRule()" class="h2" style="margin-left: 30px;"><span class="glyphicon glyphicon-save"></span></a>
+	          <a href="#" ng-class="{'link-off':  editing}" ng-click="!editing && rule.closeRule()" class="h2" style="margin-left: 30px;"><span class="glyphicon glyphicon-remove"></span></a>
+            </span>
+          </div>
           <uib-tabset>
-            <uib-tab heading="Header">
-              <div editor-rule-header></div>
-            </uib-tab>
-            <uib-tab heading="Items">
-              <div editor-rule-items></div>
-            </uib-tab>
-            <uib-tab heading="Priority">
-              <div editor-rule-priority></div>
-            </uib-tab>
-            <uib-tab heading="Tweet">
-              <div editor-rule-tweet></div>
-            </uib-tab>
-            <uib-tab heading="Actions">
-              <div editor-rule-actions></div>
-            </uib-tab>
-            <uib-tab heading="Judgement">
-              <div editor-rule-judgement></div>
-            </uib-tab>
-            <uib-tab heading="Calc">
-              <div editor-rule-calc></div>
-            </uib-tab>
+            <uib-tab heading="Header"><div editor-rule-header></div></uib-tab>
+            <uib-tab heading="Items"><div editor-rule-items></div></uib-tab>
+            <uib-tab heading="Priority"><div editor-rule-priority></div></uib-tab>
+            <uib-tab heading="Tweet"><div editor-rule-tweet></div></uib-tab>
+            <uib-tab heading="Actions"><div editor-rule-actions></div></uib-tab>
+            <uib-tab heading="Judgement"><div editor-rule-judgement></div></uib-tab>
+            <uib-tab heading="Calc"><div editor-rule-calc></div></uib-tab>
+          </uib-tabset>
+        </div>
+        
+        <div ng-controller="cssCtrl" ng-show="css.name != null">
+	      <div class="bg-info">
+            <span class="h1"> {{css.name}} </span>
+            <span class="pull-right">
+	          <a href="#" ng-class="{'text-success': editing}" ng-click="$parent.editing=! $parent.editing" class="h2" style="margin-left: 30px;"><span class="glyphicon glyphicon-edit"></span></a>
+	          <a href="#" ng-class="{'link-off': !editing}" ng-click="editing  && css.saveCss()" class="h2" style="margin-left: 30px;"><span class="glyphicon glyphicon-save"></span></a>
+	          <a href="#" ng-class="{'link-off':  editing}" ng-click="!editing && css.closeCss()" class="h2" style="margin-left: 30px;"><span class="glyphicon glyphicon-remove"></span></a>
+            </span>
+          </div>
+          <uib-tabset>
+            <uib-tab heading="Includes"><div editor-css-includes></div></uib-tab>            
+            <uib-tab heading="Variables"><div editor-css-variables></div></uib-tab>
+            <uib-tab heading="Lines"><div editor-css-lines></div></uib-tab>
+            <uib-tab heading="Items"><div editor-css-items></div></uib-tab>
+            <uib-tab heading="Images"><div editor-css-images></div></uib-tab>
+            <uib-tab heading="Buttons"><div editor-css-buttons></div></uib-tab>
           </uib-tabset>
         </div>
       </div>

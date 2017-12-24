@@ -7,8 +7,8 @@ var app = angular.module(appName, [ "ui.bootstrap", "ngAnimate", "ui.sortable", 
  * @class
  * @name main
  */
-app.controller('main', [ '$scope', 'qeditor', '$interval', 'round', 'rule',
-	function($scope, qeditor, $interval, round, rule) {
+app.controller('main', [ '$scope', 'qeditor', '$interval', 'round', 'rule', 'css',
+	function($scope, qeditor, $interval, round, rule, css) {
 	  const
 	  fs = require('fs');
 
@@ -17,15 +17,19 @@ app.controller('main', [ '$scope', 'qeditor', '$interval', 'round', 'rule',
 	  $scope.rules = [];
 	  $scope.styles = [ "number", "string", "boolean", "null" ];
 	  $scope.orders = [ "desc", "asc" ];
-	  $scope.aceEditors = {};
-	  $scope.aceEditorWaitors = [];
+	  $scope.editing = false;
 	  refresh();
 
 	  $scope.refresh = refresh;
 	  $scope.openRound = openRound;
 	  $scope.copyRound = copyRound;
+	  $scope.deleteRound = deleteRound;
 	  $scope.openRule = openRule;
 	  $scope.copyRule = copyRule;
+	  $scope.deleteRule = deleteRule;
+	  $scope.openCss = openCss;
+	  $scope.copyCss = copyCss;
+	  $scope.deleteCss = deleteCss;
 	  $scope.aceLoaded = aceLoaded;
 
 	  /*************************************************************************
@@ -34,8 +38,18 @@ app.controller('main', [ '$scope', 'qeditor', '$interval', 'round', 'rule',
 	   */
 	  function refresh() {
 		$scope.rounds = qeditor.getFileList(__dirname + '/round', false);
-		$scope.csses = qeditor.getFileList(__dirname + '/css', true, 'css');
-		$scope.rules = qeditor.getFileList(__dirname + '/js/rule', true, 'js');
+		$scope.csses = qeditor.getFileList(__dirname + '/json/css', true, 'json');
+		$scope.rules = qeditor.getFileList(__dirname + '/json/rule', true, 'json');
+	  }
+
+	  /*************************************************************************
+	   * すべて閉じる
+	   * @memberOf main
+	   */
+	  function closeAll() {
+		round.closeRound();
+		rule.closeRule();
+		css.closeCss();
 	  }
 
 	  /*************************************************************************
@@ -43,15 +57,8 @@ app.controller('main', [ '$scope', 'qeditor', '$interval', 'round', 'rule',
 	   * @memberOf main
 	   */
 	  function openRound(name) {
-		if (round.name) {
-		  qeditor.confirm(round.name + "を保存しなくてもよろしいでしょうか?", function(result) {
-			rule.closeRule();
-			round.load(name);
-			return;
-		  });
-		} else {
-		  round.load(name);
-		}
+		closeAll();
+		round.load(name);
 	  }
 
 	  /*************************************************************************
@@ -71,6 +78,30 @@ app.controller('main', [ '$scope', 'qeditor', '$interval', 'round', 'rule',
 		  qeditor.copyFile(oldRound + '/entry.json', newRound + '/entry.json');
 		  qeditor.copyFile(oldRound + '/property.json', newRound + '/property.json');
 
+		  // ファイルリストを読み込み直す
+		  refresh();
+		});
+	  }
+
+	  /*************************************************************************
+	   * ラウンドを削除する
+	   * @memberOf main
+	   */
+	  function deleteRound(name) {
+		var oldRound = __dirname + '/round/' + name;
+
+		qeditor.confirm("ラウンド" + name + "を削除します。\nよろしいですか？", function() {
+
+		  // ファイルを削除
+		  var targetRemoveFiles = fs.readdirSync(oldRound);
+		  for ( var file in targetRemoveFiles) {
+			fs.unlinkSync(oldRound + "/" + targetRemoveFiles[file]);
+		  }
+		  // フォルダを削除
+		  fs.rmdirSync(oldRound);
+
+		  // ファイルリストを読み込み直す
+		  refresh();
 		});
 	  }
 
@@ -79,7 +110,7 @@ app.controller('main', [ '$scope', 'qeditor', '$interval', 'round', 'rule',
 	   * @memberOf main
 	   */
 	  function openRule(name) {
-		round.closeRound();
+		closeAll();
 		rule.load(name);
 	  }
 
@@ -88,18 +119,66 @@ app.controller('main', [ '$scope', 'qeditor', '$interval', 'round', 'rule',
 	   * @memberOf main
 	   */
 	  function copyRule(name) {
-		var oldRule = __dirname + '/js/rule/' + name;
-		var newRule = "";
+		var oldRuleJs = __dirname + '/js/rule/' + name + '.js';
+		var oldRuleJson = __dirname + '/json/rule/' + name + '.json';
 
 		qeditor.inputBox("新しいルールの名前を入力してください。", function(result) {
-		  newRule = __dirname + '/js/rule/' + result.inputString + '.js';
+		  var newRuleJs = __dirname + '/js/rule/' + result.inputString + '.js';
+		  var newRuleJson = __dirname + '/json/rule/' + result.inputString + '.json';
 
-		  qeditor.copyFile(oldRule, newRule);
-		  qeditor.copyFile(oldRule + 'on', newRule + 'on');
+		  qeditor.copyFile(oldRuleJs, newRuleJs);
+		  qeditor.copyFile(oldRuleJson, newRuleJson);
+
+		  // ファイルリストを読み込み直す
+		  refresh();
 
 		});
 	  }
 
+	  /*************************************************************************
+	   * ルールを削除する
+	   * @memberOf main
+	   */
+	  function deleteRule(name) {
+		var oldRuleJs = __dirname + '/js/rule/' + name + '.js';
+		var oldRuleJson = __dirname + '/json/rule/' + name + '.json';
+
+		qeditor.confirm("ルール" + name + "を削除します。\nよろしいですか？", function() {
+		  // ファイル削除
+		  fs.unlinkSync(oldRuleJs);
+		  fs.unlinkSync(oldRuleJson);
+
+		  // ファイルリストを読み込み直す
+		  refresh();
+
+		});
+	  }
+
+	  /*************************************************************************
+	   * CSSを開く
+	   * @memberOf main
+	   */
+	  function openCss(name) {
+		closeAll();
+		css.load(name);
+	  }
+
+	  /*************************************************************************
+	   * CSSをコピーする
+	   * @memberOf main
+	   */
+	  function copyCss(name) {
+		// TODO: 
+	  }
+	  
+	  /*************************************************************************
+	   * CSSを削除する
+	   * @memberOf main
+	   */
+	  function deleteCss(name) {
+		// TODO:
+	  }
+	  
 	  /*************************************************************************
 	   * aceエディタ起動処理
 	   */
@@ -144,6 +223,15 @@ app.controller('ruleCtrl', [ '$scope', 'rule', function($scope, rule) {
 } ]);
 
 /*******************************************************************************
+ * CSS編集用のコントローラ
+ * @class
+ * @name cssCtrl
+ */
+app.controller('cssCtrl', [ '$scope', 'css', function($scope, css) {
+  $scope.css = css;
+} ]);
+
+/*******************************************************************************
  * モーダルウィンドウのコントローラ
  * @class
  * @name modal
@@ -152,6 +240,8 @@ app.controller('modal', [ '$scope', '$uibModalInstance', 'myMsg',
 	function($scope, $uibModalInstance, myMsg) {
 	  // メッセージ表示
 	  $scope.msg = myMsg.msg;
+	  $scope.isArray = myMsg.isArray;
+
 	  $scope.input = {};
 	  $scope.input.inputString = "";
 
@@ -226,6 +316,42 @@ app.directive('editorRuleJudgement', function() {
 app.directive('editorRuleCalc', function() {
   return {
 	templateUrl : './template/editor-rule-calc.html'
+  }
+});
+
+app.directive('editorCssIncludes', function() {
+  return {
+	templateUrl : './template/editor-css-includes.html'
+  }
+});
+
+app.directive('editorCssVariables', function() {
+  return {
+	templateUrl : './template/editor-css-variables.html'
+  }
+});
+
+app.directive('editorCssLines', function() {
+  return {
+	templateUrl : './template/editor-css-lines.html'
+  }
+});
+
+app.directive('editorCssItems', function() {
+  return {
+	templateUrl : './template/editor-css-items.html'
+  }
+});
+
+app.directive('editorCssImages', function() {
+  return {
+	templateUrl : './template/editor-css-images.html'
+  }
+});
+
+app.directive('editorCssButtons', function() {
+  return {
+	templateUrl : './template/editor-css-buttons.html'
   }
 });
 

@@ -1,0 +1,26 @@
+{
+	"includes": [
+		{
+			"name": "masterqee2"
+		}
+	],
+	"variables": [
+		{
+			"name": "chance-color",
+			"value": "lightskyblue"
+		}, {
+			"name": "pinch-color",
+			"value": "lightpink"
+		}, {
+			"name": "win-color",
+			"value": "gold"
+		}, {
+			"name": "lose-color",
+			"value": "gray"
+		}
+	],
+	"lines": [],
+	"items": [],
+	"images": [],
+	"buttons": []
+}

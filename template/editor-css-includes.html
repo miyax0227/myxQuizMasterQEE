@@ -1,0 +1,26 @@
+<fieldset ng-disabled="! editing">
+  <table class="table">
+    <tbody>
+      <tr>
+        <th class="col-sm-10">value<span uib-dropdown> <a href id="css-includes-add" uib-dropdown-toggle><span class="caret"></span></a>
+          <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="css-includes-add">
+            <li>
+              <a href="#" ng-click="css.addElement('includes')">Add</a>
+            </li>
+          </ul> </span></th>
+        <th class="col-sm-1"></th>
+      </tr>
+      <tr ng-repeat="include in css.includes" class="form-group">
+        <td>
+        <input ng-model="css.includes[$index].name" class="form-control" type="text" />
+        </td>
+        <td><span uib-dropdown> <a href id="css-includes-menu" uib-dropdown-toggle><span class="caret"></span></a>
+          <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="css-includes-menu">
+            <li>
+              <a href="#" ng-click="css.deleteElement('includes', $index)">Delete</a>
+            </li>
+          </ul> </span></td>
+      </tr>
+    </tbody>
+  </table>
+</fieldset>

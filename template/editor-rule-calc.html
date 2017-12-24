@@ -1,4 +1,4 @@
-<div>
+<fieldset ng-disabled="! editing">
   <samp><strong> function calc(players, header, items, property)</strong></samp>
 
   <div style="height: 360px;" ng-model="rule.calc" ui-ace="{
@@ -18,4 +18,4 @@
   'chance':'player.chance = (player.o == property.winningPoint - 1) && (player.status == \'normal\');',
   'pinch':'player.pinch  = (player.x == property.losingPoint  - 1) && (player.status == \'normal\');'
   }"></div>
-</div>
+</fieldset>

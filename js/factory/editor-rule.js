@@ -38,8 +38,8 @@ app.service('rule', [ 'qeditor', function(qeditor) {
   function load(name) {
 	rule.name = name;
 
-	ruleJsonName = __dirname + "/js/rule/" + name + "on";
-	ruleJsName = __dirname + "/js/rule/" + name;
+	ruleJsonName = __dirname + "/json/rule/" + name + ".json";
+	ruleJsName = __dirname + "/js/rule/" + name + ".js";
 
 	var ruleJson = angular.copy(JSON.parse(fs.readFileSync(ruleJsonName, 'utf-8')));
 	// headers
@@ -320,17 +320,20 @@ app.service('rule', [ 'qeditor', function(qeditor) {
 		// calc
 		tempJs = tempJs.replace(/\$\{calc\}/g, ruleJson.calc);
 
+		// beaytify
+		tempJs = qeditor.beautify(tempJs);
+
 		fs.writeFile(ruleJsName, tempJs, function(err) {
 		  if (err) {
 			qeditor.alarm(err);
 		  } else {
 			console.log(ruleJsName + 'is saved.');
 			successLog.push('rule.js is saved.');
+			qeditor.alarm(successLog);
 		  }
 		});
 	  }
 	});
-
   }
 
   /*****************************************************************************
@@ -338,17 +341,18 @@ app.service('rule', [ 'qeditor', function(qeditor) {
    * @memberOf rule
    */
   function closeRule() {
-	rule.name = null;
-	rule.headers = null;
-	rule.items = null;
-	rule.priority = null;
-	rule.tweet = null;
-	rule.actions = null;
-	rule.global_actions = null;
-	rule.global_actions_repeat = null;
-	rule.judgement = null;
-	rule.calc = null;
-
+	if (rule.name) {
+	  rule.name = null;
+	  rule.headers = null;
+	  rule.items = null;
+	  rule.priority = null;
+	  rule.tweet = null;
+	  rule.actions = null;
+	  rule.global_actions = null;
+	  rule.global_actions_repeat = null;
+	  rule.judgement = null;
+	  rule.calc = null;
+	}
   }
 
   /*****************************************************************************
