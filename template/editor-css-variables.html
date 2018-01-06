@@ -1,0 +1,30 @@
+<fieldset ng-disabled="! editing">
+  <table class="table">
+    <tbody>
+      <tr>
+        <th class="col-sm-5">name<span uib-dropdown> <a href id="css-variables-add" uib-dropdown-toggle><span class="caret"></span></a>
+          <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="css-variables-add">
+            <li>
+              <a href="#" ng-click="css.addElement('variables')">Add</a>
+            </li>
+          </ul> </span></th>
+        <th class="col-sm-5">value</th>
+        <th class="col-sm-1"></th>
+      </tr>
+      <tr ng-repeat="variable in css.variables" class="form-group">
+        <td>
+        <input ng-model="css.variables[$index].name" class="form-control" type="text" />
+        </td>
+        <td>
+        <input ng-model="css.variables[$index].value" class="form-control" type="text" />
+        </td>
+        <td><span uib-dropdown> <a href id="css-variables-menu" uib-dropdown-toggle><span class="caret"></span></a>
+          <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="css-variables-menu">
+            <li>
+              <a href="#" ng-click="css.deleteElement('variables', $index)">Delete</a>
+            </li>
+          </ul> </span></td>
+      </tr>
+    </tbody>
+  </table>
+</fieldset>

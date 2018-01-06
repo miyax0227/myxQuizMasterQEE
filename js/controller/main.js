@@ -159,6 +159,9 @@ app.config([ "$locationProvider", function($locationProvider) {
 		  $scope.historyChanged = function(index) {
 			qCommon.refreshCurrent(history[index], $scope);
 		  };
+		  
+		  /* mergeItemCSS - CSSをマージして返却する */
+		  $scope.mergeItemCSS = qCommon.mergeItemCSS;
 
 		  /* calc - 再計算関数 */
 		  $scope.calc = function() {

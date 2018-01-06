@@ -1,0 +1,62 @@
+<fieldset ng-disabled="! editing">
+  <div class="row">
+    <div class="col-sm-5">
+      <table class="table table-condensed table-hover">
+        <thead>
+          <tr>
+            <th class="col-sm-2">name <span uib-dropdown> <a href id="css-buttons-add" uib-dropdown-toggle><span class="caret"></span></a>
+              <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="css-buttons-add">
+                <li>
+                  <a href="#" ng-click="css.addElement('buttons')">Add</a>
+                </li>
+              </ul> </span></th>
+            <th class="col-sm-2">l/t/w/h</th>
+            <th class="col-sm-1"></th>
+          </tr>
+        </thead>
+        <tbody ui-sortable="{'axis':'y'}"　ng-model="css.buttons">
+          <tr ng-repeat="button in css.buttons"  ng-click="css.currentButton=css.buttons[$index];" ng-class="{'danger':(css.currentButton==button)}">
+            <td>
+            <input class="form-control input-sm" type="text" ng-model="button.name">
+            </td>
+            <td><span ng-if="button.invisible">invisible</span><span ng-if="! button.invisible">{{button.left}}/{{button.top}}</span></td>
+            <td><span uib-dropdown> <a href id="css-buttons-menu" uib-dropdown-toggle><span class="caret"></span></a>
+              <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="css-buttons-menu">
+                <li>
+                  <a href="#" ng-click="css.deleteElement('buttons', $index)">Delete</a>
+                </li>
+              </ul> </span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-sm-7">
+      <table class="table table-bordered table-condensed">
+        <tr>
+          <th>left</th>
+          <td>
+          <input class="form-control input-sm" type="number" ng-model="css.currentButton.left">
+          </td>
+        </tr>
+        <tr>
+          <th>top</th>
+          <td>
+          <input class="form-control input-sm" type="number" ng-model="css.currentButton.top">
+          </td>
+        </tr>
+      </table>
+      <div style="height: 180px;" ng-model="css.currentButton.rest" ui-ace="{
+      onLoad: aceLoaded,
+      useWrapMode : true,
+      theme:'monokai',
+      mode: 'scss',
+      advanced: {
+      fontSize: 14,
+      enableSnippets: true,
+      enableBasicAutocompletion: true,
+      enableLiveAutocompletion: true
+      }
+      }" ></div>
+    </div>
+  </div>
+</fieldset>

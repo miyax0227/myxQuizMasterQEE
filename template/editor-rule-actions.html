@@ -13,7 +13,9 @@
         </div>
         <table class="table table-condensed table-hover">
           <tbody ui-sortable="{'axis':'y'}"　ng-model="rule.actions">
-            <tr ng-repeat="action in rule.actions"  ng-click="rule.currentAction=rule.actions[$index]; rule.currentActionClass=1;">
+            <tr ng-repeat="action in rule.actions"
+            ng-click="rule.currentAction=rule.actions[$index]; rule.currentActionClass=1;"
+            ng-class="{'danger':rule.currentAction==action}">
               <td>{{action.name}}</td>
               <td><span uib-dropdown> <a href id="action-menu" uib-dropdown-toggle><span class="caret"></span></a>
                 <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="action-menu">
@@ -38,7 +40,9 @@
         </div>
         <table class="table table-condensed table-hover">
           <tbody ui-sortable="{'axis':'y'}"　ng-model="rule.global_actions">
-            <tr ng-repeat="action in rule.global_actions"  ng-click="rule.currentAction=rule.global_actions[$index]; rule.currentActionClass=2;">
+            <tr ng-repeat="action in rule.global_actions"
+            ng-click="rule.currentAction=rule.global_actions[$index]; rule.currentActionClass=2;"
+            ng-class="{'danger':rule.currentAction==action}">
               <td>{{action.name}}</td>
               <td><span uib-dropdown> <a href id="action-menu" uib-dropdown-toggle><span class="caret"></span></a>
                 <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="action-menu">
@@ -63,7 +67,9 @@
         </div>
         <table class="table table-condensed table-hover">
           <tbody ui-sortable="{'axis':'y'}"　ng-model="rule.global_actions_repeat">
-            <tr ng-repeat="action in rule.global_actions_repeat"  ng-click="rule.currentAction=rule.global_actions_repeat[$index]; rule.currentActionClass=3;">
+            <tr ng-repeat="action in rule.global_actions_repeat"
+            ng-click="rule.currentAction=rule.global_actions_repeat[$index]; rule.currentActionClass=3;"
+            ng-class="{'danger':rule.currentAction==action}">
               <td>{{action.name}}</td>
               <td><span uib-dropdown> <a href id="action-menu" uib-dropdown-toggle><span class="caret"></span></a>
                 <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="action-menu">

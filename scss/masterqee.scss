@@ -1,133 +1,150 @@
 @import "_rule.scss";
 $chance-color: lightskyblue;
-$pinch-color:  lightpink;
-$win-color:    gold;
-$lose-color:   gray;
-
+$pinch-color: lightpink;
+$win-color: gold;
+$lose-color: gray;
 div.player {
-  hr.hr1 {
-    @include player-hr(-50, -140, 100, 2);
-    display: none;
-  }
-  hr.hr2 {
-    @include player-hr(-50, 100, 100, 2);
-    display: none;
-  }
-  div.name {
-    @include player-item(-25+16, -100-10, 50, 56);
-    letter-spacing: -24px;
-    -webkit-writing-mode: vertical-rl;
-    -webkit-text-orientation: upright;
-    transform-origin: 0px 12px;
-  }
-  div.nameLat {
-    @include player-item(-200, -120, 0, 72);
-    transform-origin: -5px 0px;
-    transform: translate(55px, 0px);
-  }
-  div.open div.paperRank {
-    @include player-item(-50, -134, 100, 24);
-    @include bordered;
-    border-radius: 16px;
-    @include value-range(1 , 4  ){background-color: red;}
-    @include value-range(5 , 12 ){background-color: blue;}
-    @include value-range(13, 24 ){background-color: yellow;}
-    @include value-range(25, 48 ){background-color: green;}
-    @include value-range(49, 300){background-color: gray;}
-  }
-  div.open div.pref {
-    @include player-item(-50, 110, 100, 24);
-    @include bordered;
-    transform: translate(0px, 0px);
-    background-color: gray;
-    border-radius: 16px;
-  }
-  div.overRect div.paperRank {
-    @include player-item(-50, -134, 100, 24);
-    @include bordered;
-    border-radius: 16px;
-    @include value-range(1 , 4  ){background-color: red;}
-    @include value-range(5 , 12 ){background-color: blue;}
-    @include value-range(13, 24 ){background-color: yellow;}
-    @include value-range(25, 48 ){background-color: green;}
-    @include value-range(49, 300){background-color: gray;}
-  }
-  div.rank img {
-    @include player-img(-40, -210, 90, 60);
-    background-color: rgba(0, 0, 0, 0.5);
-    @include fadein(1) {
-      -webkit-transform: rotateX(180deg);
+  div.open {
+    div.name {
+      @include player-item(-9, -108, 50, 56);
+      -webkit-writing-mode: vertical-rl;
+      -webkit-text-orientation: upright;
+      letter-spacing: -24px;
+      transform-origin: 0px 12px;
+    }
+    div.nameLat {
+      @include player-item(-200, -120);
+      transform-origin: -5px 0px;
+      transform: translate(55px, 0px);
+    }
+    div.paperRank {
+      @include player-item(-50, -134, 100, 24);
+      @include bordered;
+      border-radius: 16px;
+      @include value-range(1, 4) {
+        background-color: red;
+      }
+      @include value-range(5, 12) {
+        background-color: blue;
+      }
+      @include value-range(13, 24) {
+        background-color: yellow;
+      }
+      @include value-range(25, 48) {
+        background-color: green;
+      }
+      @include value-range(49, 300) {
+        background-color: gray;
+      }
+    }
+    div.pref {
+      @include player-item(-50, 110, 100, 24);
+      @include bordered;
+      background-color: gray;
+      border-radius: 16px;
+    }
+    div.o {
+      @include player-item(-50, -230, 100, 72);
+      &.chance {
+        color: $chance-color;
+      }
+    }
+    div.x {
+      @include player-item(-50, 130, 100, 72);
+      @include value-range(0, 0) {
+        display: none;
+      }
+      &.pinch {
+        color: $pinch-color;
+      }
+    }
+    div.absent {
+      @include player-item(-35, -95, 70, 30);
+      @include bordered(1, #000000, #FFFF22);
+      line-height: 80%;
+      z-index: 1;
     }
   }
-  div.status img {
-    &.win {
+  div.close {
+    div.paperRank {
+      @include player-item(-50, -134, 100, 24);
+      @include bordered;
+      border-radius: 16px;
+      @include value-range(1, 4) {
+        background-color: red;
+      }
+      @include value-range(5, 12) {
+        background-color: blue;
+      }
+      @include value-range(13, 24) {
+        background-color: yellow;
+      }
+      @include value-range(25, 48) {
+        background-color: green;
+      }
+      @include value-range(49, 300) {
+        background-color: gray;
+      }
+    }
+  }
+  div.rank {
+    img {
+      @include player-img(-40, -210, 90, 60);
+      background-color: rgba(0, 0, 0, 0.5);
+      @include fadein(1) {
+        -webkit-transform: rotateX(180deg);
+      }
+    }
+  }
+  div.status {
+    img.win {
       @include player-img(-30, -75, 60, 166);
       @include fadein(0.5) {
         transform: scale(1.5, 1.5);
       }
     }
-    &.lose {
+    img.lose {
       @include player-img(-37, -80, 75, 182);
       @include fadein(0.5) {
         transform: scale(1.5, 1.5) rotate(30deg);
       }
     }
-    &.wait {
+    img.wait {
       @include player-img(-30, -62, 60, 146);
       @include fadein(0.5) {
         transform: scale(1.5, 1.5);
       }
     }
-    &.absent {
+    img.absent {
       @include player-img(-30, -100, 60, 200);
       @include fadein(0.5, 0.3) {
         transform: scale(1.2, 1.2);
       }
     }
   }
-  div.motion img {
-    &.o {
+  div.motion {
+    img.o {
       @include player-img(-25, -30);
       @include fadeout(0.5) {
         transform: scale(1.5, 1.5);
       }
     }
-    &.x {
+    img.x {
       @include player-img(-25, -30);
       @include fadeout(0.5) {
         transform: scale(1.5, 1.5);
       }
     }
   }
-  div.o {
-    @include player-item(-50, -230, 100, 72);
+  hr.hr1 {
+    display: none;
+    display: none;
   }
-  &.chance div.o{
-  	color: $chance-color;
-  }
-  
-  div.x {
-    @include player-item(-50, 130, 100, 72);
-    @include value-range(0,0){display: none;}
-  }
-  &.pinch div.x{
-	color: $pinch-color;
-  }
-
-  div.absent {
-    @include player-item(-35, -95, 70, 30);
-    @include bordered(1, #000000, #FFFF22);
-    line-height: 80%;
-    z-index: 1;
-  }
-  div.winningPoint {
-    @include player-item(20, -190, 50, 36);
+  hr.hr2 {
+    display: none;
   }
   div.action_o {
     @include player-button(-22, -100);
-  }
-  div.action_b {
-    @include player-button(-22, -20);
   }
   div.action_x {
     @include player-button(-22, 60);

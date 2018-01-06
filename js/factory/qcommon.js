@@ -51,6 +51,7 @@ app
 	  qCommonService.editTweet = editTweet;
 	  qCommonService.anonymousMode = anonymousMode;
 	  qCommonService.getEntryFileName = getEntryFileName;
+	  qCommonService.mergeItemCSS = mergeItemCSS;
 	  return qCommonService;
 
 	  /*************************************************************************
@@ -1126,5 +1127,24 @@ app
 		}
 
 	  }
+	  
+	  /************************************************************************
+	   * itemのCSSを編集して返却する関数
+	   * @memberOf qCommon
+	   * @param {string} css - item.css(スペース区切り文字列）
+	   * @param {object} player - player(オブジェクト)
+	   * @return {array} - cssのリスト
+	   */
+	  function mergeItemCSS(css, player){
+		var cssArray = css.split(" ");
+		angular.forEach(player, function(value, key){
+		  if(value === true){
+			cssArray.push(key);
+		  }
+		});
+		
+		return cssArray;
+	  }
+	  
 
 	} ]);

@@ -1,0 +1,126 @@
+<fieldset ng-disabled="! editing">
+  <div class="row">
+    <div class="col-sm-5">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          open
+        </div>
+        <table class="table table-condensed table-hover">
+          <thead>
+            <tr>
+              <th class="col-sm-2">name <span uib-dropdown> <a href id="css-openItems-add" uib-dropdown-toggle><span class="caret"></span></a>
+                <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="css-openItems-add">
+                  <li>
+                    <a href="#" ng-click="css.addElement('openItems')">Add</a>
+                  </li>
+                </ul> </span></th>
+              <th class="col-sm-2">l/t/w/h</th>
+              <th class="col-sm-1"></th>
+            </tr>
+          </thead>
+          <tbody ui-sortable="{'axis':'y'}"　ng-model="css.openItems">
+            <tr ng-repeat="item in css.openItems"  ng-click="css.currentItem=css.openItems[$index];" ng-class="{'danger':(css.currentItem==item)}">
+              <td>
+              <input class="form-control input-sm" type="text" ng-model="item.name">
+              </td>
+              <td><span ng-if="item.invisible">invisible</span><span ng-if="! item.invisible">{{item.left}}/{{item.top}}/{{item.width}}/{{item.height}}</span></td>
+              <td><span uib-dropdown> <a href id="openItems-menu" uib-dropdown-toggle><span class="caret"></span></a>
+                <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="openItems-menu">
+                  <li>
+                    <a href="#" ng-click="css.deleteElement('openItems', $index)">Delete</a>
+                  </li>
+                </ul> </span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          close
+        </div>
+        <table class="table table-condensed table-hover">
+          <thead>
+            <tr>
+              <th class="col-sm-2">name <span uib-dropdown> <a href id="css-closeItems-add" uib-dropdown-toggle><span class="caret"></span></a>
+                <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="css-closeItems-add">
+                  <li>
+                    <a href="#" ng-click="css.addElement('closeItems')">Add</a>
+                  </li>
+                </ul> </span></th>
+              <th class="col-sm-2">l/t/w/h</th>
+              <th class="col-sm-1"></th>
+            </tr>
+          </thead>
+          <tbody ui-sortable="{'axis':'y'}"　ng-model="css.closeItems">
+            <tr ng-repeat="item in css.closeItems"  ng-click="css.currentItem=css.closeItems[$index];" ng-class="{'danger':(css.currentItem==item)}">
+              <td>
+              <input class="form-control input-sm" type="text" ng-model="item.name">
+              </td>
+              <td><span ng-if="item.invisible">invisible</span><span ng-if="! item.invisible">{{item.left}}/{{item.top}}/{{item.width}}/{{item.height}}</span></td>
+              <td><span uib-dropdown> <a href id="closeItems-menu" uib-dropdown-toggle><span class="caret"></span></a>
+                <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="closeItems-menu">
+                  <li>
+                    <a href="#" ng-click="css.deleteElement('closeItems', $index)">Delete</a>
+                  </li>
+                </ul> </span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="col-sm-7">
+      <table class="table table-bordered table-condensed">
+        <tr>
+          <th>invisible</th>
+          <td>
+          <input class="form-control input-sm" type="checkbox" ng-model="css.currentItem.invisible">
+          </td>
+        </tr>
+        <tr>
+          <th>vertical</th>
+          <td>
+          <input class="form-control input-sm" type="checkbox" ng-model="css.currentItem.vertical">
+          </td>
+        </tr>
+        <tr>
+          <th>left</th>
+          <td>
+          <input class="form-control input-sm" type="number" ng-model="css.currentItem.left">
+          </td>
+        </tr>
+        <tr>
+          <th>top</th>
+          <td>
+          <input class="form-control input-sm" type="number" ng-model="css.currentItem.top">
+          </td>
+        </tr>
+        <tr>
+          <th>width</th>
+          <td>
+          <input class="form-control input-sm" type="number" ng-model="css.currentItem.width">
+          </td>
+        </tr>
+        <tr>
+          <th>height</th>
+          <td>
+          <input class="form-control input-sm" type="number" ng-model="css.currentItem.height">
+          </td>
+        </tr>
+      </table>
+      <div style="height: 180px;" ng-model="css.currentItem.rest" ui-ace="{
+      onLoad: aceLoaded,
+      useWrapMode : true,
+      theme:'monokai',
+      mode: 'scss',
+      advanced: {
+      fontSize: 14,
+      enableSnippets: true,
+      enableBasicAutocompletion: true,
+      enableLiveAutocompletion: true
+      }
+      }" ></div>
+    </div>
+  </div>
+</fieldset>

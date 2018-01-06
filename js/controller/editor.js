@@ -248,12 +248,12 @@ app.controller('modal', [ '$scope', '$uibModalInstance', 'myMsg',
 	  /* modalOK - OKボタン押下 */
 	  $scope.modalOK = function() {
 		$uibModalInstance.close($scope.input);
-	  }
+	  };
 
 	  /* modalCancel - Cancelボタン押下 */
 	  $scope.modalCancel = function() {
 		$uibModalInstance.dismiss($scope.input);
-	  }
+	  };
 	} ]);
 
 /*******************************************************************************
@@ -262,97 +262,97 @@ app.controller('modal', [ '$scope', '$uibModalInstance', 'myMsg',
 app.directive('editorRoundBoard', function() {
   return {
 	templateUrl : './template/editor-round-board.html'
-  }
+  };
 });
 
 app.directive('editorRoundEntry', function() {
   return {
 	templateUrl : './template/editor-round-entry.html'
-  }
+  };
 });
 
 app.directive('editorRoundProperty', function() {
   return {
 	templateUrl : './template/editor-round-property.html'
-  }
+  };
 });
 
 app.directive('editorRuleHeader', function() {
   return {
 	templateUrl : './template/editor-rule-header.html'
-  }
+  };
 });
 
 app.directive('editorRuleItems', function() {
   return {
 	templateUrl : './template/editor-rule-items.html'
-  }
+  };
 });
 
 app.directive('editorRulePriority', function() {
   return {
 	templateUrl : './template/editor-rule-priority.html'
-  }
+  };
 });
 
 app.directive('editorRuleTweet', function() {
   return {
 	templateUrl : './template/editor-rule-tweet.html'
-  }
+  };
 });
 
 app.directive('editorRuleActions', function() {
   return {
 	templateUrl : './template/editor-rule-actions.html'
-  }
+  };
 });
 
 app.directive('editorRuleJudgement', function() {
   return {
 	templateUrl : './template/editor-rule-judgement.html'
-  }
+  };
 });
 
 app.directive('editorRuleCalc', function() {
   return {
 	templateUrl : './template/editor-rule-calc.html'
-  }
+  };
 });
 
 app.directive('editorCssIncludes', function() {
   return {
 	templateUrl : './template/editor-css-includes.html'
-  }
+  };
 });
 
 app.directive('editorCssVariables', function() {
   return {
 	templateUrl : './template/editor-css-variables.html'
-  }
+  };
 });
 
 app.directive('editorCssLines', function() {
   return {
 	templateUrl : './template/editor-css-lines.html'
-  }
+  };
 });
 
 app.directive('editorCssItems', function() {
   return {
 	templateUrl : './template/editor-css-items.html'
-  }
+  };
 });
 
 app.directive('editorCssImages', function() {
   return {
 	templateUrl : './template/editor-css-images.html'
-  }
+  };
 });
 
 app.directive('editorCssButtons', function() {
   return {
 	templateUrl : './template/editor-css-buttons.html'
-  }
+  };
 });
 
 app.directive('uiClipboard', function() {
@@ -361,5 +361,5 @@ app.directive('uiClipboard', function() {
 	scope : {
 	  "words" : "="
 	}
-  }
+  };
 });

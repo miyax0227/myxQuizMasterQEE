@@ -183,7 +183,7 @@ app.service('rule', [ 'qeditor', function(qeditor) {
 	  if (action.tweet == "" || action.tweet == null) {
 		delete action.tweet;
 	  }
-	})
+	});
 
 	// global_actions
 	ruleJson.global_actions = angular.copy(rule.global_actions);
@@ -197,7 +197,7 @@ app.service('rule', [ 'qeditor', function(qeditor) {
 	  if (action.tweet == "" || action.tweet == null) {
 		delete action.tweet;
 	  }
-	})
+	});
 
 	// global_actions_repeat
 	ruleJson.global_actions_repeat = angular.copy(rule.global_actions_repeat);
@@ -208,7 +208,7 @@ app.service('rule', [ 'qeditor', function(qeditor) {
 	  if (action.tweet == "" || action.tweet == null) {
 		delete action.tweet;
 	  }
-	})
+	});
 
 	// tweets
 	ruleJson.tweet = angular.copy(rule.tweets);
@@ -250,7 +250,7 @@ app.service('rule', [ 'qeditor', function(qeditor) {
 		angular.forEach(tempActions, function(action, index) {
 		  action.enable0 = "${action" + index + "_enable0}";
 		  action.action0 = "${action" + index + "_action0}";
-		})
+		});
 
 		var tempActionsJson = JSON.stringify(tempActions, undefined, 2);
 		angular.forEach(ruleJson.actions, function(action, index) {
@@ -272,14 +272,14 @@ app.service('rule', [ 'qeditor', function(qeditor) {
 		angular.forEach(tempGlobalActions, function(action, index) {
 		  action.enable0 = "${action" + index + "_enable0}";
 		  action.action0 = "${action" + index + "_action0}";
-		})
+		});
 
 		var tempGlobalActionsRepeat = angular.copy(ruleJson.global_actions_repeat);
 		angular.forEach(tempGlobalActionsRepeat, function(action, index) {
 		  action.indexes0 = "${action" + index + "_indexes0}";
 		  action.enable1 = "${action" + index + "_enable1}";
 		  action.action1 = "${action" + index + "_action1}";
-		})
+		});
 
 		tempGlobalActions = tempGlobalActions.concat(tempGlobalActionsRepeat);
 		var tempGlobalActionsJson = JSON.stringify(tempGlobalActions, undefined, 2);

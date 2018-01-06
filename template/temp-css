@@ -1,0 +1,29 @@
+@import "_rule.scss";
+${includes}
+${variables}
+
+div.player {
+  div.open {
+    ${openItems}
+  }
+
+  div.close {
+    ${closeItems}
+  }
+  
+  div.rank {
+    ${rankImages}
+  }
+  
+  div.status {
+    ${statusImages}
+  }
+
+  div.motion {
+    ${motionImages}
+  }
+  
+  ${lines}
+  
+  ${buttons}
+}

@@ -1,0 +1,154 @@
+<fieldset ng-disabled="! editing">
+  <div class="row">
+    <div class="col-sm-5">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          rank
+        </div>
+        <table class="table table-condensed table-hover">
+          <thead>
+            <tr>
+              <th class="col-sm-2">name <span uib-dropdown> <a href id="css-rankImages-add" uib-dropdown-toggle><span class="caret"></span></a>
+                <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="css-rankImages-add">
+                  <li>
+                    <a href="#" ng-click="css.addElement('rankImages')">Add</a>
+                  </li>
+                </ul> </span></th>
+              <th class="col-sm-2">l/t/w/h</th>
+              <th class="col-sm-1"></th>
+            </tr>
+          </thead>
+          <tbody ui-sortable="{'axis':'y'}"　ng-model="css.rankImages">
+            <tr ng-repeat="image in css.rankImages"  ng-click="css.currentImage=css.rankImages[$index];" ng-class="{'danger':(css.currentImage==image)}">
+              <td>
+              <input class="form-control input-sm" type="text" ng-model="image.name">
+              </td>
+              <td><span ng-if="image.invisible">invisible</span><span ng-if="! image.invisible">{{image.left}}/{{image.top}}/{{image.width}}/{{image.height}}</span></td>
+              <td><span uib-dropdown> <a href id="rankImages-menu" uib-dropdown-toggle><span class="caret"></span></a>
+                <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="rankImages-menu">
+                  <li>
+                    <a href="#" ng-click="css.deleteElement('rankImages', $index)">Delete</a>
+                  </li>
+                </ul> </span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          status
+        </div>
+        <table class="table table-condensed table-hover">
+          <thead>
+            <tr>
+              <th class="col-sm-2">name <span uib-dropdown> <a href id="css-statusImages-add" uib-dropdown-toggle><span class="caret"></span></a>
+                <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="css-statusImages-add">
+                  <li>
+                    <a href="#" ng-click="css.addElement('statusImages')">Add</a>
+                  </li>
+                </ul> </span></th>
+              <th class="col-sm-2">l/t/w/h</th>
+              <th class="col-sm-1"></th>
+            </tr>
+          </thead>
+          <tbody ui-sortable="{'axis':'y'}"　ng-model="css.statusImages">
+            <tr ng-repeat="image in css.statusImages"  ng-click="css.currentImage=css.statusImages[$index];" ng-class="{'danger':(css.currentImage==image)}">
+              <td>
+              <input class="form-control input-sm" type="text" ng-model="image.name">
+              </td>
+              <td><span ng-if="image.invisible">invisible</span><span ng-if="! image.invisible">{{image.left}}/{{image.top}}/{{image.width}}/{{image.height}}</span></td>
+              <td><span uib-dropdown> <a href id="statusImages-menu" uib-dropdown-toggle><span class="caret"></span></a>
+                <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="statusImages-menu">
+                  <li>
+                    <a href="#" ng-click="css.deleteElement('statusImages', $index)">Delete</a>
+                  </li>
+                </ul> </span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          motion
+        </div>
+        <table class="table table-condensed table-hover">
+          <thead>
+            <tr>
+              <th class="col-sm-2">name <span uib-dropdown> <a href id="css-motionImages-add" uib-dropdown-toggle><span class="caret"></span></a>
+                <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="css-motionImages-add">
+                  <li>
+                    <a href="#" ng-click="css.addElement('motionImages')">Add</a>
+                  </li>
+                </ul> </span></th>
+              <th class="col-sm-2">l/t/w/h</th>
+              <th class="col-sm-1"></th>
+            </tr>
+          </thead>
+          <tbody ui-sortable="{'axis':'y'}"　ng-model="css.motionImages">
+            <tr ng-repeat="image in css.motionImages"  ng-click="css.currentImage=css.motionImages[$index];" ng-class="{'danger':(css.currentImage==image)}">
+              <td>
+              <input class="form-control input-sm" type="text" ng-model="image.name">
+              </td>
+              <td><span ng-if="image.invisible">invisible</span><span ng-if="! image.invisible">{{image.left}}/{{image.top}}/{{image.width}}/{{image.height}}</span></td>
+              <td><span uib-dropdown> <a href id="motionImages-menu" uib-dropdown-toggle><span class="caret"></span></a>
+                <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="motionImages-menu">
+                  <li>
+                    <a href="#" ng-click="css.deleteElement('motionImages', $index)">Delete</a>
+                  </li>
+                </ul> </span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="col-sm-7">
+      <table class="table table-bordered table-condensed">
+        <tr>
+          <th>invisible</th>
+          <td>
+          <input class="form-control input-sm" type="checkbox" ng-model="css.currentImage.invisible">
+          </td>
+        </tr>
+        <tr>
+          <th>left</th>
+          <td>
+          <input class="form-control input-sm" type="number" ng-model="css.currentImage.left">
+          </td>
+        </tr>
+        <tr>
+          <th>top</th>
+          <td>
+          <input class="form-control input-sm" type="number" ng-model="css.currentImage.top">
+          </td>
+        </tr>
+        <tr>
+          <th>width</th>
+          <td>
+          <input class="form-control input-sm" type="number" ng-model="css.currentImage.width">
+          </td>
+        </tr>
+        <tr>
+          <th>height</th>
+          <td>
+          <input class="form-control input-sm" type="number" ng-model="css.currentImage.height">
+          </td>
+        </tr>
+      </table>
+      <div style="height: 180px;" ng-model="css.currentImage.rest" ui-ace="{
+      onLoad: aceLoaded,
+      useWrapMode : true,
+      theme:'monokai',
+      mode: 'scss',
+      advanced: {
+      fontSize: 14,
+      enableSnippets: true,
+      enableBasicAutocompletion: true,
+      enableLiveAutocompletion: true
+      }
+      }" ></div>
+    </div>
+  </div>
+</fieldset>

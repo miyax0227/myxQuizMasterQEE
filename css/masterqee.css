@@ -1,46 +1,24 @@
-div.player hr.hr1 {
-  position: absolute;
-  top: -140px;
-  left: -50px;
-  width: 100px;
-  border: 0;
-  height: 2px;
-  background-image: -webkit-linear-gradient(left, rgba(255, 255, 255, 0.5), white, rgba(255, 255, 255, 0.5));
-  display: none;
-}
-
-div.player hr.hr2 {
-  position: absolute;
-  top: 100px;
-  left: -50px;
-  width: 100px;
-  border: 0;
-  height: 2px;
-  background-image: -webkit-linear-gradient(left, rgba(255, 255, 255, 0.5), white, rgba(255, 255, 255, 0.5));
-  display: none;
-}
-
-div.player div.name {
+div.player div.open div.name {
   position: absolute;
   left: -9px;
-  top: -110px;
+  top: -108px;
   width: 50px;
   font-size: 56px;
   font-family: "Migmix 1M";
   font-weight: bold;
   text-align: center;
   -webkit-user-select: none;
-  letter-spacing: -24px;
   -webkit-writing-mode: vertical-rl;
   -webkit-text-orientation: upright;
+  letter-spacing: -24px;
   transform-origin: 0px 12px;
 }
 
-div.player div.nameLat {
+div.player div.open div.nameLat {
   position: absolute;
   left: -200px;
   top: -120px;
-  font-size: 72px;
+  font-size: 56px;
   font-family: "Migmix 1M";
   font-weight: bold;
   text-align: center;
@@ -1278,12 +1256,64 @@ div.player div.open div.pref {
   -webkit-text-stroke-color: #000000;
   -webkit-text-stroke-width: 1px;
   -webkit-text-fill-color: #FFFFFF;
-  transform: translate(0px, 0px);
   background-color: gray;
   border-radius: 16px;
 }
 
-div.player div.overRect div.paperRank {
+div.player div.open div.o {
+  position: absolute;
+  left: -50px;
+  top: -230px;
+  width: 100px;
+  font-size: 72px;
+  font-family: "Migmix 1M";
+  font-weight: bold;
+  text-align: center;
+  -webkit-user-select: none;
+}
+
+div.player div.open div.o.chance {
+  color: lightskyblue;
+}
+
+div.player div.open div.x {
+  position: absolute;
+  left: -50px;
+  top: 130px;
+  width: 100px;
+  font-size: 72px;
+  font-family: "Migmix 1M";
+  font-weight: bold;
+  text-align: center;
+  -webkit-user-select: none;
+}
+
+div.player div.open div.x[value="0"] {
+  display: none;
+}
+
+div.player div.open div.x.pinch {
+  color: lightpink;
+}
+
+div.player div.open div.absent {
+  position: absolute;
+  left: -35px;
+  top: -95px;
+  width: 70px;
+  font-size: 30px;
+  font-family: "Migmix 1M";
+  font-weight: bold;
+  text-align: center;
+  -webkit-user-select: none;
+  -webkit-text-stroke-color: #000000;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-fill-color: #FFFF22;
+  line-height: 80%;
+  z-index: 1;
+}
+
+div.player div.close div.paperRank {
   position: absolute;
   left: -50px;
   top: -134px;
@@ -1299,1203 +1329,1203 @@ div.player div.overRect div.paperRank {
   border-radius: 16px;
 }
 
-div.player div.overRect div.paperRank[value="1"] {
+div.player div.close div.paperRank[value="1"] {
   background-color: red;
 }
 
-div.player div.overRect div.paperRank[value="2"] {
+div.player div.close div.paperRank[value="2"] {
   background-color: red;
 }
 
-div.player div.overRect div.paperRank[value="3"] {
+div.player div.close div.paperRank[value="3"] {
   background-color: red;
 }
 
-div.player div.overRect div.paperRank[value="4"] {
+div.player div.close div.paperRank[value="4"] {
   background-color: red;
 }
 
-div.player div.overRect div.paperRank[value="5"] {
+div.player div.close div.paperRank[value="5"] {
   background-color: blue;
 }
 
-div.player div.overRect div.paperRank[value="6"] {
+div.player div.close div.paperRank[value="6"] {
   background-color: blue;
 }
 
-div.player div.overRect div.paperRank[value="7"] {
+div.player div.close div.paperRank[value="7"] {
   background-color: blue;
 }
 
-div.player div.overRect div.paperRank[value="8"] {
+div.player div.close div.paperRank[value="8"] {
   background-color: blue;
 }
 
-div.player div.overRect div.paperRank[value="9"] {
+div.player div.close div.paperRank[value="9"] {
   background-color: blue;
 }
 
-div.player div.overRect div.paperRank[value="10"] {
+div.player div.close div.paperRank[value="10"] {
   background-color: blue;
 }
 
-div.player div.overRect div.paperRank[value="11"] {
+div.player div.close div.paperRank[value="11"] {
   background-color: blue;
 }
 
-div.player div.overRect div.paperRank[value="12"] {
+div.player div.close div.paperRank[value="12"] {
   background-color: blue;
 }
 
-div.player div.overRect div.paperRank[value="13"] {
+div.player div.close div.paperRank[value="13"] {
   background-color: yellow;
 }
 
-div.player div.overRect div.paperRank[value="14"] {
+div.player div.close div.paperRank[value="14"] {
   background-color: yellow;
 }
 
-div.player div.overRect div.paperRank[value="15"] {
+div.player div.close div.paperRank[value="15"] {
   background-color: yellow;
 }
 
-div.player div.overRect div.paperRank[value="16"] {
+div.player div.close div.paperRank[value="16"] {
   background-color: yellow;
 }
 
-div.player div.overRect div.paperRank[value="17"] {
+div.player div.close div.paperRank[value="17"] {
   background-color: yellow;
 }
 
-div.player div.overRect div.paperRank[value="18"] {
+div.player div.close div.paperRank[value="18"] {
   background-color: yellow;
 }
 
-div.player div.overRect div.paperRank[value="19"] {
+div.player div.close div.paperRank[value="19"] {
   background-color: yellow;
 }
 
-div.player div.overRect div.paperRank[value="20"] {
+div.player div.close div.paperRank[value="20"] {
   background-color: yellow;
 }
 
-div.player div.overRect div.paperRank[value="21"] {
+div.player div.close div.paperRank[value="21"] {
   background-color: yellow;
 }
 
-div.player div.overRect div.paperRank[value="22"] {
+div.player div.close div.paperRank[value="22"] {
   background-color: yellow;
 }
 
-div.player div.overRect div.paperRank[value="23"] {
+div.player div.close div.paperRank[value="23"] {
   background-color: yellow;
 }
 
-div.player div.overRect div.paperRank[value="24"] {
+div.player div.close div.paperRank[value="24"] {
   background-color: yellow;
 }
 
-div.player div.overRect div.paperRank[value="25"] {
+div.player div.close div.paperRank[value="25"] {
   background-color: green;
 }
 
-div.player div.overRect div.paperRank[value="26"] {
+div.player div.close div.paperRank[value="26"] {
   background-color: green;
 }
 
-div.player div.overRect div.paperRank[value="27"] {
+div.player div.close div.paperRank[value="27"] {
   background-color: green;
 }
 
-div.player div.overRect div.paperRank[value="28"] {
+div.player div.close div.paperRank[value="28"] {
   background-color: green;
 }
 
-div.player div.overRect div.paperRank[value="29"] {
+div.player div.close div.paperRank[value="29"] {
   background-color: green;
 }
 
-div.player div.overRect div.paperRank[value="30"] {
+div.player div.close div.paperRank[value="30"] {
   background-color: green;
 }
 
-div.player div.overRect div.paperRank[value="31"] {
+div.player div.close div.paperRank[value="31"] {
   background-color: green;
 }
 
-div.player div.overRect div.paperRank[value="32"] {
+div.player div.close div.paperRank[value="32"] {
   background-color: green;
 }
 
-div.player div.overRect div.paperRank[value="33"] {
+div.player div.close div.paperRank[value="33"] {
   background-color: green;
 }
 
-div.player div.overRect div.paperRank[value="34"] {
+div.player div.close div.paperRank[value="34"] {
   background-color: green;
 }
 
-div.player div.overRect div.paperRank[value="35"] {
+div.player div.close div.paperRank[value="35"] {
   background-color: green;
 }
 
-div.player div.overRect div.paperRank[value="36"] {
+div.player div.close div.paperRank[value="36"] {
   background-color: green;
 }
 
-div.player div.overRect div.paperRank[value="37"] {
+div.player div.close div.paperRank[value="37"] {
   background-color: green;
 }
 
-div.player div.overRect div.paperRank[value="38"] {
+div.player div.close div.paperRank[value="38"] {
   background-color: green;
 }
 
-div.player div.overRect div.paperRank[value="39"] {
+div.player div.close div.paperRank[value="39"] {
   background-color: green;
 }
 
-div.player div.overRect div.paperRank[value="40"] {
+div.player div.close div.paperRank[value="40"] {
   background-color: green;
 }
 
-div.player div.overRect div.paperRank[value="41"] {
+div.player div.close div.paperRank[value="41"] {
   background-color: green;
 }
 
-div.player div.overRect div.paperRank[value="42"] {
+div.player div.close div.paperRank[value="42"] {
   background-color: green;
 }
 
-div.player div.overRect div.paperRank[value="43"] {
+div.player div.close div.paperRank[value="43"] {
   background-color: green;
 }
 
-div.player div.overRect div.paperRank[value="44"] {
+div.player div.close div.paperRank[value="44"] {
   background-color: green;
 }
 
-div.player div.overRect div.paperRank[value="45"] {
+div.player div.close div.paperRank[value="45"] {
   background-color: green;
 }
 
-div.player div.overRect div.paperRank[value="46"] {
+div.player div.close div.paperRank[value="46"] {
   background-color: green;
 }
 
-div.player div.overRect div.paperRank[value="47"] {
+div.player div.close div.paperRank[value="47"] {
   background-color: green;
 }
 
-div.player div.overRect div.paperRank[value="48"] {
+div.player div.close div.paperRank[value="48"] {
   background-color: green;
 }
 
-div.player div.overRect div.paperRank[value="49"] {
+div.player div.close div.paperRank[value="49"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="50"] {
+div.player div.close div.paperRank[value="50"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="51"] {
+div.player div.close div.paperRank[value="51"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="52"] {
+div.player div.close div.paperRank[value="52"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="53"] {
+div.player div.close div.paperRank[value="53"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="54"] {
+div.player div.close div.paperRank[value="54"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="55"] {
+div.player div.close div.paperRank[value="55"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="56"] {
+div.player div.close div.paperRank[value="56"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="57"] {
+div.player div.close div.paperRank[value="57"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="58"] {
+div.player div.close div.paperRank[value="58"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="59"] {
+div.player div.close div.paperRank[value="59"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="60"] {
+div.player div.close div.paperRank[value="60"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="61"] {
+div.player div.close div.paperRank[value="61"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="62"] {
+div.player div.close div.paperRank[value="62"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="63"] {
+div.player div.close div.paperRank[value="63"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="64"] {
+div.player div.close div.paperRank[value="64"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="65"] {
+div.player div.close div.paperRank[value="65"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="66"] {
+div.player div.close div.paperRank[value="66"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="67"] {
+div.player div.close div.paperRank[value="67"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="68"] {
+div.player div.close div.paperRank[value="68"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="69"] {
+div.player div.close div.paperRank[value="69"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="70"] {
+div.player div.close div.paperRank[value="70"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="71"] {
+div.player div.close div.paperRank[value="71"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="72"] {
+div.player div.close div.paperRank[value="72"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="73"] {
+div.player div.close div.paperRank[value="73"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="74"] {
+div.player div.close div.paperRank[value="74"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="75"] {
+div.player div.close div.paperRank[value="75"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="76"] {
+div.player div.close div.paperRank[value="76"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="77"] {
+div.player div.close div.paperRank[value="77"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="78"] {
+div.player div.close div.paperRank[value="78"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="79"] {
+div.player div.close div.paperRank[value="79"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="80"] {
+div.player div.close div.paperRank[value="80"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="81"] {
+div.player div.close div.paperRank[value="81"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="82"] {
+div.player div.close div.paperRank[value="82"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="83"] {
+div.player div.close div.paperRank[value="83"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="84"] {
+div.player div.close div.paperRank[value="84"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="85"] {
+div.player div.close div.paperRank[value="85"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="86"] {
+div.player div.close div.paperRank[value="86"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="87"] {
+div.player div.close div.paperRank[value="87"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="88"] {
+div.player div.close div.paperRank[value="88"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="89"] {
+div.player div.close div.paperRank[value="89"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="90"] {
+div.player div.close div.paperRank[value="90"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="91"] {
+div.player div.close div.paperRank[value="91"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="92"] {
+div.player div.close div.paperRank[value="92"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="93"] {
+div.player div.close div.paperRank[value="93"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="94"] {
+div.player div.close div.paperRank[value="94"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="95"] {
+div.player div.close div.paperRank[value="95"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="96"] {
+div.player div.close div.paperRank[value="96"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="97"] {
+div.player div.close div.paperRank[value="97"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="98"] {
+div.player div.close div.paperRank[value="98"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="99"] {
+div.player div.close div.paperRank[value="99"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="100"] {
+div.player div.close div.paperRank[value="100"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="101"] {
+div.player div.close div.paperRank[value="101"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="102"] {
+div.player div.close div.paperRank[value="102"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="103"] {
+div.player div.close div.paperRank[value="103"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="104"] {
+div.player div.close div.paperRank[value="104"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="105"] {
+div.player div.close div.paperRank[value="105"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="106"] {
+div.player div.close div.paperRank[value="106"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="107"] {
+div.player div.close div.paperRank[value="107"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="108"] {
+div.player div.close div.paperRank[value="108"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="109"] {
+div.player div.close div.paperRank[value="109"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="110"] {
+div.player div.close div.paperRank[value="110"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="111"] {
+div.player div.close div.paperRank[value="111"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="112"] {
+div.player div.close div.paperRank[value="112"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="113"] {
+div.player div.close div.paperRank[value="113"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="114"] {
+div.player div.close div.paperRank[value="114"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="115"] {
+div.player div.close div.paperRank[value="115"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="116"] {
+div.player div.close div.paperRank[value="116"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="117"] {
+div.player div.close div.paperRank[value="117"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="118"] {
+div.player div.close div.paperRank[value="118"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="119"] {
+div.player div.close div.paperRank[value="119"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="120"] {
+div.player div.close div.paperRank[value="120"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="121"] {
+div.player div.close div.paperRank[value="121"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="122"] {
+div.player div.close div.paperRank[value="122"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="123"] {
+div.player div.close div.paperRank[value="123"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="124"] {
+div.player div.close div.paperRank[value="124"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="125"] {
+div.player div.close div.paperRank[value="125"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="126"] {
+div.player div.close div.paperRank[value="126"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="127"] {
+div.player div.close div.paperRank[value="127"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="128"] {
+div.player div.close div.paperRank[value="128"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="129"] {
+div.player div.close div.paperRank[value="129"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="130"] {
+div.player div.close div.paperRank[value="130"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="131"] {
+div.player div.close div.paperRank[value="131"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="132"] {
+div.player div.close div.paperRank[value="132"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="133"] {
+div.player div.close div.paperRank[value="133"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="134"] {
+div.player div.close div.paperRank[value="134"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="135"] {
+div.player div.close div.paperRank[value="135"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="136"] {
+div.player div.close div.paperRank[value="136"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="137"] {
+div.player div.close div.paperRank[value="137"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="138"] {
+div.player div.close div.paperRank[value="138"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="139"] {
+div.player div.close div.paperRank[value="139"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="140"] {
+div.player div.close div.paperRank[value="140"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="141"] {
+div.player div.close div.paperRank[value="141"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="142"] {
+div.player div.close div.paperRank[value="142"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="143"] {
+div.player div.close div.paperRank[value="143"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="144"] {
+div.player div.close div.paperRank[value="144"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="145"] {
+div.player div.close div.paperRank[value="145"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="146"] {
+div.player div.close div.paperRank[value="146"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="147"] {
+div.player div.close div.paperRank[value="147"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="148"] {
+div.player div.close div.paperRank[value="148"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="149"] {
+div.player div.close div.paperRank[value="149"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="150"] {
+div.player div.close div.paperRank[value="150"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="151"] {
+div.player div.close div.paperRank[value="151"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="152"] {
+div.player div.close div.paperRank[value="152"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="153"] {
+div.player div.close div.paperRank[value="153"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="154"] {
+div.player div.close div.paperRank[value="154"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="155"] {
+div.player div.close div.paperRank[value="155"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="156"] {
+div.player div.close div.paperRank[value="156"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="157"] {
+div.player div.close div.paperRank[value="157"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="158"] {
+div.player div.close div.paperRank[value="158"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="159"] {
+div.player div.close div.paperRank[value="159"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="160"] {
+div.player div.close div.paperRank[value="160"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="161"] {
+div.player div.close div.paperRank[value="161"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="162"] {
+div.player div.close div.paperRank[value="162"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="163"] {
+div.player div.close div.paperRank[value="163"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="164"] {
+div.player div.close div.paperRank[value="164"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="165"] {
+div.player div.close div.paperRank[value="165"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="166"] {
+div.player div.close div.paperRank[value="166"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="167"] {
+div.player div.close div.paperRank[value="167"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="168"] {
+div.player div.close div.paperRank[value="168"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="169"] {
+div.player div.close div.paperRank[value="169"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="170"] {
+div.player div.close div.paperRank[value="170"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="171"] {
+div.player div.close div.paperRank[value="171"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="172"] {
+div.player div.close div.paperRank[value="172"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="173"] {
+div.player div.close div.paperRank[value="173"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="174"] {
+div.player div.close div.paperRank[value="174"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="175"] {
+div.player div.close div.paperRank[value="175"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="176"] {
+div.player div.close div.paperRank[value="176"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="177"] {
+div.player div.close div.paperRank[value="177"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="178"] {
+div.player div.close div.paperRank[value="178"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="179"] {
+div.player div.close div.paperRank[value="179"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="180"] {
+div.player div.close div.paperRank[value="180"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="181"] {
+div.player div.close div.paperRank[value="181"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="182"] {
+div.player div.close div.paperRank[value="182"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="183"] {
+div.player div.close div.paperRank[value="183"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="184"] {
+div.player div.close div.paperRank[value="184"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="185"] {
+div.player div.close div.paperRank[value="185"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="186"] {
+div.player div.close div.paperRank[value="186"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="187"] {
+div.player div.close div.paperRank[value="187"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="188"] {
+div.player div.close div.paperRank[value="188"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="189"] {
+div.player div.close div.paperRank[value="189"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="190"] {
+div.player div.close div.paperRank[value="190"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="191"] {
+div.player div.close div.paperRank[value="191"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="192"] {
+div.player div.close div.paperRank[value="192"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="193"] {
+div.player div.close div.paperRank[value="193"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="194"] {
+div.player div.close div.paperRank[value="194"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="195"] {
+div.player div.close div.paperRank[value="195"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="196"] {
+div.player div.close div.paperRank[value="196"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="197"] {
+div.player div.close div.paperRank[value="197"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="198"] {
+div.player div.close div.paperRank[value="198"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="199"] {
+div.player div.close div.paperRank[value="199"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="200"] {
+div.player div.close div.paperRank[value="200"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="201"] {
+div.player div.close div.paperRank[value="201"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="202"] {
+div.player div.close div.paperRank[value="202"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="203"] {
+div.player div.close div.paperRank[value="203"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="204"] {
+div.player div.close div.paperRank[value="204"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="205"] {
+div.player div.close div.paperRank[value="205"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="206"] {
+div.player div.close div.paperRank[value="206"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="207"] {
+div.player div.close div.paperRank[value="207"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="208"] {
+div.player div.close div.paperRank[value="208"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="209"] {
+div.player div.close div.paperRank[value="209"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="210"] {
+div.player div.close div.paperRank[value="210"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="211"] {
+div.player div.close div.paperRank[value="211"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="212"] {
+div.player div.close div.paperRank[value="212"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="213"] {
+div.player div.close div.paperRank[value="213"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="214"] {
+div.player div.close div.paperRank[value="214"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="215"] {
+div.player div.close div.paperRank[value="215"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="216"] {
+div.player div.close div.paperRank[value="216"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="217"] {
+div.player div.close div.paperRank[value="217"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="218"] {
+div.player div.close div.paperRank[value="218"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="219"] {
+div.player div.close div.paperRank[value="219"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="220"] {
+div.player div.close div.paperRank[value="220"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="221"] {
+div.player div.close div.paperRank[value="221"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="222"] {
+div.player div.close div.paperRank[value="222"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="223"] {
+div.player div.close div.paperRank[value="223"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="224"] {
+div.player div.close div.paperRank[value="224"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="225"] {
+div.player div.close div.paperRank[value="225"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="226"] {
+div.player div.close div.paperRank[value="226"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="227"] {
+div.player div.close div.paperRank[value="227"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="228"] {
+div.player div.close div.paperRank[value="228"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="229"] {
+div.player div.close div.paperRank[value="229"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="230"] {
+div.player div.close div.paperRank[value="230"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="231"] {
+div.player div.close div.paperRank[value="231"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="232"] {
+div.player div.close div.paperRank[value="232"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="233"] {
+div.player div.close div.paperRank[value="233"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="234"] {
+div.player div.close div.paperRank[value="234"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="235"] {
+div.player div.close div.paperRank[value="235"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="236"] {
+div.player div.close div.paperRank[value="236"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="237"] {
+div.player div.close div.paperRank[value="237"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="238"] {
+div.player div.close div.paperRank[value="238"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="239"] {
+div.player div.close div.paperRank[value="239"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="240"] {
+div.player div.close div.paperRank[value="240"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="241"] {
+div.player div.close div.paperRank[value="241"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="242"] {
+div.player div.close div.paperRank[value="242"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="243"] {
+div.player div.close div.paperRank[value="243"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="244"] {
+div.player div.close div.paperRank[value="244"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="245"] {
+div.player div.close div.paperRank[value="245"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="246"] {
+div.player div.close div.paperRank[value="246"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="247"] {
+div.player div.close div.paperRank[value="247"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="248"] {
+div.player div.close div.paperRank[value="248"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="249"] {
+div.player div.close div.paperRank[value="249"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="250"] {
+div.player div.close div.paperRank[value="250"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="251"] {
+div.player div.close div.paperRank[value="251"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="252"] {
+div.player div.close div.paperRank[value="252"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="253"] {
+div.player div.close div.paperRank[value="253"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="254"] {
+div.player div.close div.paperRank[value="254"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="255"] {
+div.player div.close div.paperRank[value="255"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="256"] {
+div.player div.close div.paperRank[value="256"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="257"] {
+div.player div.close div.paperRank[value="257"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="258"] {
+div.player div.close div.paperRank[value="258"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="259"] {
+div.player div.close div.paperRank[value="259"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="260"] {
+div.player div.close div.paperRank[value="260"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="261"] {
+div.player div.close div.paperRank[value="261"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="262"] {
+div.player div.close div.paperRank[value="262"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="263"] {
+div.player div.close div.paperRank[value="263"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="264"] {
+div.player div.close div.paperRank[value="264"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="265"] {
+div.player div.close div.paperRank[value="265"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="266"] {
+div.player div.close div.paperRank[value="266"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="267"] {
+div.player div.close div.paperRank[value="267"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="268"] {
+div.player div.close div.paperRank[value="268"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="269"] {
+div.player div.close div.paperRank[value="269"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="270"] {
+div.player div.close div.paperRank[value="270"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="271"] {
+div.player div.close div.paperRank[value="271"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="272"] {
+div.player div.close div.paperRank[value="272"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="273"] {
+div.player div.close div.paperRank[value="273"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="274"] {
+div.player div.close div.paperRank[value="274"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="275"] {
+div.player div.close div.paperRank[value="275"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="276"] {
+div.player div.close div.paperRank[value="276"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="277"] {
+div.player div.close div.paperRank[value="277"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="278"] {
+div.player div.close div.paperRank[value="278"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="279"] {
+div.player div.close div.paperRank[value="279"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="280"] {
+div.player div.close div.paperRank[value="280"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="281"] {
+div.player div.close div.paperRank[value="281"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="282"] {
+div.player div.close div.paperRank[value="282"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="283"] {
+div.player div.close div.paperRank[value="283"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="284"] {
+div.player div.close div.paperRank[value="284"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="285"] {
+div.player div.close div.paperRank[value="285"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="286"] {
+div.player div.close div.paperRank[value="286"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="287"] {
+div.player div.close div.paperRank[value="287"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="288"] {
+div.player div.close div.paperRank[value="288"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="289"] {
+div.player div.close div.paperRank[value="289"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="290"] {
+div.player div.close div.paperRank[value="290"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="291"] {
+div.player div.close div.paperRank[value="291"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="292"] {
+div.player div.close div.paperRank[value="292"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="293"] {
+div.player div.close div.paperRank[value="293"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="294"] {
+div.player div.close div.paperRank[value="294"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="295"] {
+div.player div.close div.paperRank[value="295"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="296"] {
+div.player div.close div.paperRank[value="296"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="297"] {
+div.player div.close div.paperRank[value="297"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="298"] {
+div.player div.close div.paperRank[value="298"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="299"] {
+div.player div.close div.paperRank[value="299"] {
   background-color: gray;
 }
 
-div.player div.overRect div.paperRank[value="300"] {
+div.player div.close div.paperRank[value="300"] {
   background-color: gray;
 }
 
@@ -2652,83 +2682,19 @@ div.player div.motion img.x.ng-enter.ng-enter-active {
   transform: scale(1.5, 1.5);
 }
 
-div.player div.o {
-  position: absolute;
-  left: -50px;
-  top: -230px;
-  width: 100px;
-  font-size: 72px;
-  font-family: "Migmix 1M";
-  font-weight: bold;
-  text-align: center;
-  -webkit-user-select: none;
-}
-
-div.player.chance div.o {
-  color: lightskyblue;
-}
-
-div.player div.x {
-  position: absolute;
-  left: -50px;
-  top: 130px;
-  width: 100px;
-  font-size: 72px;
-  font-family: "Migmix 1M";
-  font-weight: bold;
-  text-align: center;
-  -webkit-user-select: none;
-}
-
-div.player div.x[value="0"] {
+div.player hr.hr1 {
+  display: none;
   display: none;
 }
 
-div.player.pinch div.x {
-  color: lightpink;
-}
-
-div.player div.absent {
-  position: absolute;
-  left: -35px;
-  top: -95px;
-  width: 70px;
-  font-size: 30px;
-  font-family: "Migmix 1M";
-  font-weight: bold;
-  text-align: center;
-  -webkit-user-select: none;
-  -webkit-text-stroke-color: #000000;
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-fill-color: #FFFF22;
-  line-height: 80%;
-  z-index: 1;
-}
-
-div.player div.winningPoint {
-  position: absolute;
-  left: 20px;
-  top: -190px;
-  width: 50px;
-  font-size: 36px;
-  font-family: "Migmix 1M";
-  font-weight: bold;
-  text-align: center;
-  -webkit-user-select: none;
+div.player hr.hr2 {
+  display: none;
 }
 
 div.player div.action_o {
   position: absolute;
   left: -22px;
   top: -100px;
-  opacity: 0.8;
-  -webkit-user-select: none;
-}
-
-div.player div.action_b {
-  position: absolute;
-  left: -22px;
-  top: -20px;
   opacity: 0.8;
   -webkit-user-select: none;
 }

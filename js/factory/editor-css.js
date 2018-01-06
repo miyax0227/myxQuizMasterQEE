@@ -6,6 +6,7 @@
 app.service('css', [ 'qeditor', function(qeditor) {
   const
   fs = require('fs');
+  
   var cssJsonName;
   var cssScssName;
   var cssCssName;
@@ -44,9 +45,12 @@ app.service('css', [ 'qeditor', function(qeditor) {
 	// lines
 	css.lines = cssJson.lines;
 	// items
-	css.items = cssJson.items;
+	css.openItems = cssJson.openItems;
+	css.closeItems = cssJson.closeItems;
 	// images
-	css.images = cssJson.images;
+	css.rankImages = cssJson.rankImages;
+	css.statusImages = cssJson.statusImages;
+	css.motionImages = cssJson.motionImages;
 	// buttons
 	css.buttons = cssJson.buttons;
   }
@@ -66,9 +70,12 @@ app.service('css', [ 'qeditor', function(qeditor) {
 	// lines
 	cssJson.lines = angular.copy(css.lines);
 	// items
-	cssJson.items = angular.copy(css.items);
+	cssJson.openItems = angular.copy(css.openItems);
+	cssJson.closeItems = angular.copy(css.closeItems);
 	// images
-	cssJson.images = angular.copy(css.images);
+	cssJson.rankImages = angular.copy(css.rankImages);
+	cssJson.statusImages = angular.copy(css.statusImages);
+	cssJson.motionImages = angular.copy(css.motionImages);
 	// buttons
 	cssJson.buttons = angular.copy(css.buttons);
 
@@ -81,7 +88,89 @@ app.service('css', [ 'qeditor', function(qeditor) {
 		successLog.push('css.json is saved.');
 
 		var tempScss;
-		// TODO : edit tempScss.
+		tempScss = angular.copy(fs.readFileSync(__dirname + '/template/temp-css', 'utf-8'));
+
+		// includes
+		tempScss = tempScss.replace('${includes}', cssJson.includes.map(function(e) {
+		  return '@import "' + e.name + '.scss";';
+		}).join('\n'));
+
+		// variables
+		tempScss = tempScss.replace('${variables}', cssJson.variables.map(function(e) {
+		  return '$' + e.name + ': ' + e.value + ';';
+		}).join('\n'));
+
+		// lines etc.
+		angular.forEach([ {
+		  key : 'lines',
+		  tag : 'hr',
+		  include : 'player-hr'
+		}, {
+		  key : 'openItems',
+		  tag : 'div',
+		  include : 'player-item'
+		}, {
+		  key : 'closeItems',
+		  tag : 'div',
+		  include : 'player-item'
+		}, {
+		  key : 'rankImages',
+		  tag : 'img',
+		  include : 'player-img'
+		}, {
+		  key : 'statusImages',
+		  tag : 'img',
+		  include : 'player-img'
+		}, {
+		  key : 'motionImages',
+		  tag : 'img',
+		  include : 'player-img'
+		}, {
+		  key : 'buttons',
+		  tag : 'div',
+		  include : 'player-button'
+		} ], function(value) {
+		  tempScss = tempScss.replace('${' + value.key + '}', cssJson[value.key].map(function(e) {
+			var str = "";
+
+			if (e.name == "") {
+			  str += value.tag + ' {\n';
+			} else {
+			  str += value.tag + '.' + e.name + ' {\n';
+			}
+
+			if (e.invisible) {
+			  str += 'display: none;\n';
+			} else {
+			  str += '@include ' + value.include + '(' + e.left + ',' + e.top;
+			  if (e.width) {
+				str += "," + e.width;
+				if (e.height) {
+				  str += "," + e.height;
+				}
+			  }
+			  str += ');\n';
+			}
+
+			if (e.vertical) {
+			  str += '-webkit-writing-mode: vertical-rl;\n';
+			  str += '-webkit-text-orientation: upright;\n';
+			}
+
+			if (e.rest) {
+			  str += e.rest;
+			}
+
+			str += '}\n';
+
+			return str;
+		  }).join('\n'));
+		});
+
+		// beautify
+		tempScss = css_beautify(tempScss, {
+		  'indent_size' : 2
+		});
 
 		fs.writeFile(cssScssName, tempScss, function(err) {
 		  if (err) {
@@ -89,6 +178,7 @@ app.service('css', [ 'qeditor', function(qeditor) {
 		  } else {
 			console.log(cssScssName + 'is saved.');
 			successLog.push('css.scss is saved.');
+			qeditor.alarm(successLog);
 		  }
 		});
 	  }
@@ -136,5 +226,5 @@ app.service('css', [ 'qeditor', function(qeditor) {
 	  });
 	});
   }
-  
+
 } ]);
