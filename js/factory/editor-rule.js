@@ -27,6 +27,8 @@ app.service('rule', [ 'qeditor', function(qeditor) {
   rule.addTweet = addTweet;
   rule.deleteAction = deleteAction;
   rule.addAction = addAction;
+  rule.deleteLine = deleteLine;
+  rule.addLine = addLine;
 
   return rule;
 
@@ -66,6 +68,9 @@ app.service('rule', [ 'qeditor', function(qeditor) {
 	  }
 	  if (!item.hasOwnProperty('suffix')) {
 		item.suffix = "";
+	  }
+	  if (!item.hasOwnProperty('repeatChar')) {
+		item.repeatChar = "";
 	  }
 	});
 
@@ -123,6 +128,9 @@ app.service('rule', [ 'qeditor', function(qeditor) {
 
 	// calc
 	rule.calc = ruleJson.calc;
+
+	// lines
+	rule.lines = ruleJson.lines;
   }
 
   /*****************************************************************************
@@ -157,6 +165,9 @@ app.service('rule', [ 'qeditor', function(qeditor) {
 	  }
 	  if (item.suffix == "" || item.suffix == null) {
 		delete item.suffix;
+	  }
+	  if (item.repeatChar == "" || item.repeatChar == null) {
+		delete item.repeatChar;
 	  }
 	});
 
@@ -218,6 +229,9 @@ app.service('rule', [ 'qeditor', function(qeditor) {
 
 	// calc
 	ruleJson.calc = angular.copy(rule.calc);
+
+	// lines
+	ruleJson.lines = angular.copy(rule.lines);
 
 	// console.log(JSON.stringify(ruleJson));
 
@@ -319,6 +333,39 @@ app.service('rule', [ 'qeditor', function(qeditor) {
 
 		// calc
 		tempJs = tempJs.replace(/\$\{calc\}/g, ruleJson.calc);
+
+		// lines
+		var tmpLines = {};
+		angular.forEach(ruleJson.lines, function(line) {
+		  var tmp = {};
+		  if (line.invisible) {
+			tmp.invisible = true;
+		  }
+
+		  if (line.xType) {
+			tmp.left = line.left;
+			tmp.right = line.right;
+		  } else {
+			tmp.x = line.x;
+		  }
+
+		  if (line.yType) {
+			tmp.top = line.top;
+			tmp.bottom = line.bottom;
+		  } else {
+			tmp.y = line.y;
+		  }
+
+		  if (line.zoom) {
+			tmp.zoom = line.zoom;
+		  } else {
+			tmp.zoom = 1;
+		  }
+
+		  tmpLines[line.key] = tmp;
+		});
+
+		tempJs = tempJs.replace(/\$\{lines\}/g, JSON.stringify(tmpLines, undefined, 2));
 
 		// beaytify
 		tempJs = qeditor.beautify(tempJs);
@@ -475,6 +522,33 @@ app.service('rule', [ 'qeditor', function(qeditor) {
 	qeditor.inputBox("追加するキーを入力してください。", function(result) {
 	  actions.push({
 		name : result.inputString
+	  });
+	});
+  }
+
+  /*****************************************************************************
+   * lineの削除
+   * @memberOf rule
+   * @param {int} key 削除対象のindex
+   */
+  function deleteLine(key) {
+	qeditor.confirm("削除してもよろしいですか?", function(result) {
+	  rule.lines.splice(key, 1);
+	});
+  }
+
+  /*****************************************************************************
+   * lineの追加
+   * @memberOf rule
+   */
+  function addLine() {
+	qeditor.inputBox("追加するキーを入力してください。", function(result) {
+	  rule.lines.push({
+		key : result.inputString,
+		xType : true,
+		yType : false,
+		invisible : false,
+		zoom : 1
 	  });
 	});
   }

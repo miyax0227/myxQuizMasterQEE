@@ -17,9 +17,9 @@
 			"value": 0,
 			"style": "number",
 			"css": "x"
-		},{
-			"key":"test",
-			"css":""
+		}, {
+			"key": "test",
+			"css": ""
 		}
 	],
 	"priority": [
@@ -83,4 +83,6 @@
 	"judgement": " angular.forEach(players.filter(function(item) {\n   /* rankがない人に限定 */\n   return (item.rank == 0);\n }), function(player, i) {\n   /* win条件 */\n   if (player.o >= property.winningPoint) {\n\n  win(player, players, header, property);\n  player.o = property.winningPoint;\n   }\n   /* lose条件 */\n   if (player.x >= property.losingPoint) {\n  lose(player, players, header, property);\n  player.x = property.losingPoint;\n   }\n });"
 	,
 	"calc": " angular.forEach(players, function(player, index) {\n   // pinch, chance\n   player.pinch  = (player.x == property.losingPoint  - 1) && (player.status == 'normal');\n   player.chance = (player.o == property.winningPoint - 1) && (player.status == 'normal');\n   \n   // キーボード入力時の配列の紐付け ローリング等の特殊形式でない場合はこのままでOK\n   player.keyIndex = index;\n });"
+	,
+	"lines": []
 }

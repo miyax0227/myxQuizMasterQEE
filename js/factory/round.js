@@ -12,6 +12,7 @@ app.factory('round', [ 'qCommon', 'rule', '$filter', function(qCommon, rule, $fi
   var win = qCommon.win;
   var lose = qCommon.lose;
   var victory = qCommon.victory;
+  var timer = qCommon.timer;
 
   round.calc = calc;
   round.actions = rule.actions;
@@ -19,6 +20,7 @@ app.factory('round', [ 'qCommon', 'rule', '$filter', function(qCommon, rule, $fi
   round.items = rule.items;
   round.head = rule.head;
   round.decoration = decoration;
+  round.lines = rule.lines;
 
   /*****************************************************************************
    * 判定関数
@@ -104,7 +106,7 @@ app.factory('round', [ 'qCommon', 'rule', '$filter', function(qCommon, rule, $fi
 	  if (player[d] && item[d]) {
 		deco.push(d);
 	  }
-	})
+	});
 	return deco;
   }
 
@@ -300,17 +302,13 @@ app.factory('round', [ 'qCommon', 'rule', '$filter', function(qCommon, rule, $fi
 	button_css : "btn btn-success",
 	group : "timer",
 	enable : function(scope) {
-	  return (scope.timer.destination == null);
+	  return (qCommon.timer.destination == null);
 	},
 	action : function(scope) {
-	  if (scope.timer.working) {
-		scope.timer.destination = null;
-		scope.timer.restTime = null;
-		scope.timer.working = false;
+	  if (qCommon.timer.working) {
+		qCommon.timerReset();
 	  } else {
-		scope.timer.destination = new Date(new Date().getTime() + scope.timer.defaultTime * 1000);
-		scope.timer.restTime = null;
-		scope.timer.working = true;
+		qCommon.timerStart();
 	  }
 	}
   },
@@ -322,15 +320,13 @@ app.factory('round', [ 'qCommon', 'rule', '$filter', function(qCommon, rule, $fi
 	button_css : "btn btn-success",
 	group : "timer",
 	enable : function(scope) {
-	  return scope.timer.working;
+	  return qCommon.timer.working;
 	},
 	action : function(scope) {
-	  if (scope.timer.restTime == null) {
-		scope.timer.restTime = new Date(scope.timer.destination.getTime() - new Date().getTime());
-		scope.timer.destination = null;
+	  if (qCommon.timer.restTime == null) {
+		qCommon.timerStop();
 	  } else {
-		scope.timer.destination = new Date(new Date().getTime() + scope.timer.restTime.getTime());
-		scope.timer.restTime = null;
+		qCommon.timerRestart();
 	  }
 	}
   },
@@ -345,7 +341,11 @@ app.factory('round', [ 'qCommon', 'rule', '$filter', function(qCommon, rule, $fi
 	  return true;
 	},
 	action : function(scope) {
-	  scope.timer.visible = !scope.timer.visible;
+	  if(qCommon.timer.visible){
+		qCommon.timerHide();
+	  }else{
+		qCommon.timerShow();
+	  }
 	}
   },
   /*****************************************************************************
@@ -663,7 +663,7 @@ app.factory('round', [ 'qCommon', 'rule', '$filter', function(qCommon, rule, $fi
 		  var header = scope.current.header;
 		  var property = scope.property;
 		  return global_action.indexes0(players, header, property);
-		}
+		};
 	  }
 
 	}
@@ -746,7 +746,7 @@ app.factory('round', [ 'qCommon', 'rule', '$filter', function(qCommon, rule, $fi
 	angular.forEach(rule.tweet, function(value, key) {
 	  tweet[key] = value;
 	});
-  }
+  };
 
   console.log(round);
   return round;

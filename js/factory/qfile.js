@@ -32,9 +32,9 @@ function($window, $interval, $filter, $uibModal) {
   shell = require('electron').shell;
   const
   profiles = require(__dirname + '/json/item.json').filter(function(item) {
-	return item.hasOwnProperty('profile') && item.profile
+	return item.hasOwnProperty('profile') && item.profile;
   }).map(function(item) {
-	return item.key
+	return item.key;
   });
 
   // excel.jsonからウィンドウサイズを取得
@@ -269,7 +269,7 @@ function($window, $interval, $filter, $uibModal) {
 		fs.renameSync(oldFile, newFile);
 		fs.writeFileSync(oldFile, JSON.stringify(scope.tableContent));
 		cancelJsonFile(scope);
-	  })
+	  });
 
 	  // ファイルが存在しない場合
 	} catch (e) {
@@ -326,7 +326,7 @@ function($window, $interval, $filter, $uibModal) {
 		myMsg : function() {
 		  return {
 			msg : msg
-		  }
+		  };
 		}
 	  }
 	});
@@ -352,7 +352,7 @@ function($window, $interval, $filter, $uibModal) {
 		myMsg : function() {
 		  return {
 			msg : msg
-		  }
+		  };
 		}
 	  }
 	});
@@ -500,7 +500,7 @@ function($window, $interval, $filter, $uibModal) {
 			  var player = subEntryList[i];
 			  player[key] = value[i];
 			}
-		  })
+		  });
 		}
 
 		angular.forEach(subEntryList, function(o) {
@@ -571,7 +571,7 @@ function($window, $interval, $filter, $uibModal) {
 		  }
 		}
 		return 0;
-	  }
+	  };
 	}
   }
 

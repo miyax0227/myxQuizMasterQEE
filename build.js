@@ -10,7 +10,7 @@ packager({
   // icon: "./source/icon.ico",// アイコンのパス
   platform : "win32",
   arch : "x64",
-  version : "1.4.1",// Electronのバージョン
+  "electronVersion" : "1.7.10",// Electronのバージョン
   overwrite : true,// 上書き
   asar : false,// asarパッケージ化
   "app-version" : package["version"],// アプリバージョン

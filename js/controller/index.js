@@ -31,13 +31,13 @@ app
 
   $scope.openNameList = function() {
 	qFile.openNameList($scope);
-  }
+  };
   $scope.saveJsonFile = function() {
 	qFile.saveJsonFile($scope);
-  }
+  };
   $scope.cancelJsonFile = function() {
 	qFile.cancelJsonFile($scope);
-  }
+  };
 
 } ])
 
@@ -49,10 +49,10 @@ app
 	  /* modalOK - OKボタン押下 */
 	  $scope.modalOK = function() {
 		$uibModalInstance.close();
-	  }
+	  };
 
 	  /* modalCancel - Cancelボタン押下 */
 	  $scope.modalCancel = function() {
 		$uibModalInstance.dismiss();
-	  }
+	  };
 	} ]);

@@ -11,6 +11,7 @@ app.factory('rule', ['qCommon', function(qCommon) {
   var rule = {};
   var win = qCommon.win;
   var lose = qCommon.lose;
+  var timerStop = qCommon.timerStop;
   var setMotion = qCommon.setMotion;
   var addQCount = qCommon.addQCount;
 
@@ -20,9 +21,7 @@ app.factory('rule', ['qCommon', function(qCommon) {
   /*****************************************************************************
    * header - ルール固有のヘッダ
    ****************************************************************************/
-  rule.head = [{
-    "key": "mode"
-  }];
+  rule.head = [];
 
   /*****************************************************************************
    * items - ルール固有のアイテム
@@ -40,7 +39,10 @@ app.factory('rule', ['qCommon', function(qCommon) {
       "css": "x"
     },
     {
-      "key": "test"
+      "key": "combo",
+      "value": 0,
+      "style": "number",
+      "css": "combo"
     },
     {
       "key": "priority",
@@ -49,8 +51,10 @@ app.factory('rule', ['qCommon', function(qCommon) {
           "order": "desc",
           "alter": [
             "win",
-            1,
-            0
+            2,
+            "lose",
+            0,
+            1
           ]
         },
         {
@@ -75,6 +79,18 @@ app.factory('rule', ['qCommon', function(qCommon) {
   };
 
   /*****************************************************************************
+   * lines - ルール固有のプレイヤー配置
+   ****************************************************************************/
+  rule.lines = {
+    "line1": {
+      "left": 0,
+      "right": 1,
+      "y": 0.5,
+      "zoom": 1
+    }
+  };
+
+  /*****************************************************************************
    * actions - プレイヤー毎に設定する操作の設定
    ****************************************************************************/
   rule.actions = [{
@@ -87,8 +103,20 @@ app.factory('rule', ['qCommon', function(qCommon) {
         return (player.status == 'normal' && !header.playoff);
       },
       "action0": function(player, players, header, property) {
-        setMotion(player, 'o');
+        // ○を加算
         player.o++;
+        // コンボ計算
+        if (property.combo > 0 && player.combo === 1) {
+          player.o += property.combo;
+        }
+        // コンボ管理
+        if (property.combo > 0) {
+          players.map(function(p) {
+            p.combo = 0;
+          });
+          player.combo = 1;
+        }
+        setMotion(player, 'o');
         addQCount(players, header, property);
       }
     },
@@ -102,13 +130,14 @@ app.factory('rule', ['qCommon', function(qCommon) {
         return (player.status == 'normal' && !header.playoff);
       },
       "action0": function(player, players, header, property) {
-        setMotion(player, 'x');
+        // ×を加算
         player.x++;
-        if (property.penalty > 0) {
-          player.absent = property.penalty;
-          player.status = 'preabsent';
-        }
+        // コンボ管理
+        player.combo = 0;
+
+        setMotion(player, 'x');
         addQCount(players, header, property);
+
       }
     }
   ];
@@ -117,33 +146,18 @@ app.factory('rule', ['qCommon', function(qCommon) {
    * global_actions - 全体に対する操作の設定
    ****************************************************************************/
   rule.global_actions = [{
-      "name": "thru",
-      "button_css": "btn btn-default",
-      "group": "rule",
-      "keyboard": "Space",
-      "tweet": "thru",
-      "enable0": function(players, header, property) {
-        return true;
-      },
-      "action0": function(players, header, property) {
-        addQCount(players, header, property);
-      }
+    "name": "thru",
+    "button_css": "btn btn-default",
+    "group": "rule",
+    "keyboard": "Space",
+    "tweet": "thru",
+    "enable0": function(players, header, property) {
+      return true;
     },
-    {
-      "name": "",
-      "button_css": "btn btn-default",
-      "group": "rule",
-      "indexes0": function(players, header, property) {
-        return property.lots;
-      },
-      "enable1": function(index, players, header, property) {
-        return true;
-      },
-      "action1": function(index, players, header, property) {
-        header.nowLot = index;
-      }
+    "action0": function(players, header, property) {
+      addQCount(players, header, property);
     }
-  ];
+  }];
 
   /*****************************************************************************
    * judgement - 操作終了時等の勝敗判定
@@ -155,18 +169,22 @@ app.factory('rule', ['qCommon', function(qCommon) {
   function judgement(players, header, property) {
     angular.forEach(players.filter(function(item) {
       /* rankがない人に限定 */
-      return (item.rank == 0);
+      return (item.rank === 0);
     }), function(player, i) {
       /* win条件 */
       if (player.o >= property.winningPoint) {
 
         win(player, players, header, property);
         player.o = property.winningPoint;
+        player.combo = 0;
+        timerStop();
       }
       /* lose条件 */
       if (player.x >= property.losingPoint) {
         lose(player, players, header, property);
         player.x = property.losingPoint;
+        player.combo = 0;
+        timerStop();
       }
     });
   }
@@ -181,10 +199,12 @@ app.factory('rule', ['qCommon', function(qCommon) {
     angular.forEach(players, function(player, index) {
       // pinch, chance
       player.pinch = (player.x == property.losingPoint - 1) && (player.status == 'normal');
-      player.chance = (player.o == property.winningPoint - 1) && (player.status == 'normal');
+      player.chance = (player.o + 1 + player.combo * property.combo >= property.winningPoint) &&
+        (player.status == 'normal');
 
-      // キーボード入力時の配列の紐付け ローリング等の特殊形式でない場合はこのままでOK
-      player.keyIndex = index;
+      // キーボード入力時の配列の紐付け ローリング等の特殊形式でない場合はこのままでOK\
+      player.keyIndex = player.position;
+      player.line = "line1";
     });
   }
 

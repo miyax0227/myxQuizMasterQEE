@@ -48,7 +48,7 @@ app.config([ "$locationProvider", function($locationProvider) {
 	restrict : 'A',
 	transclude : true,
 	templateUrl : '../../template/players.html'
-  }
+  };
 })
 
 .directive('globalActions', function() {
@@ -56,7 +56,7 @@ app.config([ "$locationProvider", function($locationProvider) {
 	restrict : 'A',
 	transclude : false,
 	templateUrl : '../../template/global_actions.html'
-  }
+  };
 })
 
 .directive('timerActions', function() {
@@ -64,7 +64,7 @@ app.config([ "$locationProvider", function($locationProvider) {
 	restrict : 'A',
 	transclude : false,
 	templateUrl : '../../template/timer_actions.html'
-  }
+  };
 })
 
 .directive('scoreboard', function() {
@@ -72,7 +72,7 @@ app.config([ "$locationProvider", function($locationProvider) {
 	restrict : 'A',
 	transclude : true,
 	templateUrl : '../../template/scoreboard.html'
-  }
+  };
 })
 
 .directive('victory', function() {
@@ -80,7 +80,7 @@ app.config([ "$locationProvider", function($locationProvider) {
 	restrict : 'A',
 	transclude : true,
 	templateUrl : '../../template/victory.html'
-  }
+  };
 })
 
 .directive('profile', function() {
@@ -88,7 +88,7 @@ app.config([ "$locationProvider", function($locationProvider) {
 	restrict : 'A',
 	transclude : true,
 	templateUrl : '../../template/profile.html'
-  }
+  };
 })
 
 .filter('with', function() {
@@ -115,6 +115,9 @@ app.config([ "$locationProvider", function($locationProvider) {
 		function($scope, $q, fileResource, qCommon, round) {
 		  /* Timer表示 */
 		  $scope.timerDisplay = "";
+		  
+		  /* Timerオブジェクト */
+		  $scope.timer = qCommon.timer;
 
 		  /* 匿名状態 */
 		  $scope.anonymous = qCommon.anonymousMode();
@@ -125,13 +128,13 @@ app.config([ "$locationProvider", function($locationProvider) {
 		  /* keyDownイベントのハンドラ */
 		  $scope.keyDown = function(event) {
 			qCommon.keyDown($scope, event);
-		  }
+		  };
 		  $scope.workKeyDown = true;
 
 		  /* windowサイズの調整 */
 		  $scope.adjustWindow = function() {
 			qCommon.adjustWindow($scope);
-		  }
+		  };
 
 		  /* getPlayerCSS - プレイヤーの位置情報CSS */
 		  $scope.getPlayerCSS = qCommon.getPlayerCSS;
@@ -159,7 +162,7 @@ app.config([ "$locationProvider", function($locationProvider) {
 		  $scope.historyChanged = function(index) {
 			qCommon.refreshCurrent(history[index], $scope);
 		  };
-		  
+
 		  /* mergeItemCSS - CSSをマージして返却する */
 		  $scope.mergeItemCSS = qCommon.mergeItemCSS;
 
@@ -217,14 +220,16 @@ app.config([ "$locationProvider", function($locationProvider) {
 
 			// プレイヤー表示座標設定
 			$scope.lineProperty = strs[6][1];
+			angular.forEach(round.lines, function(value, key) {
+			  $scope.lineProperty[key] = value;
+			});
 
 			// tweetのひな型
 			$scope.property.tweet = {};
 			$scope.property.tweet = strs[7][0];
 			round.setTweet($scope.property.tweet);
-			console.log($scope.property.tweet)
+			console.log($scope.property.tweet);
 
-			$scope.timer = {};
 			$scope.selectPlayer = {};
 
 			// items生成
@@ -269,11 +274,11 @@ app.config([ "$locationProvider", function($locationProvider) {
 			  }
 
 			  // タイマー
-			  $scope.timer['defaultTime'] = $scope.property.timer;
-			  $scope.timer['working'] = false;
-			  $scope.timer['visible'] = false;
-			  $scope.timer['destination'] = null;
-			  $scope.timer['restTime'] = null;
+			  qCommon.timer['defaultTime'] = $scope.property.timer;
+			  qCommon.timer['working'] = false;
+			  qCommon.timer['visible'] = false;
+			  qCommon.timer['destination'] = null;
+			  qCommon.timer['restTime'] = null;
 
 			}
 			// 履歴
@@ -308,7 +313,7 @@ app.config([ "$locationProvider", function($locationProvider) {
 			// 優勝者が決定している場合、優勝者名の設定
 			$scope.victoryName = function() {
 			  return qCommon.victoryName($scope);
-			}
+			};
 
 			// 履歴が無い場合、現在の得点状況を追加
 			if ($scope.history.length == 0) {
@@ -316,7 +321,7 @@ app.config([ "$locationProvider", function($locationProvider) {
 			}
 
 			// タイマースタート
-			qCommon.timerStart($scope);
+			qCommon.timerTimerStart($scope);
 		  });
 
 		} ])
@@ -341,7 +346,7 @@ app.config([ "$locationProvider", function($locationProvider) {
 		var arr = Array.from(Array(n + 1).keys());
 		arr.shift();
 		return arr;
-	  }
+	  };
 
 	  /* moveDown - メンバーを最下段に移動 */
 	  $scope.moveDown = function(index, items) {
@@ -351,8 +356,8 @@ app.config([ "$locationProvider", function($locationProvider) {
 			  swapKey(item.repeat[0] + (i), item.repeat[0] + (i + 1));
 			}
 		  }
-		})
-	  }
+		});
+	  };
 
 	  function swapKey(key1, key2) {
 		var swap = $scope.selectPlayer[key2];
@@ -363,11 +368,11 @@ app.config([ "$locationProvider", function($locationProvider) {
 	  /* modalOK - OKボタン押下 */
 	  $scope.modalOK = function() {
 		$uibModalInstance.close();
-	  }
+	  };
 
 	  /* modalCancel - Cancelボタン押下 */
 	  $scope.modalCancel = function() {
 		$uibModalInstance.dismiss();
-	  }
+	  };
 
 	} ]);

@@ -11,8 +11,9 @@
         <th class="col-sm-2">style</th>
         <th class="col-sm-2">value</th>
         <th class="col-sm-2">css</th>
-        <th class="col-sm-2">prefix</th>
-        <th class="col-sm-2">suffix</th>
+        <th class="col-sm-1">prefix</th>
+        <th class="col-sm-1">suffix</th>
+        <th class="col-sm-1">repeatChar</th>
         <th class="col-sm-1"></th>
       </tr>
       <tr ng-repeat="item in rule.items" class="form-group">
@@ -33,6 +34,9 @@
         </td>
         <td>
         <input ng-model="rule.items[$index].suffix" class="form-control" type="text" />
+        </td>
+        <td>
+        <input ng-model="rule.items[$index].repeatChar" class="form-control" type="text" />
         </td>
         <td><span uib-dropdown> <a href id="rule-item-menu" uib-dropdown-toggle><span class="caret"></span></a>
           <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="rule-item-menu">

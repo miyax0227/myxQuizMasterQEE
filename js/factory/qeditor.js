@@ -69,7 +69,7 @@ app.service('qeditor', [ '$uibModal', function($uibModal) {
 		myMsg : function() {
 		  return {
 			msg : msg
-		  }
+		  };
 		}
 	  }
 	});
@@ -95,7 +95,7 @@ app.service('qeditor', [ '$uibModal', function($uibModal) {
 		myMsg : function() {
 		  return {
 			msg : msg
-		  }
+		  };
 		}
 	  }
 	});
@@ -121,7 +121,7 @@ app.service('qeditor', [ '$uibModal', function($uibModal) {
 		  return {
 			msg : msg,
 			isArray : angular.isArray(msg)
-		  }
+		  };
 		}
 	  }
 	});

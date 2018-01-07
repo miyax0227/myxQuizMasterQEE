@@ -20,27 +20,27 @@ app
   $scope.setAccountNum = function(num) {
 	$scope.accountNum = num;
 	qTwitter.setAccountNum(num);
-  }
+  };
 
   $scope.newTweetSubmit = function() {
 	qTwitter.newTweetSubmit($scope.newTweet);
 	$scope.newTweet = "";
-  }
+  };
 
   $scope.replySubmit = function() {
 	qTwitter.replySubmit($scope.newTweet, $scope.tweetId);
 	$scope.newTweet = "";
 	$scope.tweetId = null;
-  }
+  };
 
   $scope.deleteTweet = function(obj) {
 	qTwitter.deleteTweet(obj.id);
 	obj.id = null;
-  }
+  };
 
   $scope.setTweetId = function(id) {
 	$scope.tweetId = id;
-  }
+  };
 
 } ]);
 

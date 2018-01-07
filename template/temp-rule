@@ -11,6 +11,7 @@ app.factory('rule', [ 'qCommon', function(qCommon) {
   var rule = {};
   var win = qCommon.win;
   var lose = qCommon.lose;
+  var timerStop = qCommon.timerStop;
   var setMotion = qCommon.setMotion;
   var addQCount = qCommon.addQCount;
 
@@ -32,6 +33,11 @@ app.factory('rule', [ 'qCommon', function(qCommon) {
    ****************************************************************************/
   rule.tweet = ${tweets};
 
+  /*****************************************************************************
+   * lines - ルール固有のプレイヤー配置
+   ****************************************************************************/
+  rule.lines = ${lines};
+  
   /*****************************************************************************
    * actions - プレイヤー毎に設定する操作の設定
    ****************************************************************************/

@@ -6,7 +6,9 @@
 app.service('css', [ 'qeditor', function(qeditor) {
   const
   fs = require('fs');
-  
+  const
+  exec = require('child_process').exec;
+
   var cssJsonName;
   var cssScssName;
   var cssCssName;
@@ -178,6 +180,21 @@ app.service('css', [ 'qeditor', function(qeditor) {
 		  } else {
 			console.log(cssScssName + 'is saved.');
 			successLog.push('css.scss is saved.');
+
+			// var cmd = "node-sass \"" + cssScssName + "\" \"" + cssCssName +
+			// "\"";
+			var cmd = "node \"" + __dirname + "/node_modules/node-sass/bin/node-sass\" ";
+			cmd += "\"" + cssScssName + "\" \"" + cssCssName + "\"";
+
+			exec(cmd, function(err, stdout, stderr) {
+			  if (err) {
+				qeditor.alarm(err);
+				qeditor.alarm(stdout);
+				qeditor.alarm(stderr);
+			  } else {
+				qeditor.alarm(stderr);
+			  }
+			});
 			qeditor.alarm(successLog);
 		  }
 		});

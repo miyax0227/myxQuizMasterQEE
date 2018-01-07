@@ -319,6 +319,12 @@ app.directive('editorRuleCalc', function() {
   };
 });
 
+app.directive('editorRuleLines', function() {
+  return {
+	templateUrl : './template/editor-rule-lines.html'
+  };
+});
+
 app.directive('editorCssIncludes', function() {
   return {
 	templateUrl : './template/editor-css-includes.html'

@@ -7,7 +7,7 @@ div.player {
     ${openItems}
   }
 
-  div.close {
+  div.closed {
     ${closeItems}
   }
   

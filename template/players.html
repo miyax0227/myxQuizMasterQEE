@@ -1,21 +1,26 @@
-<div class="player" ng-repeat="player in current.players as players" ng-style="getPlayerCSS(players,player, windowSize, lineProperty)" ng-class="player">
+<div class="player" ng-repeat="player in current.players as players" ng-style="getPlayerCSS(players,player, windowSize, lineProperty)">
 
   <div svg></div>
 
   <div class="open" ng-if="! player.close">
     <div ng-repeat="item in items" ng-class="mergeItemCSS(item.css, player)" ng-if="item.hasOwnProperty('css') && (!item.hasOwnProperty('anonymous') || (anonymous == item.anonymous))"
-    ng-style="getItemCSS(item, player[item.key].length, player)"
     value="{{player[item.key]}}">
-      {{getDisplayValue(item ,player[item.key])}}
+      <div ng-style="getItemCSS(item, player[item.key].length, player)">
+        <div>
+          {{getDisplayValue(item ,player[item.key])}}
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="close" ng-if="player.close">
-    <div class="overRectBlind"></div>
+  <div class="closed" ng-if="player.close">
     <div ng-repeat="item in items" ng-class="item.css" ng-if="item.hasOwnProperty('close-css')"
-    ng-style="getItemCSS(item, player[item.key].length, player)"
     value="{{player[item.key]}}">
-      {{getDisplayValue(item ,player[item.key])}}
+      <div ng-style="getItemCSS(item, player[item.key].length, player)">
+        <div>
+          {{getDisplayValue(item ,player[item.key])}}
+        </div>
+      </div>
     </div>
   </div>
 

@@ -13,8 +13,10 @@ app
 
 .service('qCommon', [ '$uibModal', '$localStorage', '$interval', '$location', '$window', '$filter',
 	function($uibModal, $localStorage, $interval, $location, $window, $filter) {
+	  var timer = {};
 
 	  var qCommonService = {};
+	  qCommonService.timer = timer;
 	  qCommonService.createHist = createHist;
 	  qCommonService.addPlayer = addPlayer;
 	  qCommonService.removePlayer = removePlayer;
@@ -40,7 +42,7 @@ app
 	  qCommonService.getHistoryFileName = getHistoryFileName;
 	  qCommonService.initPlayers = initPlayers;
 	  qCommonService.getTimer = getTimer;
-	  qCommonService.timerStart = timerStart;
+	  qCommonService.timerTimerStart = timerTimerStart;
 	  qCommonService.victoryName = victoryName;
 	  qCommonService.changePlayer = changePlayer;
 	  qCommonService.filterPlayer = filterPlayer;
@@ -52,6 +54,12 @@ app
 	  qCommonService.anonymousMode = anonymousMode;
 	  qCommonService.getEntryFileName = getEntryFileName;
 	  qCommonService.mergeItemCSS = mergeItemCSS;
+	  qCommonService.timerReset = timerReset;
+	  qCommonService.timerStart = timerStart;
+	  qCommonService.timerStop = timerStop;
+	  qCommonService.timerRestart = timerRestart;
+	  qCommonService.timerShow = timerShow;
+	  qCommonService.timerHide = timerHide;
 	  return qCommonService;
 
 	  /*************************************************************************
@@ -372,7 +380,7 @@ app
 		  scope.calc();
 		  createHist(scope);
 		  scope.workKeyDown = true;
-		})
+		});
 	  }
 
 	  /*************************************************************************
@@ -465,7 +473,7 @@ app
 		parameter += ',height=' + windowSize.height;
 		parameter += ',left=' + windowSize.left;
 		parameter += ',top=' + windowSize.top;
-		parameter += ',frame=no'
+		parameter += ',frame=no';
 
 		$window.open('board.html?view=true', getRoundName() + ' - view', parameter);
 	  }
@@ -528,14 +536,16 @@ app
 			right : 1,
 			y : 0.4,
 			zoom : 1
-		  }
+		  };
 		}
 
 		var count = players.filter(function(p) {
 		  return p.line == player.line;
 		}).length;
 
-		var position = player["position"];
+		var position = players.filter(function(p) {
+		  return (p.line == player.line) && (p.position < player.position);
+		}).length;
 
 		var playerTop;
 		var playerLeft;
@@ -620,7 +630,7 @@ app
 		if (item.hasOwnProperty('rankColor')) {
 		  return {
 			'backgroundColor' : 'rgb(' + item.rankColor.filter(function(element) {
-			  return element.maxRank >= rank
+			  return element.maxRank >= rank;
 			})[0].color + ')'
 		  };
 		}
@@ -643,7 +653,7 @@ app
 		  // 文字の繰り返しが指定されている場合
 		} else if (item.hasOwnProperty('repeatChar')) {
 		  // 数値でない場合
-		  if (! (parseInt(value) > 0)) {
+		  if (!(parseInt(value) > 0)) {
 			return "";
 		  }
 		  return Array(parseInt(value) + 1).join(item.repeatChar);
@@ -772,9 +782,9 @@ app
 						action.action(player, scope);
 					  }
 					}
-				  })
+				  });
 				}
-			  })
+			  });
 			}
 		  });
 
@@ -875,27 +885,31 @@ app
 		  }
 		}
 
-		if (scope.timer.working) {
-		  if (scope.timer.destination == null) {
-			// タイマー動作中、目標時刻無しの場合、残り時間を表示
-			return timerFormat(scope.timer.restTime);
-		  } else {
-			if (scope.timer.destination.getTime() - (new Date()).getTime() > 0) {
-			  // タイマー動作中、目標時刻有り、現在が目標時刻より前の場合、差分を計算して表示
-			  return timerFormat(scope.timer.destination.getTime() - (new Date()).getTime());
+		if (timer.visible) {
+		  if (timer.working) {
+			if (timer.destination == null) {
+			  // タイマー動作中、目標時刻無しの場合、残り時間を表示
+			  return timerFormat(timer.restTime);
 			} else {
-			  // タイマー動作中、目標時刻有り、現在が目標時刻以降の場合、0秒を表示
-			  return timerFormat(0);
+			  if (timer.destination.getTime() - (new Date()).getTime() > 0) {
+				// タイマー動作中、目標時刻有り、現在が目標時刻より前の場合、差分を計算して表示
+				return timerFormat(timer.destination.getTime() - (new Date()).getTime());
+			  } else {
+				// タイマー動作中、目標時刻有り、現在が目標時刻以降の場合、0秒を表示
+				return timerFormat(0);
+			  }
+			}
+		  } else {
+			if (timer.restTime == null) {
+			  // タイマー停止、残り時間が無い場合、初期時間を表示
+			  return timerFormat(timer.defaultTime * 1000);
+			} else {
+			  // タイマー停止、残り時間がある場合、残り時間を表示
+			  return timerFormat(timer.restTime);
 			}
 		  }
 		} else {
-		  if (scope.timerRestTime == null) {
-			// タイマー停止、残り時間が無い場合、初期時間を表示
-			return timerFormat(scope.timer.defaultTime * 1000);
-		  } else {
-			// タイマー停止、残り時間がある場合、残り時間を表示
-			return timerFormat(scope.timer.restTime);
-		  }
+		  return "";
 		}
 	  }
 
@@ -904,11 +918,11 @@ app
 	   * 
 	   * @memberOf qCommon
 	   ************************************************************************/
-	  function timerStart(scope) {
+	  function timerTimerStart(scope) {
 		var t;
 		t = $interval(function() {
 		  scope.timerDisplay = getTimer(scope);
-		}, 100)
+		}, 100);
 	  }
 
 	  /*************************************************************************
@@ -962,7 +976,7 @@ app
 			player[key] = value;
 		  });
 		}, function() {
-		})
+		});
 
 	  }
 
@@ -1015,7 +1029,7 @@ app
 	  function setPlayer(participant, selectPlayer) {
 		angular.forEach(selectPlayer, function(value, key) {
 		  selectPlayer[key] = participant[key];
-		})
+		});
 	  }
 
 	  /*************************************************************************
@@ -1027,7 +1041,7 @@ app
 	  function clearPlayer(selectPlayer) {
 		angular.forEach(selectPlayer, function(value, key) {
 		  selectPlayer[key] = "";
-		})
+		});
 	  }
 
 	  /*************************************************************************
@@ -1090,7 +1104,7 @@ app
 		  if (player.status == "wait") {
 			player.status = "normal";
 		  }
-		})
+		});
 	  }
 
 	  /*************************************************************************
@@ -1117,7 +1131,7 @@ app
 		angular.forEach(obj, function(value, key) {
 		  var reg = new RegExp("\\$\\{" + key + "\\}", "g");
 		  tweet = tweet.replace(reg, value);
-		})
+		});
 
 		// tweetsに追加
 		if (top) {
@@ -1127,24 +1141,76 @@ app
 		}
 
 	  }
-	  
-	  /************************************************************************
+
+	  /*************************************************************************
 	   * itemのCSSを編集して返却する関数
 	   * @memberOf qCommon
 	   * @param {string} css - item.css(スペース区切り文字列）
 	   * @param {object} player - player(オブジェクト)
 	   * @return {array} - cssのリスト
 	   */
-	  function mergeItemCSS(css, player){
+	  function mergeItemCSS(css, player) {
 		var cssArray = css.split(" ");
-		angular.forEach(player, function(value, key){
-		  if(value === true){
+		angular.forEach(player, function(value, key) {
+		  if (value === true) {
 			cssArray.push(key);
 		  }
 		});
-		
+
 		return cssArray;
 	  }
-	  
 
+	  /*************************************************************************
+	   * timerを初期化する
+	   * @memberOf qCommon
+	   */
+	  function timerReset() {
+		timer.destination = null;
+		timer.restTime = null;
+		timer.working = false;
+	  }
+
+	  /*************************************************************************
+	   * timerを始める
+	   * @memberOf qCommon
+	   */
+	  function timerStart() {
+		timer.destination = new Date(new Date().getTime() + timer.defaultTime * 1000);
+		timer.restTime = null;
+		timer.working = true;
+	  }
+
+	  /*************************************************************************
+	   * timerを止める
+	   * @memberOf qCommon
+	   */
+	  function timerStop() {
+		timer.restTime = new Date(timer.destination.getTime() - new Date().getTime());
+		timer.destination = null;
+	  }
+
+	  /*************************************************************************
+	   * timerを再び始める
+	   * @memberOf qCommon
+	   */
+	  function timerRestart() {
+		timer.destination = new Date(new Date().getTime() + timer.restTime.getTime());
+		timer.restTime = null;
+	  }
+
+	  /*************************************************************************
+	   * timerを表示する
+	   * @memberOf qCommon
+	   */
+	  function timerShow() {
+		timer.visible = true;
+	  }
+
+	  /*************************************************************************
+	   * timerを非表示にする
+	   * @memberOf qCommon
+	   */
+	  function timerHide() {
+		timer.visible = false;
+	  }
 	} ]);

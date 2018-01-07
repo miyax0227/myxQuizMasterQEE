@@ -1,12 +1,14 @@
+$font-family-default: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI","Noto Sans Japanese","ヒラギノ角ゴ ProN W3", Meiryo, sans-serif;
+
 @mixin score-div($fontsize:40px){
-	font-family: "MigMix 1M";
+	font-family: $font-family-default;
 	font-weight: bold;
 	position: absolute;
     font-size: $fontsize;
   	-webkit-user-select: none;
 }
 
-@mixin player-item($left:0, $top:0, $width:0, $font-size:56, $font-family:"Migmix 1M") {
+@mixin player-item($left:0, $top:0, $width:0, $font-size:56, $font-family:$font-family-default) {
   position: absolute;
   left: #{$left}px;
   top: #{$top}px;
