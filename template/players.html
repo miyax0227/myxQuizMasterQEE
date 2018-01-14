@@ -4,38 +4,33 @@
 
   <div class="open" ng-if="! player.close">
     <div ng-repeat="item in items" ng-class="mergeItemCSS(item.css, player)" ng-if="item.hasOwnProperty('css') && (!item.hasOwnProperty('anonymous') || (anonymous == item.anonymous))"
-    value="{{player[item.key]}}">
-      <div ng-style="getItemCSS(item, player[item.key].length, player)">
-        <div>
-          {{getDisplayValue(item ,player[item.key])}}
-        </div>
-      </div>
+    value="{{player[item.key]}}" ng-style="getItemCSS(item, player[item.key].length, player)">
+      {{getDisplayValue(item ,player[item.key])}}
     </div>
   </div>
 
   <div class="closed" ng-if="player.close">
     <div ng-repeat="item in items" ng-class="item.css" ng-if="item.hasOwnProperty('close-css')"
-    value="{{player[item.key]}}">
-      <div ng-style="getItemCSS(item, player[item.key].length, player)">
-        <div>
-          {{getDisplayValue(item ,player[item.key])}}
-        </div>
-      </div>
+    value="{{player[item.key]}}" ng-style="getItemCSS(item, player[item.key].length, player)">
+      {{getDisplayValue(item ,player[item.key])}}
     </div>
   </div>
 
   <div ng-repeat="item in items" ng-class="item.css_img" ng-if="item.hasOwnProperty('css_img')">
-    <div ng-class="decoration(player, item)">
+    <div ng-class="mergeItemCSS(item.css, player)">
       <img ng-class="player[item.key]" ng-src="../../img/{{item.css_img_file[player[item.key]]}}" ng-if="item.css_img_file.hasOwnProperty(player[item.key]) && item.key != 'rank'"></img>
       <img ng-class="rank" ng-src="../../img/{{item.css_img_file[player['rank']]}}" ng-if="item.css_img_file.hasOwnProperty(player['rank']) && item.key == 'rank' && player['rank'] <= property.maxRankDisplay"></img>
     </div>
   </div>
+  
   <div ng-repeat="action in actions" ng-class="action.css" ng-if="! viewMode && ! anonymous">
-    <button ng-click="func_player_scope(action.action, player)" ng-class="action.button_css" ng-disabled="! func_player_scope(action.enable,player)">
+    <button ng-click="func_player_scope(action.action, player)" ng-class="action.button_css" ng-disabled="! func_player_scope(action.enable,player) || !pushable">
       {{action.name}}
     </button>
   </div>
+  
   <div ng-transclude></div>
+  
   <hr class="hr1" />
   <hr class="hr2" />
 </div>

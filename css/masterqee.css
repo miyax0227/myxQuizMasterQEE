@@ -708,7 +708,7 @@ div.player div.open div.absent {
 div.player div.open div.combo {
   position: absolute;
   left: -50px;
-  top: -95px;
+  top: -100px;
   width: 100px;
   font-size: 200px;
   font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", "Noto Sans Japanese", "ヒラギノ角ゴ ProN W3", Meiryo, sans-serif;
@@ -717,7 +717,23 @@ div.player div.open div.combo {
   -webkit-user-select: none;
   font-size: 0px; }
   div.player div.open div.combo[value="1"] {
-    height: 200px;
+    height: 210px;
+    background-color: gold;
+    z-index: -100; }
+
+div.player div.open div.select {
+  position: absolute;
+  left: -50px;
+  top: -100px;
+  width: 100px;
+  font-size: 200px;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", "Noto Sans Japanese", "ヒラギノ角ゴ ProN W3", Meiryo, sans-serif;
+  font-weight: bold;
+  text-align: center;
+  -webkit-user-select: none;
+  font-size: 0px; }
+  div.player div.open div.select.selected {
+    height: 210px;
     background-color: gold;
     z-index: -100; }
 

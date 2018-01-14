@@ -1,10 +1,10 @@
-<div class="global_actions container" ng-if="! viewMode && ! anonymous" ng-style="{zoom:windowSize.buttonZoom}">
+<div class="global_actions container" ng-if="! viewMode && ! anonymous && globalActionVisible" ng-style="{zoom:windowSize.buttonZoom}">
   <div class="row">
     <div class="col-xs-3">
       <span class="label label-primary">Basic</span>
       <br>
       <span class="btn-group">
-        <button ng-repeat="action in global_actions | group: 'basic'" ng-class="action.button_css" ng-click="func_scope(action.action)" ng-disabled="! func_scope(action.enable)">
+        <button ng-repeat="action in global_actions | group: 'basic'" ng-class="action.button_css" ng-click="func_scope(action.action)" ng-disabled="! func_scope(action.enable) || !pushable">
           {{action.name}}
         </button> </span>
     </div>
@@ -12,10 +12,10 @@
       <span class="label label-default">Rule</span>
       <br>
       <span class="btn-group">
-        <button ng-repeat="action in global_actions | group: 'rule'" ng-if="! action.hasOwnProperty('indexes')" ng-class="action.button_css" ng-click="func_scope(action.action)" ng-disabled="! func_scope(action.enable)">
+        <button ng-repeat="action in global_actions | group: 'rule'" ng-if="! action.hasOwnProperty('indexes')" ng-class="action.button_css" ng-click="func_scope(action.action)" ng-disabled="! func_scope(action.enable) || !pushable">
           {{action.name}}
         </button> <span ng-repeat="action in global_actions | group: 'rule'" ng-if="action.hasOwnProperty('indexes')" >
-          <button ng-repeat="index in func_scope(action.indexes)" ng-class="action.button_css" ng-click="func_index_scope( action.action , index)" ng-disabled="! func_index_scope(action.enable, index)">
+          <button ng-repeat="index in func_scope(action.indexes)" ng-class="action.button_css" ng-click="func_index_scope( action.action , index)" ng-disabled="! func_index_scope(action.enable, index) || !pushable">
             {{action.name}}{{index}}
           </button> </span> </span>
     </div>
@@ -25,7 +25,7 @@
       <span class="label label-info">View</span>
       <br>
       <div class="btn-group" role="group">
-        <button type="button" ng-repeat="action in global_actions | group: 'view'" ng-class="action.button_css" ng-click="func_scope(action.action)" ng-disabled="! func_scope(action.enable)">
+        <button type="button" ng-repeat="action in global_actions | group: 'view'" ng-class="action.button_css" ng-click="func_scope(action.action)" ng-disabled="! func_scope(action.enable) || !pushable">
           {{action.name}}
         </button>
       </div>
@@ -34,7 +34,7 @@
       <span class="label label-danger">History</span>
       <br>
       <span class="btn-group">
-        <button ng-repeat="action in global_actions | group: 'history'" ng-class="action.button_css" ng-click="func_scope(action.action)" ng-disabled="! func_scope(action.enable)">
+        <button ng-repeat="action in global_actions | group: 'history'" ng-class="action.button_css" ng-click="func_scope(action.action)" ng-disabled="! func_scope(action.enable) || !pushable">
           {{action.name}}
         </button> </span>
     </div>
@@ -42,7 +42,7 @@
       <span class="label label-warning">Playoff</span>
       <br>
       <span class="btn-group">
-        <button ng-repeat="action in global_actions | group: 'playoff'" ng-class="action.button_css" ng-click="func_scope(action.action)" ng-disabled="! func_scope(action.enable)">
+        <button ng-repeat="action in global_actions | group: 'playoff'" ng-class="action.button_css" ng-click="func_scope(action.action)" ng-disabled="! func_scope(action.enable) || !pushable">
           {{action.name}}
         </button> </span>
     </div>

@@ -118,6 +118,12 @@ app.config([ "$locationProvider", function($locationProvider) {
 		  
 		  /* Timerオブジェクト */
 		  $scope.timer = qCommon.timer;
+		  
+		  /* ボタン再押下可否 */
+		  $scope.pushable = true;
+		  
+		  /* globalActionの表示有無 */
+		  $scope.globalActionVisible = true;
 
 		  /* 匿名状態 */
 		  $scope.anonymous = qCommon.anonymousMode();
@@ -274,11 +280,13 @@ app.config([ "$locationProvider", function($locationProvider) {
 			  }
 
 			  // タイマー
-			  qCommon.timer['defaultTime'] = $scope.property.timer;
-			  qCommon.timer['working'] = false;
-			  qCommon.timer['visible'] = false;
-			  qCommon.timer['destination'] = null;
-			  qCommon.timer['restTime'] = null;
+			  $scope.timer['defaultTime'] = $scope.property.timer;
+			  $scope.timer['working'] = false;
+			  $scope.timer['visible'] = false;
+			  $scope.timer['destination'] = null;
+			  $scope.timer['restTime'] = null;
+			  qCommon.timer = $scope.timer;
+			  console.log($scope.timer, qCommon.timer);
 
 			}
 			// 履歴

@@ -168,7 +168,13 @@ div.player {
   width: 1000px;
   height: 1000px;
   transform-origin: 0px 0px;
-  cursor: default; }
+  transform: translate3d(0, 0, 0);
+  cursor: default;
+  transition: 1s; }
+  div.player.ng-enter {
+    transition: 0s; }
+  div.player.ng-leave {
+    transition: 0s; }
   div.player div.open {
     position: absolute;
     width: 1000px;

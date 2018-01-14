@@ -295,6 +295,34 @@ app.factory('round', [ 'qCommon', 'rule', '$filter', function(qCommon, rule, $fi
 	}
   },
   /*****************************************************************************
+   * 1秒＋
+   ****************************************************************************/
+  {
+	name : "+",
+	button_css : "btn btn-success",
+	group : "timer",
+	enable : function(scope) {
+	  return (qCommon.timer.destination == null);
+	},
+	action : function(scope) {
+	  qCommon.timerPlus1();
+	}
+  },
+  /*****************************************************************************
+   * 1秒－
+   ****************************************************************************/
+  {
+	name : "-",
+	button_css : "btn btn-success",
+	group : "timer",
+	enable : function(scope) {
+	  return (qCommon.timer.destination == null);
+	},
+	action : function(scope) {
+	  qCommon.timerMinus1();
+	}
+  },
+  /*****************************************************************************
    * タイマースタート/リセット
    ****************************************************************************/
   {
@@ -341,11 +369,26 @@ app.factory('round', [ 'qCommon', 'rule', '$filter', function(qCommon, rule, $fi
 	  return true;
 	},
 	action : function(scope) {
-	  if(qCommon.timer.visible){
+	  if (qCommon.timer.visible) {
 		qCommon.timerHide();
-	  }else{
+	  } else {
 		qCommon.timerShow();
 	  }
+	}
+  },
+  /*****************************************************************************
+   * global_action表示/非表示
+   ****************************************************************************/
+  {
+	name : "x",
+	button_css : "btn btn-info",
+	group : "view",
+	keyboard : "S+Left",
+	enable : function(scope) {
+	  return true;
+	},
+	action : function(scope) {
+	  scope.globalActionVisible = !scope.globalActionVisible;
 	}
   },
   /*****************************************************************************
@@ -634,6 +677,8 @@ app.factory('round', [ 'qCommon', 'rule', '$filter', function(qCommon, rule, $fi
 	  var property = scope.property;
 	  var items = scope.items;
 
+	  // 一定時間ボタン再押下不可
+	  qCommon.pushed(scope);
 	  // action0を実行
 	  action.action0(player, players, header, property);
 	  // 再計算
@@ -694,6 +739,8 @@ app.factory('round', [ 'qCommon', 'rule', '$filter', function(qCommon, rule, $fi
 		  var property = scope.property;
 		  var items = scope.items;
 
+		  // 一定時間ボタン再押下不可
+		  qCommon.pushed(scope);
 		  // action0を実行
 		  global_action.action0(players, header, property);
 		  // 再計算

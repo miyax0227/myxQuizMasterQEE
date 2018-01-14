@@ -1,0 +1,24 @@
+<table class="table">
+  <tbody>
+    <tr>
+      <th># <span uib-dropdown> <a href id="twitter-add" uib-dropdown-toggle><span class="caret"></span></a>
+        <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="twitter-add">
+          <li>
+            <a href="#" ng-click="addElement('twitter')">Add</a>
+          </li>
+        </ul> </span></th>
+      <th>account</th>
+      <th></th>
+    </tr>
+    <tr ng-repeat="account in twitter.accounts">
+      <td>{{$index}}</td>
+      <td>{{account.owner}}</td>
+      <td><span uib-dropdown> <a href id="twitter-menu" uib-dropdown-toggle><span class="caret"></span></a>
+        <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="twitter-menu">
+          <li>
+            <a href="#" ng-click="deleteElement('twitter', $index)">Delete</a>
+          </li>
+        </ul> </span></td>
+    </tr>
+  </tbody>
+</table>

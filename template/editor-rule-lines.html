@@ -10,10 +10,11 @@
           </ul> </span></th>
         <th class="col-sm-1">invisible</th>
         <th class="col-sm-1"></th>
-        <th class="col-sm-2">x</th>
+        <th class="col-sm-1">x</th>
         <th class="col-sm-1"></th>
-        <th class="col-sm-2">y</th>
+        <th class="col-sm-1">y</th>
         <th class="col-sm-2">zoom</th>
+        <th class="col-sm-2">orderBy</th>
         <th class="col-sm-1"></th>
       </tr>
       <tr ng-repeat="line in rule.lines" class="form-group">
@@ -26,8 +27,7 @@
         <td>
         <input class="form-control input-sm" ng-model="line.xType" type="checkbox" />
         </td>
-        <td>
-        <span ng-if="line.xType">
+        <td><span ng-if="line.xType">
           <input class="form-control input-sm" ng-model="line.left"  type="number" />
           -
           <input class="form-control input-sm" ng-model="line.right" type="number" />
@@ -38,17 +38,20 @@
         <td>
         <input class="form-control input-sm" ng-model="line.yType" type="checkbox" />
         </td>
-        <td>
-        <span ng-if="line.yType">
+        <td><span ng-if="line.yType">
           <input class="form-control input-sm" ng-model="line.top"  type="number" />
           -
           <input class="form-control input-sm" ng-model="line.bottom" type="number" />
         </span><span ng-if="! line.yType">
           <input class="form-control input-sm" ng-model="line.y" type="number" />
         </span></td>
-        
+
         <td>
         <input class="form-control input-sm" ng-model="line.zoom" type="number" />
+        </td>
+
+        <td>
+        <input class="form-control input-sm" ng-model="line.orderBy" type="text" />
         </td>
         
         <td><span uib-dropdown> <a href id="rule-item-menu" uib-dropdown-toggle><span class="caret"></span></a>

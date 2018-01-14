@@ -1,0 +1,37 @@
+[{
+  "source": [{
+    "source": "01_2R_5o2x_L1",
+    "filter": {
+      "param": "rank",
+      "oper": "~",
+      "crit": 1,
+      "crit2": 5
+    }
+  }, {
+    "source": "01_2R_5o2x_L2",
+    "filter": {
+      "param": "rank",
+      "oper": "~",
+      "crit": 1,
+      "crit2": 5
+    }
+  }, {
+    "source": "01_2R_5o2x_L3",
+    "filter": {
+      "param": "rank",
+      "oper": "~",
+      "crit": 1,
+      "crit2": 5
+    }
+  }, {
+    "source": "01_2R_5o2x_L4",
+    "filter": {
+      "param": "rank",
+      "oper": "~",
+      "crit": 1,
+      "crit2": 5
+    }
+  }],
+  "order": ["rank", "paperRank"],
+  "profile": true
+}]

@@ -11,8 +11,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.0/ext-language_tools.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular.js"></script>
     <script src="js/libs/angular-animate.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="js/libs/ui-bootstrap-tpls.js"></script>
     <script src="js/libs/sortable.js"></script>
+    <script src="js/libs/ng-twitter-api.js"></script>
+    <script src="js/libs/sha1.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/angular-ui-ace@0.2.3/src/ui-ace.min.js"></script>
     <script src="js/libs/angular-clipboard.js"></script>
 
@@ -37,66 +40,96 @@
   <body ng-controller="main">
     <div class="row">
       <div class="col-sm-3"  ng-class="{'link-off': editing}">
-        <div class="panel panel-primary">
-          <div class="panel-heading">
-            Round
+        <div class="panel-group">
+          <div class="panel panel-default">
+            <div class="panel-heading" style="cursor: pointer">
+              <h4 class="panel-title" ng-click="openData('window')">Window</h4>
+            </div>
           </div>
-          <table class="table table-condensed table-hover">
-            <tr ng-repeat="round in rounds" ng-click="openRound(round)">
-              <td>{{$index}}</td>
-              <td>{{round}}</td>
-              <td><span uib-dropdown> <a href id="round-menu" uib-dropdown-toggle><span class="caret"></span></a>
-                <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="round-menu">
-                  <li>
-                    <a href="#" ng-click="copyRound(round)">Copy</a>
-                    <a href="#" ng-click="deleteRound(round)">Delete</a>
-                  </li>
-                </ul> </span></td>
-            </tr>
-          </table>
-        </div>
 
-        <div class="panel panel-success">
-          <div class="panel-heading">
-            Rule
+          <div class="panel panel-default">
+            <div class="panel-heading" style="cursor: pointer">
+              <h4 class="panel-title" ng-click="openData('twitter')">Twitter</h4>
+            </div>
           </div>
-          <table class="table table-condensed table-hover">
-            <tr ng-repeat="rule in rules" ng-click="openRule(rule)">
-              <td>{{$index}}</td>
-              <td>{{rule}}</td>
-              <td><span uib-dropdown> <a href id="rule-menu" uib-dropdown-toggle><span class="caret"></span></a>
-                <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="rule-menu">
-                  <li>
-                    <a href="#" ng-click="copyRule(rule)">Copy</a>
-                    <a href="#" ng-click="deleteRule(rule)">Delete</a>
-                  </li>
-                </ul> </span></td>
-            </tr>
-          </table>
-        </div>
 
-        <div class="panel panel-info">
-          <div class="panel-heading">
-            CSS/SCSS
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              <h4 class="panel-title"><a data-toggle="collapse" href="#round">Round</a></h4>
+            </div>
+            <div id="round" class="panel-collapse" >
+              <table class="table table-condensed table-hover">
+                <tr ng-repeat="round in rounds" ng-click="openRound(round)" style="cursor: pointer">
+                  <td>{{$index}}</td>
+                  <td>{{round}}</td>
+                  <td><span uib-dropdown> <a href id="round-menu" uib-dropdown-toggle><span class="caret"></span></a>
+                    <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="round-menu">
+                      <li>
+                        <a href="#" ng-click="copyRound(round)">Copy</a>
+                        <a href="#" ng-click="deleteRound(round)">Delete</a>
+                      </li>
+                    </ul> </span></td>
+                </tr>
+              </table>
+            </div>
           </div>
-          <table class="table table-condensed table-hover">
-            <tr ng-repeat="css in csses" ng-click="openCss(css)">
-              <td>{{$index}}</td>
-              <td>{{css}}</td>
-              <td><span uib-dropdown> <a href id="css-menu" uib-dropdown-toggle><span class="caret"></span></a>
-                <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="css-menu">
-                  <li>
-                    <a href="#" ng-click="copyCss(css)">Copy</a>
-                    <a href="#" ng-click="deleteCss(css)">Delete</a>
-                  </li>
-                </ul> </span></td>
-            </tr>
-          </table>
-        </div>
 
+          <div class="panel panel-success">
+            <div class="panel-heading">
+              <h4 class="panel-title"><a data-toggle="collapse" href="#rule">Rule</a></h4>
+            </div>
+            <div id="rule" class="panel-collapse" >
+              <table class="table table-condensed table-hover">
+                <tr ng-repeat="rule in rules" ng-click="openRule(rule)" style="cursor: pointer">
+                  <td>{{$index}}</td>
+                  <td>{{rule}}</td>
+                  <td><span uib-dropdown> <a href id="rule-menu" uib-dropdown-toggle><span class="caret"></span></a>
+                    <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="rule-menu">
+                      <li>
+                        <a href="#" ng-click="copyRule(rule)">Copy</a>
+                        <a href="#" ng-click="deleteRule(rule)">Delete</a>
+                      </li>
+                    </ul> </span></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h4 class="panel-title"><a data-toggle="collapse" href="#css">CSS/Sass</a></h4>
+            </div>
+            <div id="css" class="panel-collapse" >
+              <table class="table table-condensed table-hover">
+                <tr ng-repeat="css in csses" ng-click="openCss(css)" style="cursor: pointer">
+                  <td>{{$index}}</td>
+                  <td>{{css}}</td>
+                  <td><span uib-dropdown> <a href id="css-menu" uib-dropdown-toggle><span class="caret"></span></a>
+                    <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="css-menu">
+                      <li>
+                        <a href="#" ng-click="copyCss(css)">Copy</a>
+                        <a href="#" ng-click="deleteCss(css)">Delete</a>
+                      </li>
+                    </ul> </span></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="col-sm-9">
+        <div ng-show="data=='twitter'">
+          <div class="bg-default">
+            <span class="h1">Twitter</span>
+            <span class="pull-right">
+            	<a href="#" ng-class="{'text-success': editing}" ng-click="editing=! editing" class="h2" style="margin-left: 30px;"><span class="glyphicon glyphicon-edit"></span></a> 
+            	<a href="#" ng-class="{'link-off': !editing}" ng-click="editing  && saveData('twitter')" class="h2" style="margin-left: 30px;"><span class="glyphicon glyphicon-save"></span></a>
+            	<a href="#" ng-class="{'link-off':  editing}" ng-click="!editing && closeAll()" class="h2" style="margin-left: 30px;"><span class="glyphicon glyphicon-remove"></span></a> </span>
+          </div>
+          <div editor-twitter></div>
+        </div>
+
         <div ng-controller="roundCtrl" ng-show="round.name != null">
           <div class="bg-primary">
             <span class="h1"> {{round.name}} </span>

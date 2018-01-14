@@ -102,7 +102,7 @@ table.players {
 	}
 }
 
-div.scoreboard {
+div.scoreboard {	
 	img.logo {
 	    position: absolute;
 	    width: $logo-width;
@@ -188,10 +188,20 @@ div.scoreboard {
 }
 
 div.player {
+	
     width: 1000px;
     height: 1000px;
     transform-origin: 0px 0px;
-    cursor: default;
+	transform: translate3d(0,0,0);
+	cursor: default;
+    transition: 1s;
+    
+    &.ng-enter{
+    	transition: 0s;
+    }
+    &.ng-leave{
+    	transition: 0s;
+    }
         
     div.open{
 	    position: absolute;

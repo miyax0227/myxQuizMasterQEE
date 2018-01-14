@@ -13,6 +13,7 @@ angular.module('twitter.functions', [])
   var USER_DETAILS_URL = 'https://api.twitter.com/1.1/users/show.json';
   var MEDIA_UPLOAD_URL = 'https://upload.twitter.com/1.1/media/upload.json';
   var STATUS_DESTROY_URL = 'https://api.twitter.com/1.1/statuses/destroy/:id.json';
+  var ACCOUNT_VERIFY_CREDENTIALS_URL = 'https://api.twitter.com/1.1/account/verify_credentials.json';
 
   function getRequest(url, neededParams, optionalParams) {
     var deferred = $q.defer();
@@ -126,6 +127,10 @@ angular.module('twitter.functions', [])
     postStatusDestroy: function (id) {
       return postRequestMediaUpload(STATUS_DESTROY_URL.replace(/:id/, id), {}, {});
     },
+    //A custom function in Twitte Api
+    getAccountVerifyCredentials: function (parameters) {
+      return getRequest(ACCOUNT_VERIFY_CREDENTIALS_URL, {}, parameters);
+    },  
     getRequest: getRequest,
     postRequest: postRequest
   };

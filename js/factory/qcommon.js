@@ -60,6 +60,9 @@ app
 	  qCommonService.timerRestart = timerRestart;
 	  qCommonService.timerShow = timerShow;
 	  qCommonService.timerHide = timerHide;
+	  qCommonService.timerPlus1 = timerPlus1;
+	  qCommonService.timerMinus1 = timerMinus1;
+	  qCommonService.pushed = pushed;
 	  return qCommonService;
 
 	  /*************************************************************************
@@ -402,8 +405,9 @@ app
 		scope.current = {};
 		scope.current.header = scope.$storage[getRoundName()].header;
 		scope.current.players = scope.$storage[getRoundName()].players;
-		scope.timer = {};
+		// scope.timer = {};
 		scope.timer = scope.$storage[getRoundName()].timer;
+		qCommonService.timer = scope.timer;
 
 		if (viewMode) {
 		  // localStorage内ではdate型を扱えないので変換
@@ -418,6 +422,7 @@ app
 			var hist = $localStorage.$default(defaultObj);
 			refreshCurrent(hist[getRoundName()], scope);
 			scope.timer = scope.$storage[getRoundName()].timer;
+			qCommonService.timer = scope.timer;
 
 			// localStorage内ではdate型を扱えないので変換
 			if (scope.timer['destination'] != null) {
@@ -535,8 +540,13 @@ app
 			left : 0,
 			right : 1,
 			y : 0.4,
-			zoom : 1
+			zoom : 1,
+			orderBy : "position"
 		  };
+		}
+
+		if (!property.orderBy) {
+		  property.orderBy = "position";
 		}
 
 		var count = players.filter(function(p) {
@@ -544,7 +554,7 @@ app
 		}).length;
 
 		var position = players.filter(function(p) {
-		  return (p.line == player.line) && (p.position < player.position);
+		  return (p.line == player.line) && (p[property.orderBy] < player[property.orderBy]);
 		}).length;
 
 		var playerTop;
@@ -583,11 +593,14 @@ app
 		  display = "inline";
 		}
 
+		var transformStr = "translate3d(" + playerLeft + "px, " + playerTop + "px, 0) ";
+		transformStr += "scale(" + zoom + "," + zoom + ")";
+
 		return {
 		  position : 'absolute',
-		  left : playerLeft + 'px',
-		  top : playerTop + 'px',
-		  transform : "scale(" + zoom + "," + zoom + ")",
+		  // left : playerLeft + 'px',
+		  // top : playerTop + 'px',
+		  transform : transformStr,
 		  visibility : visibility,
 		  display : display,
 		  'z-index' : player["position"] - players.length
@@ -885,6 +898,8 @@ app
 		  }
 		}
 
+		var timer = qCommonService.timer;
+
 		if (timer.visible) {
 		  if (timer.working) {
 			if (timer.destination == null) {
@@ -923,6 +938,12 @@ app
 		t = $interval(function() {
 		  scope.timerDisplay = getTimer(scope);
 		}, 100);
+		t = $interval(function() {
+		  if (global.gc) {
+			global.gc();
+			console.log("Used Memory:" + process.memoryUsage().heapUsed);
+		  }
+		}, 60000);
 	  }
 
 	  /*************************************************************************
@@ -1150,7 +1171,10 @@ app
 	   * @return {array} - cssのリスト
 	   */
 	  function mergeItemCSS(css, player) {
-		var cssArray = css.split(" ");
+		var cssArray = [];
+		if (angular.isString(css)) {
+		  cssArray = css.split(" ");
+		}
 		angular.forEach(player, function(value, key) {
 		  if (value === true) {
 			cssArray.push(key);
@@ -1165,6 +1189,7 @@ app
 	   * @memberOf qCommon
 	   */
 	  function timerReset() {
+		var timer = qCommonService.timer;
 		timer.destination = null;
 		timer.restTime = null;
 		timer.working = false;
@@ -1175,6 +1200,7 @@ app
 	   * @memberOf qCommon
 	   */
 	  function timerStart() {
+		var timer = qCommonService.timer;
 		timer.destination = new Date(new Date().getTime() + timer.defaultTime * 1000);
 		timer.restTime = null;
 		timer.working = true;
@@ -1185,6 +1211,7 @@ app
 	   * @memberOf qCommon
 	   */
 	  function timerStop() {
+		var timer = qCommonService.timer;
 		timer.restTime = new Date(timer.destination.getTime() - new Date().getTime());
 		timer.destination = null;
 	  }
@@ -1194,6 +1221,7 @@ app
 	   * @memberOf qCommon
 	   */
 	  function timerRestart() {
+		var timer = qCommonService.timer;
 		timer.destination = new Date(new Date().getTime() + timer.restTime.getTime());
 		timer.restTime = null;
 	  }
@@ -1203,6 +1231,7 @@ app
 	   * @memberOf qCommon
 	   */
 	  function timerShow() {
+		var timer = qCommonService.timer;
 		timer.visible = true;
 	  }
 
@@ -1211,6 +1240,46 @@ app
 	   * @memberOf qCommon
 	   */
 	  function timerHide() {
+		var timer = qCommonService.timer;
 		timer.visible = false;
+	  }
+
+	  /*************************************************************************
+	   * timerの秒数＋１
+	   * @memberOf qCommon
+	   */
+	  function timerPlus1() {
+		var timer = qCommonService.timer;
+		if (timer.restTime) {
+		  timer.restTime = new Date(timer.restTime.getTime() + 1000);
+		} else {
+		  timer.defaultTime += 1;
+		}
+	  }
+
+	  /*************************************************************************
+	   * timerの秒数ー１
+	   * @memberOf qCommon
+	   */
+	  function timerMinus1() {
+		var timer = qCommonService.timer;
+		if (timer.restTime) {
+		  timer.restTime = new Date(timer.restTime.getTime() - 1000);
+		} else {
+		  timer.defaultTime -= 1;
+		}
+	  }
+	  
+	  /*************************************************************************
+	   * ボタン押下後、一定時間押下できないようにする
+	   * @memberOf qCommon
+	   * @param {object} scope - $scope
+	   */
+	  function pushed(scope) {
+		scope.pushable = false;
+		var t;
+		t = $interval(function() {
+		  scope.pushable = true;
+		}, 500, 1);
 	  }
 	} ]);

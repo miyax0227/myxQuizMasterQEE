@@ -11,43 +11,15 @@
             "x": 1.5,
             "y": 0.5,
             "zoom": 0.1,
+            "orderBy":"position",
             "invisible":true
         },
         "left": {
             "x": -0.5,
             "y": 0.5,
             "zoom": 0.1,
+            "orderBy":"position",
             "invisible":true
-        },
-        "rev1": {
-            "x": 0.1,
-            "top": 0.2,
-            "bottom" : 0.8,
-            "zoom": 1
-        },
-        "rev2": {
-            "x": 0.3,
-            "top": 0.2,
-            "bottom" : 0.8,
-            "zoom": 1
-        },
-        "rev3": {
-            "x": 0.5,
-            "top": 0.2,
-            "bottom" : 0.8,
-            "zoom": 1
-        },
-        "rev4": {
-            "x": 0.7,
-            "top": 0.2,
-            "bottom" : 0.8,
-            "zoom": 1
-        },
-        "rev5": {
-            "x": 0.9,
-            "top": 0.2,
-            "bottom" : 0.8,
-            "zoom": 1
         }
     }
 ]

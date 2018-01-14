@@ -8,13 +8,17 @@ electron = require("electron");
 const
 app = electron.app;
 
+// gcを許可する
+app.commandLine.appendSwitch('js-flags', '--expose-gc');
+
 // ウィンドウを作成するモジュール
 const
 BrowserWindow = electron.BrowserWindow;
 
-/** メニューバーからDeveloper Toolを起動するためのコード　アプリ化時特有のバグ追跡時に使用すること
- * const Menu = electron.Menu; var menu = Menu.buildFromTemplate([ { label :
- * 'Toggle DevTools', accelerator : 'Alt+Command+I', click : function() {
+/**
+ * メニューバーからDeveloper Toolを起動するためのコード アプリ化時特有のバグ追跡時に使用すること const Menu =
+ * electron.Menu; var menu = Menu.buildFromTemplate([ { label : 'Toggle
+ * DevTools', accelerator : 'Alt+Command+I', click : function() {
  * BrowserWindow.getFocusedWindow().toggleDevTools(); } } ]);
  * Menu.setApplicationMenu(menu);
  */

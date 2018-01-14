@@ -68,10 +68,19 @@ div.player {
       z-index: 1;
     }
     div.combo {
-      @include player-item(-50, -95, 100, 200);
+      @include player-item(-50, -100, 100, 200);
       font-size: 0px;
       @include value-range(1, 1) {
-        height: 200px;
+        height: 210px;
+        background-color: $combo-color;
+        z-index: -100;
+      }
+    }
+    div.select {
+      @include player-item(-50, -100, 100, 200);
+      font-size: 0px;
+      &.selected {
+        height: 210px;
         background-color: $combo-color;
         z-index: -100;
       }

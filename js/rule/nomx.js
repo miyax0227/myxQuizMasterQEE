@@ -21,7 +21,11 @@ app.factory('rule', ['qCommon', function(qCommon) {
   /*****************************************************************************
    * header - ルール固有のヘッダ
    ****************************************************************************/
-  rule.head = [];
+  rule.head = [{
+    "key": "pos",
+    "value": true,
+    "style": "boolean"
+  }];
 
   /*****************************************************************************
    * items - ルール固有のアイテム
@@ -86,7 +90,15 @@ app.factory('rule', ['qCommon', function(qCommon) {
       "left": 0,
       "right": 1,
       "y": 0.5,
-      "zoom": 1
+      "zoom": 1,
+      "orderBy": "position"
+    },
+    "line2": {
+      "left": 0,
+      "right": 1,
+      "y": 0.5,
+      "zoom": 1,
+      "orderBy": "priority"
     }
   };
 
@@ -146,18 +158,30 @@ app.factory('rule', ['qCommon', function(qCommon) {
    * global_actions - 全体に対する操作の設定
    ****************************************************************************/
   rule.global_actions = [{
-    "name": "thru",
-    "button_css": "btn btn-default",
-    "group": "rule",
-    "keyboard": "Space",
-    "tweet": "thru",
-    "enable0": function(players, header, property) {
-      return true;
+      "name": "thru",
+      "button_css": "btn btn-default",
+      "group": "rule",
+      "keyboard": "Space",
+      "tweet": "thru",
+      "enable0": function(players, header, property) {
+        return true;
+      },
+      "action0": function(players, header, property) {
+        addQCount(players, header, property);
+      }
     },
-    "action0": function(players, header, property) {
-      addQCount(players, header, property);
+    {
+      "name": "pos",
+      "button_css": "btn btn-default",
+      "group": "rule",
+      "enable0": function(players, header, property) {
+        return true;
+      },
+      "action0": function(players, header, property) {
+        header.pos = !header.pos;
+      }
     }
-  }];
+  ];
 
   /*****************************************************************************
    * judgement - 操作終了時等の勝敗判定
@@ -204,7 +228,11 @@ app.factory('rule', ['qCommon', function(qCommon) {
 
       // キーボード入力時の配列の紐付け ローリング等の特殊形式でない場合はこのままでOK\
       player.keyIndex = player.position;
-      player.line = "line1";
+      if (header.pos) {
+        player.line = "line1";
+      } else {
+        player.line = "line2";
+      }
     });
   }
 

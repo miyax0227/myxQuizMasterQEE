@@ -1,11 +1,12 @@
-[
-	{
-		"source": "nameList",
-		"filter": {
-			"param": "lot",
-			"oper": "==",
-			"crit": 1
-		},
-		"order": ["entryNo"]
-	}
-]
+[{
+  "source": "nameList",
+  "filter": {
+    "param": "lot",
+    "oper": "==",
+    "crit": 1
+  },
+  "order": ["entryNo"],
+  "property": {
+    "o": [3, 2, 2, 1, 1, 1, 0, 0, 0, 0, 0, 0]
+  }
+}]

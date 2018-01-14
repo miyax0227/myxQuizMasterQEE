@@ -1,6 +1,6 @@
 var appName = "myxQuizEditor";
 var app = angular.module(appName, [ "ui.bootstrap", "ngAnimate", "ui.sortable", "ui.ace",
-	"angular-clipboard" ]);
+	"angular-clipboard", "ngTwitter" ]);
 
 /*******************************************************************************
  * メインコントローラ
@@ -15,12 +15,21 @@ app.controller('main', [ '$scope', 'qeditor', '$interval', 'round', 'rule', 'css
 	  $scope.rounds = [];
 	  $scope.csses = [];
 	  $scope.rules = [];
+	  $scope.data = "";
+	  $scope.window = {};
+	  $scope.twitter = {};
+
 	  $scope.styles = [ "number", "string", "boolean", "null" ];
 	  $scope.orders = [ "desc", "asc" ];
 	  $scope.editing = false;
 	  refresh();
 
+	  $scope.closeAll = closeAll;
 	  $scope.refresh = refresh;
+	  $scope.openData = openData;
+	  $scope.saveData = saveData;
+	  $scope.addElement = addElement;
+	  $scope.deleteElement = deleteElement;
 	  $scope.openRound = openRound;
 	  $scope.copyRound = copyRound;
 	  $scope.deleteRound = deleteRound;
@@ -50,6 +59,46 @@ app.controller('main', [ '$scope', 'qeditor', '$interval', 'round', 'rule', 'css
 		round.closeRound();
 		rule.closeRule();
 		css.closeCss();
+		$scope.data = "";
+	  }
+
+	  /*************************************************************************
+	   * 開く
+	   * @memberOf main
+	   * @param {string} name - データの名前
+	   */
+	  function openData(name) {
+		closeAll();
+		$scope.data = name;
+		qeditor.loadData(name, $scope);
+	  }
+
+	  /*************************************************************************
+	   * 要素を追加する
+	   * @memberOf main
+	   * @param {string} name - データの名前
+	   */
+	  function addElement(name) {
+		qeditor.addElement(name, $scope);
+	  }
+
+	  /*************************************************************************
+	   * 要素を削除する
+	   * @memberOf main
+	   * @param {string} name - データの名前
+	   * @param {number} index - 削除対象要素の番号
+	   */
+	  function deleteElement(name, index) {
+		qeditor.deleteElement(name, index, $scope);
+	  }
+
+	  /*************************************************************************
+	   * 保存する
+	   * @memberOf main
+	   * @param {string} name - データの名前
+	   */
+	  function saveData(name) {
+		qeditor.saveData(name, $scope);
 	  }
 
 	  /*************************************************************************
@@ -168,9 +217,9 @@ app.controller('main', [ '$scope', 'qeditor', '$interval', 'round', 'rule', 'css
 	   * @memberOf main
 	   */
 	  function copyCss(name) {
-		// TODO: 
+		// TODO:
 	  }
-	  
+
 	  /*************************************************************************
 	   * CSSを削除する
 	   * @memberOf main
@@ -178,7 +227,7 @@ app.controller('main', [ '$scope', 'qeditor', '$interval', 'round', 'rule', 'css
 	  function deleteCss(name) {
 		// TODO:
 	  }
-	  
+
 	  /*************************************************************************
 	   * aceエディタ起動処理
 	   */
@@ -358,6 +407,12 @@ app.directive('editorCssImages', function() {
 app.directive('editorCssButtons', function() {
   return {
 	templateUrl : './template/editor-css-buttons.html'
+  };
+});
+
+app.directive('editorTwitter', function() {
+  return {
+	templateUrl : './template/editor-twitter.html'
   };
 });
 

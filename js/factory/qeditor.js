@@ -1,11 +1,20 @@
+'use strict';
+
+var appName = "myxQuizEditor";
+var app = angular.module(appName);
+
 /*******************************************************************************
  * 共通関数をまとめたサービス
  * @class
  * @name qEditor
  */
-app.service('qeditor', [ '$uibModal', function($uibModal) {
+app.service('qeditor', [ '$uibModal', '$twitterApi', function($uibModal, $twitterApi) {
   const
   fs = require('fs');
+  const
+  dialog = require('electron').dialog;
+  const
+  OauthTwitter = require('electron').remote.require('electron-oauth-twitter');
 
   // qEditor設定 --------------------------------------------
   var qEditor = {};
@@ -16,6 +25,10 @@ app.service('qeditor', [ '$uibModal', function($uibModal) {
   qEditor.alarm = alarm;
   qEditor.isJson = isJson;
   qEditor.beautify = beautify;
+  qEditor.loadData = loadData;
+  qEditor.addElement = addElement;
+  qEditor.deleteElement = deleteElement;
+  qEditor.saveData = saveData;
   return qEditor;
 
   /*****************************************************************************
@@ -143,6 +156,108 @@ app.service('qeditor', [ '$uibModal', function($uibModal) {
 	  return true;
 	} catch (e) {
 	  return false;
+	}
+  }
+
+  /*****************************************************************************
+   * データをロードする
+   * @memberOf qEditor
+   * @param {string} name - 対象jsonファイル
+   * @param {object} scope - $scope
+   */
+  function loadData(name, scope) {
+	switch (name) {
+	case "window":
+	  break;
+	case "twitter":
+	  scope.twitter = JSON.parse(fs.readFileSync(__dirname + '/json/twitter.json', 'utf-8'));
+	  break;
+	}
+  }
+
+  /*****************************************************************************
+   * 要素を追加する
+   * @memberOf qEditor
+   * @param {string} name - データの名前
+   * @param {object} scope - $scope
+   */
+  function addElement(name, scope) {
+	switch (name) {
+	case "window":
+	  break;
+	case "twitter":
+	  var consumerKey = "esh749nGvygSvc9ouTYVkwuPO";
+	  var consumerSecret = "VsVuRcKal3g2NfO4zCv4SBLDZ9tz4ioglZiUMaSM44aEk4KCnG";
+
+	  var twitter = new OauthTwitter({
+		key : consumerKey,
+		secret : consumerSecret
+	  });
+
+	  twitter.startRequest().then(function(result) {
+		var accessToken = result.oauth_access_token;
+		var accessTokenSecret = result.oauth_access_token_secret;
+
+		$twitterApi.configure(consumerKey, consumerSecret, {
+		  oauth_token : accessToken,
+		  oauth_token_secret : accessTokenSecret
+		});
+
+		$twitterApi.getAccountVerifyCredentials().then(function(data) {
+		  scope.twitter.accounts.push({
+			owner : data.screen_name,
+			ownerId : data.id,
+			consumerKey : consumerKey,
+			consumerSecret : consumerSecret,
+			accessToken : accessToken,
+			accessTokenSecret : accessTokenSecret
+		  });
+		}, function(data) {
+		  alarm("Twitter連携に失敗しました。"+data);
+		});
+	  }).catch(function(error){
+		  alarm("Twitter連携に失敗しました。"+error);
+	  });
+
+	  break;
+	}
+  }
+
+  /*****************************************************************************
+   * 要素を削除する
+   * @memberOf qEditor
+   * @param {string} name - データの名前
+   * @param {number} index - 削除する要素番号
+   * @param {object} scope - $scope
+   */
+  function deleteElement(name, index, scope) {
+	switch (name) {
+	case "window":
+	  break;
+	case "twitter":
+	  confirm("削除します。よろしいですか？", function() {
+		scope.twitter.accounts.splice(index, 1);
+	  });
+	  break;
+	}
+  }
+  
+  /*****************************************************************************
+   * 保存する
+   * @memberOf qEditor
+   * @param {string} name - データの名前
+   * @param {object} scope - $scope
+   */
+  function saveData(name, scope){
+	switch(name){
+	case "window":
+	  break;
+	case "twitter":
+	  confirm("保存します。よろしいですか？", function() {
+		fs.writeFile(__dirname + '/json/twitter.json', JSON.stringify(scope.twitter, undefined, 2));
+	  });
+	  
+	  break;
 	}
   }
 

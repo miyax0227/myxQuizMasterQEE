@@ -232,6 +232,7 @@ app.service('qTwitter', [ '$twitterApi', '$interval', '$filter',
 	   ************************************************************************/
 	  function setAccountNum(num) {
 		// configure
+		accountNum = num;
 		var consumerKey = qTwitter.accounts[accountNum].consumerKey;
 		var consumerSecret = qTwitter.accounts[accountNum].consumerSecret;
 		var accessToken = qTwitter.accounts[accountNum].accessToken;

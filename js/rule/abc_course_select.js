@@ -11,6 +11,7 @@ app.factory('rule', ['qCommon', function(qCommon) {
   var rule = {};
   var win = qCommon.win;
   var lose = qCommon.lose;
+  var timerStop = qCommon.timerStop;
   var setMotion = qCommon.setMotion;
   var addQCount = qCommon.addQCount;
 
@@ -21,70 +22,53 @@ app.factory('rule', ['qCommon', function(qCommon) {
    * header - ルール固有のヘッダ
    ****************************************************************************/
   rule.head = [{
-    "key": "mode",
-    "value": "position",
-    "style": "string"
+    "key": "nowCourse",
+    "value": 0,
+    "style": "number"
   }];
 
   /*****************************************************************************
    * items - ルール固有のアイテム
    ****************************************************************************/
   rule.items = [{
-      "key": "o",
+      "key": "selected",
       "value": 0,
-      "style": "number",
-      "css": "o"
+      "style": "boolean",
+      "css": "select"
     },
     {
-      "key": "x",
+      "key": "course",
       "value": 0,
-      "style": "number",
-      "css": "x"
-    },
-    {
-      "key": "test"
+      "style": "number"
     },
     {
       "key": "priority",
-      "order": [{
-          "key": "status",
-          "order": "desc",
-          "alter": [
-            "win",
-            1,
-            0
-          ]
-        },
-        {
-          "key": "o",
-          "order": "desc"
-        },
-        {
-          "key": "x",
-          "order": "asc"
-        }
-      ]
+      "order": []
     }
   ];
 
   /*****************************************************************************
    * tweet - ルール固有のツイートのひな型
    ****************************************************************************/
-  rule.tweet = {
-    "o": "${handleName}◯　→${o}◯ ${x}×",
-    "x": "${handleName}×　→${o}◯ ${x}× ${absent}休",
-    "thru": "スルー"
-  };
+  rule.tweet = {};
 
   /*****************************************************************************
    * lines - ルール固有のプレイヤー配置
    ****************************************************************************/
   rule.lines = {
-    "testLine": {
-      "x": 0.2,
-      "top": 0,
-      "bottom": 1,
-      "zoom": 1
+    "line1": {
+      "left": 0,
+      "right": 1,
+      "y": 0.4,
+      "zoom": 1,
+      "orderBy": "position"
+    },
+    "line2": {
+      "left": 0,
+      "right": 1,
+      "y": 0.9,
+      "zoom": 0.5,
+      "orderBy": "keyIndex"
     }
   };
 
@@ -92,55 +76,68 @@ app.factory('rule', ['qCommon', function(qCommon) {
    * actions - プレイヤー毎に設定する操作の設定
    ****************************************************************************/
   rule.actions = [{
-      "name": "○",
-      "css": "action_o",
-      "button_css": "btn btn-primary btn-lg",
-      "keyArray": "k1",
-      "tweet": "o",
-      "enable0": function(player, players, header, property) {
-        return (player.status == 'normal' && !header.playoff);
-      },
-      "action0": function(player, players, header, property) {
-        setMotion(player, 'o');
-        player.o++;
-        addQCount(players, header, property);
-      }
+    "name": "select",
+    "css": "action_o",
+    "button_css": "btn btn-primary btn-lg",
+    "keyArray": "k1",
+    "enable0": function(player, players, header, property) {
+      return true;
     },
-    {
-      "name": "×",
-      "css": "action_x",
-      "button_css": "btn btn-danger btn-lg",
-      "keyArray": "k2",
-      "tweet": "x",
-      "enable0": function(player, players, header, property) {
-        return true;
-      },
-      "action0": function(player, players, header, property) {
-        setMotion(player, 'x');
-        player.x++;
-        if (property.penalty > 0) {
-          player.absent = property.penalty;
-          player.status = 'preabsent';
-        }
-        addQCount(players, header, property);
-      }
+    "action0": function(player, players, header, property) {
+      player.selected = !player.selected;
     }
-  ];
+  }];
 
   /*****************************************************************************
    * global_actions - 全体に対する操作の設定
    ****************************************************************************/
   rule.global_actions = [{
-      "name": "thru",
+      "name": "commit",
       "button_css": "btn btn-default",
       "group": "rule",
       "keyboard": "Space",
-      "tweet": "thru",
       "enable0": function(players, header, property) {
-        return true;
+        return (header.nowCourse > 0);
       },
       "action0": function(players, header, property) {
-        addQCount(players, header, property);
+        // そのコースがまだ決定前の場合
+        if (players.filter(function(p) {
+            return p.course == header.nowCourse;
+          }).length === 0) {
+          // 希望者を上位からコース決定
+          var rest = property.capacity;
+          players.filter(function(p) {
+            return p.course === 0 && p.selected;
+          }).map(function(p) {
+            if (rest > 0) {
+              p.course = header.nowCourse;
+              rest--;
+            }
+          });
+          // 不足分を下位から補充
+          if (rest > 0) {
+            players.filter(function(p) {
+              return p.course === 0;
+            }).splice(-rest, rest).map(function(p) {
+              p.course = header.nowCourse;
+            });
+          }
+
+          // そのコースが決定後の場合
+        } else {
+          // コース選択を解除
+          players.filter(function(p) {
+            return p.course == header.nowCourse;
+          }).map(function(p) {
+            p.course = 0;
+          });
+        }
+
+        // 全プレイヤーの選択を解除
+        players.map(function(p) {
+          p.selected = false;
+        });
+
       }
     },
     {
@@ -148,13 +145,13 @@ app.factory('rule', ['qCommon', function(qCommon) {
       "button_css": "btn btn-default",
       "group": "rule",
       "indexes0": function(players, header, property) {
-        return property.lots;
+        return property.courseArray;
       },
       "enable1": function(index, players, header, property) {
         return true;
       },
       "action1": function(index, players, header, property) {
-        header.nowLot = index;
+        header.nowCourse = property.courseName.indexOf(index);
       }
     }
   ];
@@ -169,19 +166,9 @@ app.factory('rule', ['qCommon', function(qCommon) {
   function judgement(players, header, property) {
     angular.forEach(players.filter(function(item) {
       /* rankがない人に限定 */
-      return (item.rank == 0);
+      return (item.rank === 0);
     }), function(player, i) {
-      /* win条件 */
-      if (player.o >= property.winningPoint) {
 
-        win(player, players, header, property);
-        player.o = property.winningPoint;
-      }
-      /* lose条件 */
-      if (player.x >= property.losingPoint) {
-        lose(player, players, header, property);
-        player.x = property.losingPoint;
-      }
     });
   }
 
@@ -192,13 +179,18 @@ app.factory('rule', ['qCommon', function(qCommon) {
    * @param {Object} items - items
    ****************************************************************************/
   function calc(players, header, items, property) {
+    var key = 0;
     angular.forEach(players, function(player, index) {
-      // pinch, chance
-      player.pinch = (player.x == property.losingPoint - 1) && (player.status == 'normal');
-      player.chance = (player.o == property.winningPoint - 1) && (player.status == 'normal');
+      if (player.course === 0) {
+        player.keyIndex = (key++);
+        player.line = "line2";
+      } else if (player.course == header.nowCourse) {
+        player.keyIndex = 999;
+        player.line = "line1";
+      } else {
+        player.line = "left";
+      }
 
-      // キーボード入力時の配列の紐付け
-      player.keyIndex = index;
     });
   }
 

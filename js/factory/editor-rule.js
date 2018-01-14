@@ -362,6 +362,12 @@ app.service('rule', [ 'qeditor', function(qeditor) {
 			tmp.zoom = 1;
 		  }
 
+		  if (line.orderBy) {
+			tmp.orderBy = line.orderBy;
+		  } else {
+			tmp.orderBy = "position";
+		  }
+		  
 		  tmpLines[line.key] = tmp;
 		});
 
@@ -545,6 +551,7 @@ app.service('rule', [ 'qeditor', function(qeditor) {
 	qeditor.inputBox("追加するキーを入力してください。", function(result) {
 	  rule.lines.push({
 		key : result.inputString,
+		orderBy : "position",
 		xType : true,
 		yType : false,
 		invisible : false,
