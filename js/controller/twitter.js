@@ -1,46 +1,51 @@
 'use strict';
 
 var appName = "myxQuizTwitter";
-var app = angular.module(appName, [ "ui.bootstrap", "ngTwitter" ]);
+var app = angular.module(appName, ["ui.bootstrap", "ngTwitter"]);
 
-/*******************************************************************************
- * index - indexコントローラ
- * 
- * @class
- * @name main
- * @memberOf angular-5o2x.js.controller
- ******************************************************************************/
-app
-
-.controller('twitter', [ '$scope', 'qTwitter', function($scope, qTwitter) {
+/** twitter画面用コントローラ */
+app.controller('twitter', ['$scope', 'qTwitter', function ($scope, qTwitter) {
   $scope.accounts = qTwitter.accounts;
   $scope.history = qTwitter.history;
   $scope.accountNum = qTwitter.accountNum;
 
-  $scope.setAccountNum = function(num) {
-	$scope.accountNum = num;
-	qTwitter.setAccountNum(num);
+  /** アカウント番号を変更する
+   * @param {number} num アカウント番号
+   */
+  $scope.setAccountNum = function setAccountNum(num) {
+    $scope.accountNum = num;
+    qTwitter.setAccountNum(num);
   };
 
-  $scope.newTweetSubmit = function() {
-	qTwitter.newTweetSubmit($scope.newTweet);
-	$scope.newTweet = "";
+  /** 新しいツイートを投稿する
+   */
+  $scope.newTweetSubmit = function () {
+    qTwitter.newTweetSubmit($scope.newTweet);
+    $scope.newTweet = "";
   };
 
-  $scope.replySubmit = function() {
-	qTwitter.replySubmit($scope.newTweet, $scope.tweetId);
-	$scope.newTweet = "";
-	$scope.tweetId = null;
+  /** ツイートに返信する 
+  */
+  $scope.replySubmit = function () {
+    qTwitter.replySubmit($scope.newTweet, $scope.tweetId);
+    $scope.newTweet = "";
+    $scope.tweetId = null;
   };
 
-  $scope.deleteTweet = function(obj) {
-	qTwitter.deleteTweet(obj.id);
-	obj.id = null;
+  /** ツイートを削除する
+   * @param {object} obj 削除対象ツイート
+   */
+  $scope.deleteTweet = function (obj) {
+    qTwitter.deleteTweet(obj.id);
+    obj.id = null;
   };
 
-  $scope.setTweetId = function(id) {
-	$scope.tweetId = id;
+  /** 返信/削除対象ツイートに設定する
+   * @param {number} id 対象ツイートのid
+   */
+  $scope.setTweetId = function (id) {
+    $scope.tweetId = id;
   };
 
-} ]);
+}]);
 
