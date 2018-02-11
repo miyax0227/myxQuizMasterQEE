@@ -55,6 +55,9 @@ app.service('qCommon', ['$uibModal', '$localStorage', '$interval', '$location', 
 		qCommon.timerHide = timerHide;
 		qCommon.timerPlus1 = timerPlus1;
 		qCommon.timerMinus1 = timerMinus1;
+		qCommon.setExplainCount = setExplainCount;
+		qCommon.explainNext = explainNext;
+		qCommon.getExplainCount = getExplainCount;
 		qCommon.pushed = pushed;
 		return qCommon;
 
@@ -167,6 +170,8 @@ app.service('qCommon', ['$uibModal', '$localStorage', '$interval', '$location', 
 			player.status = "win";
 			/* 休みを消す */
 			player.absent = 0;
+			/* 時間を記録する */
+			player.time = new Date().getTime();
 			/* tweet */
 			editTweet(header.tweets, property.tweet["win"], player, false);
 		}
@@ -185,6 +190,8 @@ app.service('qCommon', ['$uibModal', '$localStorage', '$interval', '$location', 
 			player.status = "lose";
 			/* 休みを消す */
 			player.absent = 0;
+			/* 時間を記録する */
+			player.time = new Date().getTime();
 			/* tweet */
 			editTweet(header.tweets, property.tweet["lose"], player, false);
 
@@ -1123,6 +1130,40 @@ app.service('qCommon', ['$uibModal', '$localStorage', '$interval', '$location', 
 				timer.defaultTime -= 1;
 			}
 		}
+
+		/** 説明文　最大数設定 
+		 * @param {number} max 説明文の最大数
+		*/
+		function setExplainCount(max) {
+			var timer = qCommon.timer;
+			timer.explainMax = max;
+			timer.explainCount = 0;
+		}
+		/** 説明文　次へ
+		*/
+		function explainNext() {
+			var timer = qCommon.timer;
+			timer.explainCount++;
+			if (timer.explainCount > timer.explainMax) {
+				timer.explainCount = 0;
+			}
+		}
+		/** 説明文　現在のカウント
+		 * @return {number} 現在のカウント
+		 */
+		function getExplainCount() {
+			var timer = qCommon.timer;
+			if (timer.explainCount > 0) {
+				try {
+					var explainElement = document.getElementById("explain");
+					explainElement.scrollTop = explainElement.scrollHeight;
+				} catch (e) {
+
+				}
+			}
+			return timer.explainCount;
+		}
+
     /** ボタン押下後、一定時間押下できないようにする
      * @param {object} scope  $scope
      */

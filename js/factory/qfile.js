@@ -76,10 +76,16 @@ app.service('qFile', ['$window', '$interval', '$filter', '$uibModal',
 						var filename = __dirname + '/round/' + file + "/entry.json";
 						var entryList = callMember(JSON.parse(fs.readFileSync(filename, 'utf-8')));
 
+
 						if (entryList.length == 0) {
-							cancelJsonFile(scope);
+							//cancelJsonFile(scope);
+							scope.tableContent = [];
+							scope.tableHead = [];
+							scope.tableTitle = file;
+							scope.tableFilename = __dirname + '/history/current/' + file + '-entry.json';
 
 						} else {
+
 							scope.tableContent = entryList;
 							scope.tableHead = Object.keys(scope.tableContent[0]);
 							scope.tableTitle = file;
@@ -378,8 +384,6 @@ app.service('qFile', ['$window', '$interval', '$filter', '$uibModal',
 						subEntryList = callMember([obj.source]);
 					}
 
-					console.log(subEntryList);
-
 					// minusが指定されている場合
 					if (obj.hasOwnProperty('minus')) {
 						var minusEntryNo;
@@ -401,14 +405,39 @@ app.service('qFile', ['$window', '$interval', '$filter', '$uibModal',
 
 					// filterが指定されている場合
 					if (obj.hasOwnProperty('filter')) {
-						subEntryList = angular.copy(subEntryList).filter(function (o) {
-							return ev(obj.filter.oper, o[obj.filter.param], obj.filter.crit, obj.filter.crit2);
-						});
+						if (angular.isString(obj.filter)) {
+							["==", "<>", "<=", ">=", "<", ">", "!="].some(function (oper) {
+								var splitted = obj.filter.split(oper);
+
+								if (splitted.length == 2) {
+									subEntryList = angular.copy(subEntryList).filter(function (o) {
+										return ev(oper, o[splitted[0]], splitted[1], null);
+									});
+									return true;
+								}
+							});
+
+							var splitted = obj.filter.split("<=");
+							if (splitted.length == 3) {
+								subEntryList = angular.copy(subEntryList).filter(function (o) {
+									return ev("~", o[splitted[1]], splitted[0], splitted[2]);
+								});
+							}
+
+						} else if (angular.isObject(obj.filter)) {
+							subEntryList = angular.copy(subEntryList).filter(function (o) {
+								return ev(obj.filter.oper, o[obj.filter.param], obj.filter.crit, obj.filter.crit2);
+							});
+						}
 					}
 
 					// orderが指定されている場合
 					if (obj.hasOwnProperty('order')) {
-						subEntryList.sort(sortFunc(obj.order));
+						if (angular.isString(obj.order)) {
+							subEntryList.sort(sortFunc([obj.order]));
+						} else if (angular.isArray(obj.order)) {
+							subEntryList.sort(sortFunc(obj.order));
+						}
 					}
 
 					// randomが指定されている場合
@@ -452,6 +481,8 @@ app.service('qFile', ['$window', '$interval', '$filter', '$uibModal',
 							}
 						});
 					}
+
+					console.log(subEntryList);
 
 					angular.forEach(subEntryList, function (o) {
 						entryList.push(angular.copy(o));

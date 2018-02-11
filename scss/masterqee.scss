@@ -47,18 +47,24 @@ div.player {
       border-radius: 16px;
     }
     div.o {
-      @include player-item(-50, -230, 100, 72);
+      @include player-item(-100, -230, 200, 72);
       &.chance {
         color: $chance-color;
       }
+      &.hidepts {
+        opacity: 0;
+      }
     }
     div.x {
-      @include player-item(-50, 130, 100, 72);
+      @include player-item(-100, 130, 200, 72);
       @include value-range(0, 0) {
         display: none;
       }
       &.pinch {
         color: $pinch-color;
+      }
+      &.hidepts {
+        opacity: 0;
       }
     }
     div.absent {
@@ -83,6 +89,27 @@ div.player {
         height: 210px;
         background-color: $combo-color;
         z-index: -100;
+      }
+    }
+    div.x2 {
+      @include player-item(-50, 202, 100, 48);
+      @include value-range(0, 0) {
+        display: none;
+      }
+      &.pinch {
+        color: $pinch-color;
+      }
+      &.hidepts {
+        opacity: 0;
+      }
+    }
+    div.o2 {
+      @include player-item(-50, -278, 100, 48);
+      &.chance {
+        color: $chance-color;
+      }
+      &.hidepts {
+        opacity: 0;
       }
     }
   }
@@ -178,5 +205,8 @@ div.player {
   }
   div.action_wait {
     @include player-button(10, 110);
+  }
+  div.action_s {
+    @include player-button(-22, -20);
   }
 }

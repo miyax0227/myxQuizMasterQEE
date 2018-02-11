@@ -1,0 +1,6 @@
+<div id="explain" class="explain" ng-if="getExplainCount()>0">
+  <p ng-repeat="exp in explain" ng-if="$index < getExplainCount()" ng-bind-html="exp">
+  </p>
+  <p><br><br>
+  </p>
+</div>

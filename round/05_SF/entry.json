@@ -1,0 +1,41 @@
+[{
+    "source": [{
+        "source": "03_3R_01_10o10x"
+      },
+      {
+        "source": "03_3R_02_10updown"
+      },
+      {
+        "source": "03_3R_03_Swedish10"
+      },
+      {
+        "source": "03_3R_04_10by10"
+      }
+    ],
+    "filter": "rank==2",
+    "profile": true,
+    "order": "-time"
+  }, {
+    "source": "04_Extra",
+    "filter": "rank==1",
+    "profile": "true"
+  },
+  {
+    "source": [{
+        "source": "03_3R_01_10o10x"
+      },
+      {
+        "source": "03_3R_02_10updown"
+      },
+      {
+        "source": "03_3R_03_Swedish10"
+      },
+      {
+        "source": "03_3R_04_10by10"
+      }
+    ],
+    "filter": "rank==1",
+    "profile": true,
+    "order": "time"
+  }
+]

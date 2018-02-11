@@ -76,8 +76,8 @@ app.factory('rule', ['qCommon', function(qCommon) {
    * actions - プレイヤー毎に設定する操作の設定
    ****************************************************************************/
   rule.actions = [{
-    "name": "select",
-    "css": "action_o",
+    "name": "S",
+    "css": "action_s",
     "button_css": "btn btn-primary btn-lg",
     "keyArray": "k1",
     "enable0": function(player, players, header, property) {

@@ -1,0 +1,6 @@
+[{
+  "source": "05_SF",
+  "filter": "status==win",
+  "profile": true,
+  "order": "rank"
+}]

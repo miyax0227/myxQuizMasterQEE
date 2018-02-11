@@ -4,25 +4,35 @@
       <div class="panel panel-info">
         <div class="panel-heading">
           Actions
-          <span uib-dropdown> <a href id="rule-action-add" uib-dropdown-toggle><span class="caret"></span></a>
+          <span uib-dropdown>
+            <a href id="rule-action-add" uib-dropdown-toggle>
+              <span class="caret"></span>
+            </a>
             <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="rule-action-add">
               <li>
                 <a href="#" ng-click="rule.addAction(rule.actions)">Add</a>
               </li>
-            </ul> </span>
+            </ul>
+          </span>
         </div>
         <table class="table table-condensed table-hover">
-          <tbody ui-sortable="{'axis':'y'}"　ng-model="rule.actions">
-            <tr ng-repeat="action in rule.actions"
-            ng-click="rule.currentAction=rule.actions[$index]; rule.currentActionClass=1;"
-            ng-class="{'danger':rule.currentAction==action}">
-              <td>{{action.name}}</td>
-              <td><span uib-dropdown> <a href id="action-menu" uib-dropdown-toggle><span class="caret"></span></a>
-                <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="action-menu">
-                  <li>
-                    <a href="#" ng-click="rule.deleteAction(rule.actions, $index)">Delete</a>
-                  </li>
-                </ul> </span></td>
+          <tbody ui-sortable="{'axis':'y'}" 　ng-model="rule.actions">
+            <tr ng-repeat="action in rule.actions" ng-click="rule.currentAction=rule.actions[$index]; rule.currentActionClass=1;" ng-class="{'danger':rule.currentAction==action}">
+              <td>
+                <input ng-model="action.name" class="form-control" type="text" />
+              </td>
+              <td>
+                <span uib-dropdown>
+                  <a href id="action-menu" uib-dropdown-toggle>
+                    <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="action-menu">
+                    <li>
+                      <a href="#" ng-click="rule.deleteAction(rule.actions, $index)">Delete</a>
+                    </li>
+                  </ul>
+                </span>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -31,25 +41,36 @@
       <div class="panel panel-info">
         <div class="panel-heading">
           GlobalActions
-          <span uib-dropdown> <a href id="rule-global-action-add" uib-dropdown-toggle><span class="caret"></span></a>
+          <span uib-dropdown>
+            <a href id="rule-global-action-add" uib-dropdown-toggle>
+              <span class="caret"></span>
+            </a>
             <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="rule-global-action-add">
               <li>
                 <a href="#" ng-click="rule.addAction(rule.global_actions)">Add</a>
               </li>
-            </ul> </span>
+            </ul>
+          </span>
         </div>
         <table class="table table-condensed table-hover">
-          <tbody ui-sortable="{'axis':'y'}"　ng-model="rule.global_actions">
-            <tr ng-repeat="action in rule.global_actions"
-            ng-click="rule.currentAction=rule.global_actions[$index]; rule.currentActionClass=2;"
-            ng-class="{'danger':rule.currentAction==action}">
-              <td>{{action.name}}</td>
-              <td><span uib-dropdown> <a href id="action-menu" uib-dropdown-toggle><span class="caret"></span></a>
-                <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="action-menu">
-                  <li>
-                    <a href="#" ng-click="rule.deleteAction(rule.global_actions, $index)">Delete</a>
-                  </li>
-                </ul> </span></td>
+          <tbody ui-sortable="{'axis':'y'}" 　ng-model="rule.global_actions">
+            <tr ng-repeat="action in rule.global_actions" ng-click="rule.currentAction=rule.global_actions[$index]; rule.currentActionClass=2;"
+              ng-class="{'danger':rule.currentAction==action}">
+              <td>
+                <input ng-model="action.name" class="form-control" type="text" />
+              </td>
+              <td>
+                <span uib-dropdown>
+                  <a href id="action-menu" uib-dropdown-toggle>
+                    <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="action-menu">
+                    <li>
+                      <a href="#" ng-click="rule.deleteAction(rule.global_actions, $index)">Delete</a>
+                    </li>
+                  </ul>
+                </span>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -58,25 +79,36 @@
       <div class="panel panel-info">
         <div class="panel-heading">
           GlobalActionsRepeat
-          <span uib-dropdown> <a href id="rule-global-action-repeat-add" uib-dropdown-toggle><span class="caret"></span></a>
+          <span uib-dropdown>
+            <a href id="rule-global-action-repeat-add" uib-dropdown-toggle>
+              <span class="caret"></span>
+            </a>
             <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="rule-global-action-repeat-add">
               <li>
                 <a href="#" ng-click="rule.addAction(rule.global_actions_repeat)">Add</a>
               </li>
-            </ul> </span>
+            </ul>
+          </span>
         </div>
         <table class="table table-condensed table-hover">
-          <tbody ui-sortable="{'axis':'y'}"　ng-model="rule.global_actions_repeat">
-            <tr ng-repeat="action in rule.global_actions_repeat"
-            ng-click="rule.currentAction=rule.global_actions_repeat[$index]; rule.currentActionClass=3;"
-            ng-class="{'danger':rule.currentAction==action}">
-              <td>{{action.name}}</td>
-              <td><span uib-dropdown> <a href id="action-menu" uib-dropdown-toggle><span class="caret"></span></a>
-                <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="action-menu">
-                  <li>
-                    <a href="#" ng-click="rule.deleteAction(rule.global_actions_repeat, $index)">Delete</a>
-                  </li>
-                </ul> </span></td>
+          <tbody ui-sortable="{'axis':'y'}" 　ng-model="rule.global_actions_repeat">
+            <tr ng-repeat="action in rule.global_actions_repeat" ng-click="rule.currentAction=rule.global_actions_repeat[$index]; rule.currentActionClass=3;"
+              ng-class="{'danger':rule.currentAction==action}">
+              <td>
+                <input ng-model="action.name" class="form-control" type="text" />
+              </td>
+              <td>
+                <span uib-dropdown>
+                  <a href id="action-menu" uib-dropdown-toggle>
+                    <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="action-menu">
+                    <li>
+                      <a href="#" ng-click="rule.deleteAction(rule.global_actions_repeat, $index)">Delete</a>
+                    </li>
+                  </ul>
+                </span>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -85,52 +117,95 @@
 
     <div class="col-sm-9">
       <table class="table table-condensed">
-        <tr ng-if="rule.currentActionClass">
-          <th>name</th>
-          <td>
-          <input class="form-control input-sm" type="text" ng-model="rule.currentAction.name">
-          </input></td>
+        <tr ng-if="rule.currentActionClass==1">
+          <th>
+            css
+          </th>
+          <th>
+            button_css
+          </th>
+          <th>
+            keyArray
+          </th>
+          <th>
+            tweet
+          </th>
         </tr>
         <tr ng-if="rule.currentActionClass==1">
-          <th>css</th>
           <td>
-          <input class="form-control input-sm" type="text" ng-model="rule.currentAction.css">
-          </input></td>
+            <input ng-model="rule.currentAction.css" class="form-control input-sm" type="text">
+          </td>
+          <td>
+            <input ng-model="rule.currentAction.button_css" class="form-control input-sm" type="text">
+          </td>
+          <td>
+            <input ng-model="rule.currentAction.keyArray" class="form-control input-sm" type="text">
+          </td>
+          <td>
+            <input ng-model="rule.currentAction.tweet" class="form-control input-sm" type="text">
+          </td>
         </tr>
-        <tr ng-if="rule.currentActionClass">
-          <th>button_css</th>
-          <td>
-          <input class="form-control input-sm" type="text" ng-model="rule.currentAction.button_css">
-          </input></td>
-        </tr>
-        <tr ng-if="rule.currentActionClass==2 || rule.currentActionClass==3">
-          <th>group</th>
-          <td>
-          <input class="form-control input-sm" type="text" ng-model="rule.currentAction.group">
-          </input></td>
+
+        <tr ng-if="rule.currentActionClass==2">
+          <th>
+            button_css
+          </th>
+          <th>
+            group
+          </th>
+          <th>
+            keyboard
+          </th>
+          <th>
+            tweet
+          </th>
         </tr>
         <tr ng-if="rule.currentActionClass==2">
-          <th>keyboard</th>
           <td>
-          <input class="form-control input-sm" type="text" ng-model="rule.currentAction.keyboard">
-          </input></td>
+            <input ng-model="rule.currentAction.button_css" class="form-control input-sm" type="text">
+          </td>
+          <td>
+            <input ng-model="rule.currentAction.group" class="form-control input-sm" type="text">
+          </td>
+          <td>
+            <input ng-model="rule.currentAction.keyboard" class="form-control input-sm" type="text">
+          </td>
+          <td>
+            <input ng-model="rule.currentAction.tweet" class="form-control input-sm" type="text">
+          </td>
         </tr>
-        <tr ng-if="rule.currentActionClass==1">
-          <th>keyArray</th>
-          <td>
-          <input class="form-control input-sm" type="text" ng-model="rule.currentAction.keyArray">
-          </input></td>
+
+        <tr ng-if="rule.currentActionClass==3">
+          <th>
+            button_css
+          </th>
+          <th>
+            group
+          </th>
+          <th>
+            tweet
+          </th>
         </tr>
-        <tr ng-if="rule.currentActionClass">
-          <th>tweet</th>
+        <tr ng-if="rule.currentActionClass==3">
           <td>
-          <input class="form-control input-sm" type="text" ng-model="rule.currentAction.tweet">
-          </input></td>
+            <input ng-model="rule.currentAction.button_css" class="form-control input-sm" type="text">
+          </td>
+          <td>
+            <input ng-model="rule.currentAction.group" class="form-control input-sm" type="text">
+          </td>
+          <td>
+            <input ng-model="rule.currentAction.tweet" class="form-control input-sm" type="text">
+          </td>
         </tr>
       </table>
+
       <div ng-show="rule.currentActionClass==1 || rule.currentActionClass==2">
-        <samp ng-show="rule.currentActionClass==1"><strong> function enable0(player, players, header, property)</strong></samp>
-        <samp ng-show="rule.currentActionClass==2"><strong> function enable0(players, header, property)</strong></samp>
+        <samp ng-show="rule.currentActionClass==1">
+          <strong> function enable0(player, players, header, property)</strong>
+        </samp>
+        <samp ng-show="rule.currentActionClass==2">
+          <strong> function enable0(players, header, property)</strong>
+        </samp>
         <div style="height: 36px;" ng-model="rule.currentAction.enable0" ui-ace="{
         onLoad: aceLoaded,
         useWrapMode : true,
@@ -142,13 +217,17 @@
         enableBasicAutocompletion: true,
         enableLiveAutocompletion: true
         }
-        }" ></div>
+        }"></div>
       </div>
 
       <div ng-show="rule.currentActionClass==1 || rule.currentActionClass==2">
-        <samp ng-show="rule.currentActionClass==1"><strong> function action0(player, players, header, property)</strong></samp>
-        <samp ng-show="rule.currentActionClass==2"><strong> function action0(players, header, property)</strong></samp>
-        <div style="height: 270px;" ng-model="rule.currentAction.action0" ui-ace="{
+        <samp ng-show="rule.currentActionClass==1">
+          <strong> function action0(player, players, header, property)</strong>
+        </samp>
+        <samp ng-show="rule.currentActionClass==2">
+          <strong> function action0(players, header, property)</strong>
+        </samp>
+        <div style="height: 400px;" ng-model="rule.currentAction.action0" ui-ace="{
         onLoad: aceLoaded,
         useWrapMode : true,
         theme:'monokai',
@@ -159,7 +238,7 @@
         enableBasicAutocompletion: true,
         enableLiveAutocompletion: true
         }
-        }" ></div>
+        }"></div>
         <div ui-clipboard words="{
         'addQCount':'addQCount(players, header, property);',
         'setMotion':'setMotion(player, \'o\');'
@@ -167,7 +246,9 @@
       </div>
 
       <div ng-show="rule.currentActionClass==3">
-        <samp><strong> function indexes0(players, header, property)</strong></samp>
+        <samp>
+          <strong> function indexes0(players, header, property)</strong>
+        </samp>
         <div style="height: 36px;" ng-model="rule.currentAction.indexes0" ui-ace="{
         onLoad: aceLoaded,
         useWrapMode : true,
@@ -179,11 +260,13 @@
         enableBasicAutocompletion: true,
         enableLiveAutocompletion: true
         }
-        }" ></div>
+        }"></div>
       </div>
 
       <div ng-show="rule.currentActionClass==3">
-        <samp><strong> function enable1(index, players, header, property)</strong></samp>
+        <samp>
+          <strong> function enable1(index, players, header, property)</strong>
+        </samp>
         <div style="height: 36px;" ng-model="rule.currentAction.enable1" ui-ace="{
         onLoad: aceLoaded,
         useWrapMode : true,
@@ -195,12 +278,14 @@
         enableBasicAutocompletion: true,
         enableLiveAutocompletion: true
         }
-        }" ></div>
+        }"></div>
       </div>
 
       <div ng-show="rule.currentActionClass==3">
-        <samp><strong> function action1(index, players, header, property)</strong></samp>
-        <div style="height: 270px;" ng-model="rule.currentAction.action1" ui-ace="{
+        <samp>
+          <strong> function action1(index, players, header, property)</strong>
+        </samp>
+        <div style="height: 360px;" ng-model="rule.currentAction.action1" ui-ace="{
         onLoad: aceLoaded,
         useWrapMode : true,
         theme:'monokai',
@@ -211,7 +296,7 @@
         enableBasicAutocompletion: true,
         enableLiveAutocompletion: true
         }
-        }" ></div>
+        }"></div>
         <div ui-clipboard words="{
         'lot':'header.nowLot = index;'
         }"></div>

@@ -1,7 +1,9 @@
 <fieldset ng-disabled="! editing">
-  <samp><strong> function judgement(players, header, property)</strong></samp>
+  <samp>
+    <strong> function judgement(players, header, property)</strong>
+  </samp>
 
-  <div style="height: 360px;" ng-model="rule.judgement" ui-ace="{
+  <div style="height: 500px;" ng-model="rule.judgement" ui-ace="{
   onLoad: aceLoaded,
   useWrapMode : true,
   theme:'monokai',
@@ -12,7 +14,7 @@
   enableBasicAutocompletion: true,
   enableLiveAutocompletion: true
   }
-  }" ></div>
+  }"></div>
 
   <div ui-clipboard words="{
   'win':'win(player, players, header, property);',

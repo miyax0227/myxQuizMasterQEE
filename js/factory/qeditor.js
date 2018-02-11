@@ -18,6 +18,7 @@ app.service('qeditor', ['$uibModal', '$twitterApi', function ($uibModal, $twitte
 	qEditor.alarm = alarm;
 	qEditor.isJson = isJson;
 	qEditor.beautify = beautify;
+	qEditor.beautifyCSS = beautifyCSS;
 	qEditor.loadData = loadData;
 	qEditor.addElement = addElement;
 	qEditor.deleteElement = deleteElement;
@@ -240,6 +241,16 @@ app.service('qeditor', ['$uibModal', '$twitterApi', function ($uibModal, $twitte
    */
 	function beautify(code) {
 		return js_beautify(code, {
+			indent_size: 2
+		});
+	}
+
+	/** CSS整形
+   * @param {string} code 整形元コード
+   * @return {string} 整形後コード
+	 */
+	function beautifyCSS(code) {
+		return css_beautify(code, {
 			indent_size: 2
 		});
 	}

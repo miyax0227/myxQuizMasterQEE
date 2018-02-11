@@ -1,0 +1,9 @@
+[{
+  "source": "02_3R_select",
+  "filter": {
+    "param": "course",
+    "oper": "==",
+    "crit": 2
+  },
+  "profile": true
+}]

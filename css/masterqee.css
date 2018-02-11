@@ -663,9 +663,9 @@ div.player div.open div.pref {
 
 div.player div.open div.o {
   position: absolute;
-  left: -50px;
+  left: -100px;
   top: -230px;
-  width: 100px;
+  width: 200px;
   font-size: 72px;
   font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", "Noto Sans Japanese", "ヒラギノ角ゴ ProN W3", Meiryo, sans-serif;
   font-weight: bold;
@@ -673,12 +673,14 @@ div.player div.open div.o {
   -webkit-user-select: none; }
   div.player div.open div.o.chance {
     color: lightskyblue; }
+  div.player div.open div.o.hidepts {
+    opacity: 0; }
 
 div.player div.open div.x {
   position: absolute;
-  left: -50px;
+  left: -100px;
   top: 130px;
-  width: 100px;
+  width: 200px;
   font-size: 72px;
   font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", "Noto Sans Japanese", "ヒラギノ角ゴ ProN W3", Meiryo, sans-serif;
   font-weight: bold;
@@ -688,6 +690,8 @@ div.player div.open div.x {
     display: none; }
   div.player div.open div.x.pinch {
     color: lightpink; }
+  div.player div.open div.x.hidepts {
+    opacity: 0; }
 
 div.player div.open div.absent {
   position: absolute;
@@ -736,6 +740,38 @@ div.player div.open div.select {
     height: 210px;
     background-color: gold;
     z-index: -100; }
+
+div.player div.open div.x2 {
+  position: absolute;
+  left: -50px;
+  top: 202px;
+  width: 100px;
+  font-size: 48px;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", "Noto Sans Japanese", "ヒラギノ角ゴ ProN W3", Meiryo, sans-serif;
+  font-weight: bold;
+  text-align: center;
+  -webkit-user-select: none; }
+  div.player div.open div.x2[value="0"] {
+    display: none; }
+  div.player div.open div.x2.pinch {
+    color: lightpink; }
+  div.player div.open div.x2.hidepts {
+    opacity: 0; }
+
+div.player div.open div.o2 {
+  position: absolute;
+  left: -50px;
+  top: -278px;
+  width: 100px;
+  font-size: 48px;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", "Noto Sans Japanese", "ヒラギノ角ゴ ProN W3", Meiryo, sans-serif;
+  font-weight: bold;
+  text-align: center;
+  -webkit-user-select: none; }
+  div.player div.open div.o2.chance {
+    color: lightskyblue; }
+  div.player div.open div.o2.hidepts {
+    opacity: 0; }
 
 div.player div.closed div.paperRank {
   position: absolute;
@@ -1509,5 +1545,12 @@ div.player div.action_wait {
   position: absolute;
   left: 10px;
   top: 110px;
+  opacity: 0.8;
+  -webkit-user-select: none; }
+
+div.player div.action_s {
+  position: absolute;
+  left: -22px;
+  top: -20px;
   opacity: 0.8;
   -webkit-user-select: none; }

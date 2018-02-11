@@ -1,7 +1,7 @@
 'use strict';
 
 var appName = "myxQuizMain";
-var app = angular.module(appName, ["ngStorage", "ui.bootstrap", "ngAnimate", "ngResource"]);
+var app = angular.module(appName, ["ngStorage", "ui.bootstrap", "ngAnimate", "ngResource", "ngSanitize"]);
 
 /** クイズ画面用コントローラ */
 app.controller('main', ['$scope', '$q', 'fileResource', 'qCommon', 'round',
@@ -14,6 +14,8 @@ app.controller('main', ['$scope', '$q', 'fileResource', 'qCommon', 'round',
 		$scope.timer = qCommon.timer;
 		/* ボタン再押下可否 */
 		$scope.pushable = true;
+		/* 説明文のカウント取得 */
+		$scope.getExplainCount = qCommon.getExplainCount;
 		/* globalActionの表示有無 */
 		$scope.globalActionVisible = true;
 		/* 匿名状態 */
@@ -91,6 +93,15 @@ app.controller('main', ['$scope', '$q', 'fileResource', 'qCommon', 'round',
 					$scope.property[key] = value;
 				}
 			});
+			// 説明文
+			if (!angular.isUndefined(strs[1][2])) {
+				$scope.explain = [];
+				angular.forEach(strs[1][2], function (e) {
+					$scope.explain.push(e);
+				})
+			} else {
+				$scope.explain = [];
+			}
 			// プレイヤー表示座標設定
 			$scope.lineProperty = strs[6][1];
 			angular.forEach(round.lines, function (value, key) {
@@ -145,6 +156,10 @@ app.controller('main', ['$scope', '$q', 'fileResource', 'qCommon', 'round',
 				$scope.timer['destination'] = null;
 				$scope.timer['restTime'] = null;
 				qCommon.timer = $scope.timer;
+
+				// 説明文
+				qCommon.setExplainCount($scope.explain.length);
+
 			}
 			// 履歴
 			$scope.history = [];
@@ -310,6 +325,14 @@ app.directive('profile', function () {
 		restrict: 'A',
 		transclude: true,
 		templateUrl: '../../template/profile.html'
+	};
+});
+
+app.directive('explain', function () {
+	return {
+		restrict: 'A',
+		transclude: true,
+		templateUrl: '../../template/explain.html'
 	};
 });
 

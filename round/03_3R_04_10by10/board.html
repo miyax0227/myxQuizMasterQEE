@@ -11,22 +11,23 @@
 		<script src="../../js/libs/angular-animate.min.js"></script>
 		<script src="../../js/libs/angular-resource.min.js"></script>
 		<script src="../../js/libs/ui-bootstrap-tpls.js"></script>
+    <script src="../../js/libs/angular-sanitize.min.js"></script>
 		
 		<script src="../../js/controller/main.js"></script>
 		<script src="../../js/factory/qcommon.js"></script>
 		<script src="../../js/factory/round.js"></script>
-		<script src="../../js/rule/nomx.js"></script>
+		<script src="../../js/rule/by.js"></script>
 	</head>
 
 	<body ng-controller="main" ng-keydown="keyDown($event)">
 		<div scoreboard>
 			<div class="title">
-				N○M×サンプル
+				3R 10by10
 			</div>
 			<div class="qCount">
-    			<span ng-if="current.header.playoff"> - プレーオフ </span>aaaaaaaaaaaaaaaa
+    			{{current.header.qCount}}問目
   			</div>
-  			<div victory></div>
+  			
 		</div>
 	</body>
 </html>

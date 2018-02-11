@@ -36,6 +36,7 @@ app.controller('main', ['$scope', 'qeditor', '$interval', 'round', 'rule', 'css'
 		$scope.copyCss = copyCss;
 		$scope.deleteCss = deleteCss;
 		$scope.aceLoaded = aceLoaded;
+		$scope.aceLoadedCSS = aceLoadedCSS;
 
 	  /** ファイルリストをリフレッシュする
 	   */
@@ -220,6 +221,23 @@ app.controller('main', ['$scope', 'qeditor', '$interval', 'round', 'rule', 'css'
 			});
 		}
 
+		/** aceエディタ起動処理(CSS用)
+	   * @param {object} _editor editorオブジェクト
+		 */
+		function aceLoadedCSS(_editor) {
+			_editor.commands.addCommand({
+				Name: "beautify",
+				bindKey: {
+					win: "Ctrl-Shift-F",
+					mac: "Ctrl-Shift-F"
+				},
+				exec: function (editor) {
+					var session = editor.getSession();
+					session.setValue(qeditor.beautifyCSS(session.getValue()));
+				}
+			});
+		}
+
 	}]);
 
 /** ラウンド編集用のコントローラ */
@@ -274,6 +292,12 @@ app.directive('editorRoundEntry', function () {
 app.directive('editorRoundProperty', function () {
 	return {
 		templateUrl: './template/editor-round-property.html'
+	};
+});
+
+app.directive('editorRoundExplain', function () {
+	return {
+		templateUrl: './template/editor-round-explain.html'
 	};
 });
 

@@ -2,30 +2,44 @@
   <table class="table">
     <tbody ui-sortable="{'axis':'y'}" ng-model="rule.priorities">
       <tr>
-        <th class="col-sm-2">key<span uib-dropdown> <a href id="rule-priority-add" uib-dropdown-toggle><span class="caret"></span></a>
-          <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="rule-priority-add">
-            <li>
-              <a href="#" ng-click="rule.addPriority()">Add</a>
-            </li>
-          </ul> </span></th>
+        <th class="col-sm-2">key
+          <span uib-dropdown>
+            <a href id="rule-priority-add" uib-dropdown-toggle>
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="rule-priority-add">
+              <li>
+                <a href="#" ng-click="rule.addPriority()">Add</a>
+              </li>
+            </ul>
+          </span>
+        </th>
         <th class="col-sm-2">order</th>
         <th class="col-sm-6">alter</th>
         <th class="col-sm-1"></th>
       </tr>
       <tr ng-repeat="priority in rule.priorities" class="form-group">
-        <td><label class="control-label">{{priority.key}}</label></td>
         <td>
-        <select class="form-control" ng-model="rule.priorities[$index].order" ng-options="order for order in orders" />
+          <input class="form-control input-sm" ng-model="rule.priorities[$index].key" type="text" />
+        </td>
+        <td>
+          <select class="form-control" ng-model="rule.priorities[$index].order" ng-options="order for order in orders" />
         </td>
         <td class="form-group" ng-class="{'has-error':! rule.isJson(rule.priorities[$index].alter) && ! rule.priorities[$index].alter == ''}">
-        <input ng-model="rule.priorities[$index].alter" class="form-control has-error" type="text" />
+          <input ng-model="rule.priorities[$index].alter" class="form-control has-error" type="text" />
         </td>
-        <td><span uib-dropdown> <a href id="rule-priority-menu" uib-dropdown-toggle><span class="caret"></span></a>
-          <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="rule-priority-menu">
-            <li>
-              <a href="#" ng-click="rule.deletePriority($index)">Delete</a>
-            </li>
-          </ul> </span></td>
+        <td>
+          <span uib-dropdown>
+            <a href id="rule-priority-menu" uib-dropdown-toggle>
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="rule-priority-menu">
+              <li>
+                <a href="#" ng-click="rule.deletePriority($index)">Delete</a>
+              </li>
+            </ul>
+          </span>
+        </td>
       </tr>
     </tbody>
   </table>

@@ -1,0 +1,33 @@
+<!doctype html>
+<html ng-app="myxQuizMain">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+		<link rel="stylesheet" href="../../css/style.css" >
+		<link rel="stylesheet" href="../../css/masterqee.css" >
+
+		<script src="../../js/libs/angular.js"></script>
+		<script src="../../js/libs/ngStorage.min.js"></script>
+		<script src="../../js/libs/angular-animate.min.js"></script>
+		<script src="../../js/libs/angular-resource.min.js"></script>
+		<script src="../../js/libs/ui-bootstrap-tpls.js"></script>
+    <script src="../../js/libs/angular-sanitize.min.js"></script>
+		
+		<script src="../../js/controller/main.js"></script>
+		<script src="../../js/factory/qcommon.js"></script>
+		<script src="../../js/factory/round.js"></script>
+		<script src="../../js/rule/nomx.js"></script>
+	</head>
+
+	<body ng-controller="main" ng-keydown="keyDown($event)">
+		<div scoreboard>
+			<div class="title">
+				3R 10○10×
+			</div>
+			<div class="qCount">
+    			{{current.header.qCount}}問目
+  			</div>
+  			
+		</div>
+	</body>
+</html>

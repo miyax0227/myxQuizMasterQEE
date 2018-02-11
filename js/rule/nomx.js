@@ -142,14 +142,27 @@ app.factory('rule', ['qCommon', function(qCommon) {
         return (player.status == 'normal' && !header.playoff);
       },
       "action0": function(player, players, header, property) {
-        // ×を加算
-        player.x++;
+        // swedishルールの場合
+        if (angular.isArray(property.swedish)) {
+          if (property.swedish[player.o] !== undefined) {
+            player.x += property.swedish[player.o];
+          } else {
+            player.x += property.swedish[property.swedish.length - 1];
+          }
+          // swedishルールではない場合
+        } else {
+          // ×を加算
+          player.x++;
+        }
         // コンボ管理
         player.combo = 0;
+        // up-downルールの場合、○を初期化
+        if (property.updown) {
+          player.o = 0;
+        }
 
         setMotion(player, 'x');
         addQCount(players, header, property);
-
       }
     }
   ];
@@ -179,7 +192,8 @@ app.factory('rule', ['qCommon', function(qCommon) {
       },
       "action0": function(players, header, property) {
         header.pos = !header.pos;
-      }
+      },
+      "keyArray": ""
     }
   ];
 

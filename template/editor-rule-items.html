@@ -2,12 +2,18 @@
   <table class="table">
     <tbody ui-sortable="{'axis':'y'}" ng-model="rule.items">
       <tr>
-        <th class="col-sm-2">key<span uib-dropdown> <a href id="rule-item-add" uib-dropdown-toggle><span class="caret"></span></a>
-          <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="rule-item-add">
-            <li>
-              <a href="#" ng-click="rule.addItem()">Add</a>
-            </li>
-          </ul> </span></th>
+        <th class="col-sm-2">key
+          <span uib-dropdown>
+            <a href id="rule-item-add" uib-dropdown-toggle>
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="rule-item-add">
+              <li>
+                <a href="#" ng-click="rule.addItem()">Add</a>
+              </li>
+            </ul>
+          </span>
+        </th>
         <th class="col-sm-2">style</th>
         <th class="col-sm-2">value</th>
         <th class="col-sm-2">css</th>
@@ -17,33 +23,44 @@
         <th class="col-sm-1"></th>
       </tr>
       <tr ng-repeat="item in rule.items" class="form-group">
-        <td><label class="control-label">{{item.key}}</label></td>
         <td>
-        <select class="form-control" ng-model="rule.items[$index].style" ng-options="style for style in styles" />
+          <input ng-model="rule.items[$index].key" class="form-control" type="text" />
         </td>
         <td>
-        <input ng-if="rule.items[$index].style == 'string'"  ng-model="rule.items[$index].value" class="form-control" type="text" />
-        <input ng-if="rule.items[$index].style == 'number'"  ng-model="rule.items[$index].value" class="form-control" type="number" />
-        <input ng-if="rule.items[$index].style == 'boolean'" ng-model="rule.items[$index].value" class="form-control" type="checkbox" />
+          <select class="form-control" ng-model="rule.items[$index].style" ng-options="style for style in styles" />
         </td>
         <td>
-        <input ng-model="rule.items[$index].css" class="form-control" type="text" />
+          <input ng-if="rule.items[$index].style == 'string'" ng-model="rule.items[$index].value" class="form-control" type="text"
+          />
+          <input ng-if="rule.items[$index].style == 'number'" ng-model="rule.items[$index].value" class="form-control" type="number"
+          />
+          <input ng-if="rule.items[$index].style == 'boolean'" ng-model="rule.items[$index].value" class="form-control" type="checkbox"
+          />
         </td>
         <td>
-        <input ng-model="rule.items[$index].prefix" class="form-control" type="text" />
+          <input ng-model="rule.items[$index].css" class="form-control" type="text" />
         </td>
         <td>
-        <input ng-model="rule.items[$index].suffix" class="form-control" type="text" />
+          <input ng-model="rule.items[$index].prefix" class="form-control" type="text" />
         </td>
         <td>
-        <input ng-model="rule.items[$index].repeatChar" class="form-control" type="text" />
+          <input ng-model="rule.items[$index].suffix" class="form-control" type="text" />
         </td>
-        <td><span uib-dropdown> <a href id="rule-item-menu" uib-dropdown-toggle><span class="caret"></span></a>
-          <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="rule-item-menu">
-            <li>
-              <a href="#" ng-click="rule.deleteItem($index)">Delete</a>
-            </li>
-          </ul> </span></td>
+        <td>
+          <input ng-model="rule.items[$index].repeatChar" class="form-control" type="text" />
+        </td>
+        <td>
+          <span uib-dropdown>
+            <a href id="rule-item-menu" uib-dropdown-toggle>
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="rule-item-menu">
+              <li>
+                <a href="#" ng-click="rule.deleteItem($index)">Delete</a>
+              </li>
+            </ul>
+          </span>
+        </td>
       </tr>
     </tbody>
   </table>

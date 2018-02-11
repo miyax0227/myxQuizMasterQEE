@@ -1,7 +1,9 @@
 <fieldset ng-disabled="! editing">
-  <samp><strong> function calc(players, header, items, property)</strong></samp>
+  <samp>
+    <strong> function calc(players, header, items, property)</strong>
+  </samp>
 
-  <div style="height: 360px;" ng-model="rule.calc" ui-ace="{
+  <div style="height: 500px;" ng-model="rule.calc" ui-ace="{
   onLoad: aceLoaded,
   useWrapMode : true,
   theme:'monokai',
@@ -12,7 +14,7 @@
   enableBasicAutocompletion: true,
   enableLiveAutocompletion: true
   }
-  }" ></div>
+  }"></div>
 
   <div ui-clipboard words="{
   'chance':'player.chance = (player.o == property.winningPoint - 1) && (player.status == \'normal\');',
