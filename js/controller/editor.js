@@ -1,11 +1,11 @@
 'use strict';
 var appName = "myxQuizEditor";
 var app = angular.module(appName, ["ui.bootstrap", "ngAnimate", "ui.sortable", "ui.ace",
-	"angular-clipboard", "ngTwitter"]);
+	"angular-clipboard", "ngTwitter", "ngSanitize"]);
 
 /** エディタ用コントローラ */
-app.controller('main', ['$scope', 'qeditor', '$interval', 'round', 'rule', 'css',
-	function ($scope, qeditor, $interval, round, rule, css) {
+app.controller('main', ['$scope', 'qeditor', '$interval', 'round', 'rule', 'css', '$sce',
+	function ($scope, qeditor, $interval, round, rule, css, $sce) {
 		const fs = require('fs');
 
 		$scope.rounds = [];
@@ -44,6 +44,77 @@ app.controller('main', ['$scope', 'qeditor', '$interval', 'round', 'rule', 'css'
 			$scope.rounds = qeditor.getFileList(__dirname + '/round', false);
 			$scope.csses = qeditor.getFileList(__dirname + '/json/css', true, 'json');
 			$scope.rules = qeditor.getFileList(__dirname + '/json/rule', true, 'json');
+
+			// フローチャートの作成
+			var flowchart = "";
+			var flowchartObject = { "nameList": "origin" };
+			var tmpId = 0;
+
+			flowchart += "graph TB;\n";
+			flowchart += "origin[nameList];\n";
+			flowchart += "style origin fill:black,stroke:black;\n";
+			mermaid.flowchartConfig = {
+				width: "100%"
+			}
+
+			function getFilterString(filter) {
+				if (angular.isString(filter)) {
+					return "|" + filter + "|";
+				} else if (angular.isObject(filter)) {
+					if (filter.oper == "~") {
+						return "|" + filter.crit + "<=" + filter.param + "<=" + filter.crit2 + "|";
+					} else {
+						return "|" + filter.param + filter.oper + filter.crit + "|";
+					}
+				}
+				return "";
+			}
+
+			function toFlowchart(id, arr) {
+				angular.forEach(arr, function (obj) {
+					if (angular.isObject(obj) && obj.hasOwnProperty('source')) {
+						// 文字列の場合
+						if (angular.isString(obj.source)) {
+							flowchart += flowchartObject[obj.source] + "-->" + getFilterString(obj.filter) + id + ";\n";
+
+							// 配列の場合
+						} else if (angular.isArray(obj.source)) {
+							var currentTmpId = "tmp" + tmpId++;
+							flowchart += currentTmpId + "(( ));\n";
+							flowchart += "style " + currentTmpId + " fill:black,stroke:black;\n"
+							flowchart += currentTmpId + "-->" + getFilterString(obj.filter) + id + ";\n";
+							toFlowchart(currentTmpId, obj.source);
+
+							// オブジェクトの場合
+						} else if (angular.isObject(obj.source)) {
+							var currentTmpId = "tmp" + tmpId++;
+							flowchart += currentTmpId + "(( ));\n";
+							flowchart += "style " + currentTmpId + " fill:black,stroke:black;\n"
+							flowchart += currentTmpId + "-->" + getFilterString(obj.filter) + id + ";\n";
+							toFlowchart(id, [obj.source]);
+
+						}
+					}
+				});
+			}
+
+			angular.forEach($scope.rounds, function (round, index) {
+				flowchartObject[round] = "id" + index;
+				flowchart += flowchartObject[round] + "[" + round + "];\n";
+				flowchart += "style " + flowchartObject[round] + " fill:black,stroke:black;\n"
+			});
+
+			angular.forEach($scope.rounds, function (round, index) {
+				var filename = __dirname + '/round/' + round + "/entry.json";
+				toFlowchart(flowchartObject[round], JSON.parse(fs.readFileSync(filename, 'utf-8')));
+			});
+
+
+			mermaid.render('flowchar', flowchart, function (svgGraph) {
+				console.log(flowchart);
+				console.log(svgGraph);
+				$scope.flowchart = $sce.trustAsHtml(svgGraph);
+			});
 		}
 
 	  /** すべて閉じる

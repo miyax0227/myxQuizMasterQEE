@@ -11,6 +11,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.0/ace.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.0/ext-language_tools.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular.js"></script>
+    <script src="js/libs/angular-sanitize.min.js"></script>
     <script src="js/libs/angular-animate.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="js/libs/ui-bootstrap-tpls.js"></script>
@@ -20,7 +21,15 @@
     <script src="https://cdn.jsdelivr.net/npm/angular-ui-ace@0.2.3/src/ui-ace.min.js"></script>
     <script src="js/libs/angular-clipboard.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.12/marked.min.js"></script>
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/7.1.2/mermaid.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        flowchart: {
+          width: '100%',
+          'font-color':'black'
+        }
+      });</script>
+  
     <script src="js/controller/editor.js"></script>
     <script src="js/factory/qeditor.js"></script>
     <script src="js/factory/editor-round.js"></script>
@@ -35,6 +44,11 @@
             filter: alpha(opacity=65);
             -webkit-box-shadow: none;
             box-shadow: none
+        }
+
+        g.edgeLabel span.edgeLabel {
+            color: white;
+            background-color: #004381;
         }
     </style>
   </head>
@@ -211,6 +225,9 @@
               <div editor-css-buttons></div>
             </uib-tab>
           </uib-tabset>
+        </div>
+
+        <div ng-bind-html="flowchart">
         </div>
       </div>
     </div>
