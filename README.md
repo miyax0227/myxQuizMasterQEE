@@ -1,7 +1,7 @@
-# myxQuizHex
+# myxQuizMasterQEE
 
 ## 概要
-クイズ大会「abc the 16th」と同形式の大会を行うための得点表示プログラムです。
+オープンクイズ大会に特化した得点表示プログラム及びエディタです。サンプルとして、クイズ大会「abc the 16th」と同形式の大会を行うためのプログラムを内包しています。
 
 - [インストール・起動方法](#インストール・起動方法)
     - [パッケージを利用する場合](#パッケージを利用する場合)
@@ -26,13 +26,13 @@
 ## インストール・起動方法
 ### パッケージを利用する場合
 1. 右記のファイルをダウンロードする。
-    [myxQuizHex-win32-x64.zip](https://drive.google.com/open?id=0B00MyT_-RKCUVWk4SUxlMWlXYzA)
+    [myxQuizMasterQEE-win32-x64.zip](https://drive.google.com/open?id=1dRZiTlTabWw8LCO1pWFaBxXTbCzBlmKQ)
 1. ダウンロードしたファイルを適当な場所に展開する。
 1. 'myxQuiz.exe'を実行する。
 
 ### リポジトリを利用する場合
-1. Node.jsのインストール、及び Electron ver.1.4.1 の開発環境を導入する。
-1. 右記のディレクトリをcloneする。[miyax0227/myxQuizHex](https://github.com/miyax0227/myxQuizHex)
+1. Node.jsのインストール、及び Electron ver.1.7.10 の開発環境を導入する。
+1. 右記のディレクトリをcloneする。[miyax0227/myxQuizMasterQEE](https://github.com/miyax0227/myxQuizMasterQEE)
 1. リポジトリの最上位ディレクトリに移動する。
 1. 不足しているディレクトリ（`/current/history`, `/twitter/backup`)を作成するため、下記コマンドを実行する。  
      ファイルロックによりエラーが発生する場合は、エラーが発生しなくなるまで繰り返す。
@@ -66,7 +66,7 @@
 ![Menu Window Usage](http://drive.google.com/uc?export=view&id=0B00MyT_-RKCUYlEzTzJORHZURE0)
 1.  **招集(全体)**   
      **最初に実施する。** Excel形式のエントリーリストを読み込む。ファイルを選択するとウィンドウ下部にプレビューが表示され、OKボタン押下により読み込みが完了する。  
-     [エントリーリストのサンプル](https://drive.google.com/open?id=0B00MyT_-RKCUMTU3VEp5dGFYSzA)
+     [エントリーリストのサンプル](https://drive.google.com/open?id=1yoIlNd7rqGSXvheHPeLm-G7ZY0J6ZcKt)
 1.  **招集(個別)**  
     **各ラウンドの実行前に実施する。** エントリーリストまたは前ラウンドの結果から各ラウンドに参加する人を読み込む。画面下部にプレビューが表示される。OKボタン押下により読み込みが完了する。
 1. **ラウンド開始**  
@@ -79,6 +79,8 @@
     Twitterウィンドウを開く。
 1. フォルダ  
     プログラムがインストールされたフォルダを開く。
+1. エディタ  
+    ルール等を編集するためのエディタを開く。
         
 ### 操作ウィンドウ
 #### 全ラウンド共通
@@ -122,6 +124,8 @@
     タイマーを一時停止する。または一時停止状態から最下位する。
     1. show/hide  
     タイマーの表示/非表示を切り替える。
+    1. exp  
+    ラウンドの説明文を一文ずつ表示する。
 
 #### 形式毎  [Demo]  
 準備中
@@ -138,14 +142,11 @@
     連携先のTwitterアカントを選択できる。
 
 ## カスタマイズ方法
-### ウィンドウの表示位置・サイズの変更
-`/json/window.json`で変更可能です。プロジェクタに映写する位置にウィンドウを表示する場合は、モニタディスプレイの右端とプロジェクタディスプレイ左端が接しているとみなして座標入力してください(これら2つのディスプレイの位置関係は、各PCの設定に依ります)。
-
-### 連携先Twitterアカウントの変更
-`/json/twitter.json`で変更可能です。自分で用意したTwitterアカウントに連携するには、自分でアプリ登録を行い、認証用の各種キーを取得してください。
-
-### Excelファイル読み込み時の対象ワークシートの変更
-`/json/excel.json`で変更可能です。
+準備中
+![サンプル1](http://drive.google.com/uc?export=view&id=1IxbcaUeavc0Vm7S7E9cpogA2loip8OOC)
+![サンプル2](http://drive.google.com/uc?export=view&id=18SusMiQ9ARPgwzRUh6t3OaxotF1zUXyl)
+![サンプル3](http://drive.google.com/uc?export=view&id=1wQVRxU2_pP9sGd5MkQx6ClAprIOlTs0t)
+![サンプル4](http://drive.google.com/uc?export=view&id=1wuwffOtdgkgGTPlz9pFBZ6Dp2N_lnwl_)
 
 ### ライセンス
 Copyright (C) 2017 R. MIYAMOTO  
