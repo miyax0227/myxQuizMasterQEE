@@ -1,0 +1,12 @@
+# 開発環境の設定ファイル
+.vscode/
+# node_modules
+node_modules/
+# 得点表示履歴
+history/*
+history/current/*
+!history/current/.gitkeep
+# Twitter連携ファイル
+twitter/*
+twitter/backup/*
+!twitter/backup/.gitkeep
