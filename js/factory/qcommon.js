@@ -107,10 +107,18 @@ app.service('qCommon', ['$uibModal', '$localStorage', '$interval', '$location', 
 			try {
 				var fs = require('fs');
 				// ログ出力
-				fs.writeFile(getHistoryFileName(), angular.toJson(scope.current));
+				fs.writeFile(getHistoryFileName(), angular.toJson(scope.current), function (err) {
+					if (err) {
+						console.log(err);
+					}
+				});
 				// ツイート出力
 				if (needToTweet) {
-					fs.writeFile(getTweetFileName(), tweet);
+					fs.writeFile(getTweetFileName(), tweet, function (err) {
+						if (err) {
+							console.log(err);
+						}
+					});
 				}
 
 			} catch (e) {
@@ -162,10 +170,18 @@ app.service('qCommon', ['$uibModal', '$localStorage', '$interval', '$location', 
      **/
 		function win(player, players, header, property) {
 			/* rank算出 */
-			var rank = players.filter(function (item) {
+			player.rank = players.filter(function (item) {
 				return (item.status == 'win');
 			}).length + 1;
-			player.rank = rank;
+
+			/* lotRank算出 */
+			if (player.hasOwnProperty('lot')) {
+				player.lotRank =
+					players.filter(function (item) {
+						return (item.status == 'win' && item.lot == player.lot)
+					}).length + 1;
+			}
+
 			/* status */
 			player.status = "win";
 			/* 休みを消す */
@@ -182,10 +198,18 @@ app.service('qCommon', ['$uibModal', '$localStorage', '$interval', '$location', 
      **/
 		function lose(player, players, header, property) {
 			/* rank算出 */
-			var rank = players.filter(function (item) {
+			player.rank = players.filter(function (item) {
 				return (item.status != 'lose');
 			}).length;
-			player.rank = rank;
+
+			/* lotRank算出 */
+			if (player.hasOwnProperty('lot')) {
+				player.lotRank =
+					players.filter(function (item) {
+						return (item.status != 'lose' && item.lot == player.lot)
+					}).length;
+			}
+
 			/* status */
 			player.status = "lose";
 			/* 休みを消す */
@@ -847,6 +871,9 @@ app.service('qCommon', ['$uibModal', '$localStorage', '$interval', '$location', 
 					console.log("Used Memory:" + process.memoryUsage().heapUsed);
 				}
 			}, 60000);
+			t = $interval(function () {
+				scope.initialAnimation = true;
+			}, 2000, 1);
 		}
 
     /** 優勝者名の設定
@@ -911,9 +938,10 @@ app.service('qCommon', ['$uibModal', '$localStorage', '$interval', '$location', 
 
 				angular.forEach(selectPlayer, function (value, attribute) {
 					if (value != "" && value != null) {
-						var value2 = participant[attribute];
+						var valueStr = "" + value;
+						var value2 = "" + participant[attribute];
 
-						if (value2 == null || value2.indexOf(value) == -1) {
+						if (value2 == null || value2.indexOf(valueStr) == -1) {
 							participant.filtered = true;
 						}
 					}
@@ -1083,8 +1111,10 @@ app.service('qCommon', ['$uibModal', '$localStorage', '$interval', '$location', 
      */
 		function timerStop() {
 			var timer = qCommon.timer;
-			timer.restTime = new Date(timer.destination.getTime() - new Date().getTime());
-			timer.destination = null;
+			if (timer.destination) {
+				timer.restTime = new Date(timer.destination.getTime() - new Date().getTime());
+				timer.destination = null;
+			}
 		}
 
     /** timerを再び始める

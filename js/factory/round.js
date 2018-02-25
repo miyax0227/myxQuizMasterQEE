@@ -223,7 +223,7 @@ app.factory('round', ['qCommon', 'rule', '$filter',
 							x: scope.captureWindowSize.left,
 							title: "Capture"
 						});
-						win.loadURL(__dirname + '/board.html?view=true&anonymous=true');
+						win.loadURL('file://' + __dirname + '/board.html?view=true&anonymous=true');
 						// キャプチャ用ウィンドウの立ち上げ終了時にイベントを検知する
 						win.webContents.on('did-finish-load', captureFunc);
 
@@ -237,7 +237,11 @@ app.factory('round', ['qCommon', 'rule', '$filter',
 								// キャプチャ実行
 								win.capturePage(function (img) {
 									// png形式で保存
-									fs.writeFileSync(__dirname + "/../../twitter/" + dateString() + ".png", img.toPng());
+									fs.writeFile(__dirname + "/../../twitter/" + dateString() + ".png", img.toPng(), function (err) {
+										if (err) {
+											console.log(err);
+										}
+									});
 									// キャプチャ用ウィンドウを閉じる
 									win.close();
 									// キャプチャ終了
@@ -694,17 +698,21 @@ app.factory('round', ['qCommon', 'rule', '$filter',
 
 				// 一定時間ボタン再押下不可
 				qCommon.pushed(scope);
-				// action0を実行
-				action.action0(player, players, header, property);
-				// 再計算
-				calc(players, header, items, property);
-				// 勝抜・敗退判定
-				judgement(players, header, property);
-				// 再計算
-				calc(players, header, items, property);
-				// ツイート生成
-				if (action.hasOwnProperty('tweet') && property.tweet.hasOwnProperty(action.tweet)) {
-					qCommon.editTweet(header.tweets, property.tweet[action.tweet], player, true);
+				try {
+					// action0を実行
+					action.action0(player, players, header, property);
+					// 再計算
+					calc(players, header, items, property);
+					// 勝抜・敗退判定
+					judgement(players, header, property);
+					// 再計算
+					calc(players, header, items, property);
+					// ツイート生成
+					if (action.hasOwnProperty('tweet') && property.tweet.hasOwnProperty(action.tweet)) {
+						qCommon.editTweet(header.tweets, property.tweet[action.tweet], player, true);
+					}
+				} catch (e) {
+					console.log("action is aborted.\n" + e);
 				}
 				// 履歴作成
 				qCommon.createHist(scope);
@@ -756,19 +764,23 @@ app.factory('round', ['qCommon', 'rule', '$filter',
 
 						// 一定時間ボタン再押下不可
 						qCommon.pushed(scope);
-						// action0を実行
-						global_action.action0(players, header, property);
-						// 再計算
-						calc(players, header, items, property);
-						// 勝抜・敗退判定
-						judgement(players, header, property);
-						// 再計算
-						calc(players, header, items, property);
-						// ツイート生成
-						if (global_action.hasOwnProperty('tweet')) {
-							if (property.tweet.hasOwnProperty(global_action.tweet)) {
-								qCommon.editTweet(header.tweets, property.tweet[global_action.tweet], header, true);
+						try {
+							// action0を実行
+							global_action.action0(players, header, property);
+							// 再計算
+							calc(players, header, items, property);
+							// 勝抜・敗退判定
+							judgement(players, header, property);
+							// 再計算
+							calc(players, header, items, property);
+							// ツイート生成
+							if (global_action.hasOwnProperty('tweet')) {
+								if (property.tweet.hasOwnProperty(global_action.tweet)) {
+									qCommon.editTweet(header.tweets, property.tweet[global_action.tweet], header, true);
+								}
 							}
+						} catch (e) {
+							console.log("action is aborted.\n" + e);
 						}
 						// 履歴作成
 						qCommon.createHist(scope);
@@ -780,19 +792,23 @@ app.factory('round', ['qCommon', 'rule', '$filter',
 						var property = scope.property;
 						var items = scope.items;
 
-						// action0を実行
-						global_action.action1(index, players, header, property);
-						// 再計算
-						calc(players, header, items, property);
-						// 勝抜・敗退判定
-						judgement(players, header, property);
-						// 再計算
-						calc(players, header, items, property);
-						// ツイート生成
-						if (global_action.hasOwnProperty('tweet')) {
-							if (property.tweet.hasOwnProperty(global_action.tweet)) {
-								qCommon.editTweet(header.tweets, property.tweet[global_action.tweet], header, true);
+						try {
+							// action0を実行
+							global_action.action1(index, players, header, property);
+							// 再計算
+							calc(players, header, items, property);
+							// 勝抜・敗退判定
+							judgement(players, header, property);
+							// 再計算
+							calc(players, header, items, property);
+							// ツイート生成
+							if (global_action.hasOwnProperty('tweet')) {
+								if (property.tweet.hasOwnProperty(global_action.tweet)) {
+									qCommon.editTweet(header.tweets, property.tweet[global_action.tweet], header, true);
+								}
 							}
+						} catch (e) {
+							console.log("action is aborted.\n" + e);
 						}
 						// 履歴作成
 						qCommon.createHist(scope);

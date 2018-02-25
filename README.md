@@ -33,13 +33,11 @@
 ### リポジトリを利用する場合
 1. Node.jsのインストール、及び Electron ver.1.7.10 の開発環境を導入する。
 1. 右記のディレクトリをcloneする。[miyax0227/myxQuizMasterQEE](https://github.com/miyax0227/myxQuizMasterQEE)
-1. リポジトリの最上位ディレクトリに移動する。
-1. 不足しているディレクトリ（`/current/history`, `/twitter/backup`)を作成するため、下記コマンドを実行する。  
-     ファイルロックによりエラーが発生する場合は、エラーが発生しなくなるまで繰り返す。
+1. 必要なnodeモジュールをインストールする。  
     ```Shell
-    node clean.js
+    npm install
     ```
-1. Electronコマンドによりmain.jsを読み込む。
+1. electronコマンドによりmain.jsを読み込む。
     ```Shell
     electron .
     ```

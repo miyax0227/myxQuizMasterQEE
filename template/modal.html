@@ -28,7 +28,7 @@
         <td id="del"></td>
         <th id="index">#</th>
         <th>profile</th>
-        <th ng-repeat="item in items | with: 'value'" ng-if="item.hasOwnProperty('style')">{{item.key}}</th>
+        <th ng-repeat="item in items | with: 'value'" ng-if="item.hasOwnProperty('style') && ! item.hasOwnProperty('profile')">{{item.key}}</th>
       </tr>
       <tr ng-repeat="player in current.players">
         <td id="add">
@@ -41,7 +41,7 @@
         </a></td>
         <td id="index">{{$index+1}}</td>
         <td class="profile"><div profile></div></td>
-        <td ng-repeat="item in items| with: 'value'" ng-if="item.hasOwnProperty('style')" id="{{item.key}}">
+        <td ng-repeat="item in items| with: 'value'" ng-if="item.hasOwnProperty('style') && ! item.hasOwnProperty('profile')" id="{{item.key}}">
         <input  ng-if="item.style == 'string'"    ng-model="player[item.key]"  class="form-control"            type="text"     />
         <input  ng-if="item.style == 'boolean'"   ng-model="player[item.key]"  class="form-control input-sm"   type="checkbox" />
         <input  ng-if="item.style == 'number'"    ng-model="player[item.key]"  class="form-control number"     type="number"   required />

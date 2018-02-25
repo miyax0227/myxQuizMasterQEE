@@ -102,9 +102,19 @@ table.players {
 	}
 }
 
-div.scoreboard {	
-	img.logo {
-	    position: absolute;
+div.scoreboard {
+	transition : 1s linear all;
+
+	&.ng-hide-remove {
+		opacity : 0;
+	}
+	
+	&.ng-hide-remove-active {
+		opacity : 1;
+	}
+
+	img.logo {	
+		position: absolute;
 	    width: $logo-width;
 	    height: $logo-height;
 	    left: 2%;
@@ -190,11 +200,16 @@ div.scoreboard {
 div.player {
 	
     width: 1000px;
-    height: 1000px;
+	height: 1000px;
+	pointer-events: none;
     transform-origin: 0px 0px;
 	transform: translate3d(0,0,0);
 	cursor: default;
-    transition: 1s;
+	transition: 1s;
+	
+	button{
+		pointer-events: auto;
+	}
     
     &.ng-enter{
     	transition: 0s;
@@ -251,13 +266,21 @@ div.explain {
 div.global_actions {
     position: absolute;
     left: 0px;
-    top: calc(100% - 120px);
+	top: calc(100% - 120px);
+	pointer-events: none;
+	button {
+		pointer-events: auto;
+	}
 }
 
 div.timer_actions {
     position: absolute;
     right: 2%;
     top: 15px;
+	pointer-events: none;
+	button {
+		pointer-events: auto;
+	}
 }
 
 .modal-dialog {

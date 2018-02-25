@@ -233,7 +233,10 @@ app.service('rule', [ 'qeditor', function(qeditor) {
 	// lines
 	ruleJson.lines = angular.copy(rule.lines);
 
-	// console.log(JSON.stringify(ruleJson));
+	if(ruleJson.calc == "" || angular.isUndefined(ruleJson.calc)){
+		qeditor.alarm("calc is empty!!!\n" + ruleJson.calc);
+		return;
+	}
 
 	// save to rule.json
 	fs.writeFile(ruleJsonName, JSON.stringify(ruleJson), function(err) {

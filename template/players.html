@@ -1,4 +1,4 @@
-<div class="player" ng-repeat="player in current.players as players" ng-style="getPlayerCSS(players,player, windowSize, lineProperty)">
+<div class="player" ng-repeat="player in current.players as players" ng-style="getPlayerCSS(players,player, windowSize, lineProperty)" ng-if="player.line != 'left'">
 
   <div svg></div>
 
@@ -19,7 +19,8 @@
   <div ng-repeat="item in items" ng-class="item.css_img" ng-if="item.hasOwnProperty('css_img')">
     <div ng-class="mergeItemCSS(item.css, player)">
       <img ng-class="player[item.key]" ng-src="../../img/{{item.css_img_file[player[item.key]]}}" ng-if="item.css_img_file.hasOwnProperty(player[item.key]) && item.key != 'rank'"></img>
-      <img ng-class="rank" ng-src="../../img/{{item.css_img_file[player['rank']]}}" ng-if="item.css_img_file.hasOwnProperty(player['rank']) && item.key == 'rank' && player['rank'] <= property.maxRankDisplay"></img>
+      <img ng-class="rank" ng-src="../../img/{{item.css_img_file[player['rank']]}}"    ng-if="! player.hasOwnProperty('lotRank') && item.css_img_file.hasOwnProperty(player['rank'])    && item.key == 'rank' && player['rank']    <= property.maxRankDisplay"></img>
+      <img ng-class="rank" ng-src="../../img/{{item.css_img_file[player['lotRank']]}}" ng-if="  player.hasOwnProperty('lotRank') && item.css_img_file.hasOwnProperty(player['lotRank']) && item.key == 'rank' && player['lotRank'] <= property.maxRankDisplay"></img>
     </div>
   </div>
   

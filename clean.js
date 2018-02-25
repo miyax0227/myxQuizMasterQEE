@@ -7,10 +7,12 @@ const backupDir = __dirname + "/twitter/backup";
 removeDirectory(historyDir);
 fs.mkdirSync(historyDir);
 fs.mkdirSync(currentDir);
+fs.writeFileSync(currentDir + "/.gitkeep", "");
 
 removeDirectory(twitterDir);
 fs.mkdirSync(twitterDir);
 fs.mkdirSync(backupDir);
+fs.writeFileSync(backupDir + "/.gitkeep", "");
 
 function removeDirectory(path) {
 	try {

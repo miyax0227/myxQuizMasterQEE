@@ -146,7 +146,9 @@ app.service('qTwitter', ['$twitterApi', '$interval', '$filter',
 		 */
 		function newTweetSubmit(tweet) {
 			var filePath = dir + "/" + dateString() + ".txt";
-			fs.writeFile(filePath, tweet);
+			fs.writeFile(filePath, tweet, function (err) {
+				console.log(err);
+			});
 		}
 
 	  /** 新しいリプライ用ファイルの生成

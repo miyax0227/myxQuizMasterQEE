@@ -2,30 +2,37 @@
 	{
 		"key": "entryNo",
 		"style": "number",
+		"value": 999,
 		"profile": true
-	}, {
+	},
+	{
 		"key": "name",
 		"style": "string",
+		"value": "○○　○○",
 		"profile": true,
 		"anonymous": false,
 		"css": "name",
 		"vtrans": 3.7
-	}, {
+	},
+	{
 		"key": "handleName",
 		"style": "string",
 		"profile": true,
 		"anonymous": true,
 		"css": "name",
 		"vtrans": 3.7
-	}, {
+	},
+	{
 		"key": "pref",
-		"style": "typeahead",
+		"style": "string",
+		"value": "",
 		"profile": true,
-		"option": ["", "北海道", "青森県", "岩手県", "宮城県", "秋田県", "山形県", "福島県", "茨城県", "栃木県", "群馬県", "埼玉県", "千葉県", "東京都", "神奈川県", "新潟県", "富山県", "石川県", "福井県", "山梨県", "長野県", "岐阜県", "静岡県", "愛知県", "三重県", "滋賀県", "京都府", "大阪府", "兵庫県", "奈良県", "和歌山県", "鳥取県", "島根県", "岡山県", "広島県", "山口県", "徳島県", "香川県", "愛媛県", "高知県", "福岡県", "佐賀県", "長崎県", "熊本県", "大分県", "宮崎県", "鹿児島県", "沖縄県"],
 		"css": "pref"
-	}, {
+	},
+	{
 		"key": "paperRank",
 		"style": "number",
+		"value": 999,
 		"profile": true,
 		"suffix": "位",
 		"css": "paperRank",
@@ -34,21 +41,26 @@
 			{
 				"maxRank": 4,
 				"color": "255,0,0"
-			}, {
+			},
+			{
 				"maxRank": 12,
 				"color": "0,0,255"
-			}, {
+			},
+			{
 				"maxRank": 24,
 				"color": "255,255,0"
-			}, {
+			},
+			{
 				"maxRank": 48,
 				"color": "0,255,127"
-			}, {
+			},
+			{
 				"maxRank": 1000,
 				"color": "127,127,127"
 			}
 		]
-	}, {
+	},
+	{
 		"key": "motion",
 		"style": "string",
 		"css_img": "motion",
@@ -56,7 +68,8 @@
 			"o": "o.png",
 			"x": "x.png"
 		}
-	}, {
+	},
+	{
 		"key": "motion2",
 		"style": "string",
 		"css_img": "motion",
@@ -64,11 +77,18 @@
 			"o": "o.png",
 			"x": "x.png"
 		}
-	}, {
+	},
+	{
 		"key": "status",
 		"value": "normal",
 		"style": "select",
-		"option": ["normal", "win", "lose", "absent", "wait"],
+		"option": [
+			"normal",
+			"win",
+			"lose",
+			"absent",
+			"wait"
+		],
 		"css_img": "status",
 		"css_img_file": {
 			"win": "win.png",
@@ -76,7 +96,8 @@
 			"wait": "wait.png",
 			"absent": "absent.png"
 		}
-	}, {
+	},
+	{
 		"key": "rank",
 		"value": 0,
 		"style": "number",
@@ -95,18 +116,20 @@
 			"11": "11th.png",
 			"12": "12th.png"
 		}
-	}, {
+	},
+	{
 		"key": "absent",
 		"value": 0,
 		"style": "number",
 		"css": "absent",
 		"repeatChar": "●\n"
-	}, {
+	},
+	{
 		"key": "close",
 		"value": true,
 		"style": "boolean"
-	}
-	, {
+	},
+	{
 		"key": "position",
 		"order": []
 	}

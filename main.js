@@ -32,6 +32,9 @@ app.on('window-all-closed', function () {
 
 // Electronの初期化完了後に実行
 app.on('ready', function () {
+  // deprecation警告を出力しない
+  process.noDeprecation = true;
+
   var fs = require('fs');
   var data = JSON.parse(fs.readFileSync(__dirname + '/json/window.json', 'utf-8'));
 
@@ -43,7 +46,7 @@ app.on('ready', function () {
     y: data[1].top
   });
 
-  mainWindow.loadURL(__dirname + '/index.html');
+  mainWindow.loadURL('file://' + __dirname + '/index.html');
   // ウィンドウが閉じられたらアプリも終了
   mainWindow.on('closed', function () {
     mainWindow = null;

@@ -228,7 +228,9 @@ app.service('qeditor', ['$uibModal', '$twitterApi', function ($uibModal, $twitte
 				break;
 			case "twitter":
 				confirm("保存します。よろしいですか？", function () {
-					fs.writeFile(__dirname + '/json/twitter.json', JSON.stringify(scope.twitter, undefined, 2));
+					fs.writeFile(__dirname + '/json/twitter.json', JSON.stringify(scope.twitter, undefined, 2), function (err) {
+						console.log(err);
+					});
 				});
 
 				break;

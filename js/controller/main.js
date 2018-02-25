@@ -75,6 +75,8 @@ app.controller('main', ['$scope', '$q', 'fileResource', 'qCommon', 'round',
 		$q.all(fileResource.map(function (resource) {
 			return resource.query().$promise;
 		})).then(function (strs) {
+			// 初期アニメーション停止
+			$scope.initialAnimation = false;
 			// nameList
 			$scope.nameList = strs[3];
 			// keyboard入力の定義
@@ -193,6 +195,9 @@ app.controller('main', ['$scope', '$q', 'fileResource', 'qCommon', 'round',
 			}
 			// タイマースタート
 			qCommon.timerTimerStart($scope);
+
+			// 初期アニメーションスタート
+			// $scope.initialAnimation = true;
 		});
 	}]);
 
